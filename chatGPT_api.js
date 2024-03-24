@@ -37,7 +37,7 @@ class OpenAIChat {
   }
 }
 
-const apiKey = "enter your apiKey here";
+const apiKey = fs.readFileSync('apiKey.txt', 'utf8').trim();
 const prompt = fs.readFileSync('prompt.txt', 'utf8').trim();
 const input = fs.readFileSync('input.txt', 'utf8').trim();
 
