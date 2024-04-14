@@ -10,7 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@google-cloud/speech": "^6.3.0",
-    "openai": "^4.29.1"
+    "mathjax-node": "^2.1.1",
+    "openai": "^4.29.1",
+    "pdf-parse": "^1.1.1",
+    "youtube-captions-scraper": "^2.0.3"
   }
 }
