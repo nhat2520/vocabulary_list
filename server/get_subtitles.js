@@ -1,18 +1,18 @@
-const { getSubtitles } = require('youtube-captions-scraper');
-const url = require('url');
-const querystring = require('querystring');
+const { getSubtitles } = require("youtube-captions-scraper");
+const url = require("url");
+const querystring = require("querystring");
 
 /**
  * Class to fetch YouTube video captions.
  */
-class YouTubeCaptions {
+export class YouTubeCaptions {
   /**
    * @param {string} youtubeUrl - The YouTube video URL.
    * @param {string} lang - The language code for the captions.
    */
   constructor(youtubeUrl, lang) {
     if (!this.isValidYoutubeUrl(youtubeUrl)) {
-      throw new Error('The input URL is not a valid YouTube URL.');
+      throw new Error("The input URL is not a valid YouTube URL.");
     }
 
     this.videoID = this.getVideoIdFromUrl(youtubeUrl);
@@ -26,7 +26,11 @@ class YouTubeCaptions {
    */
   isValidYoutubeUrl(youtubeUrl) {
     const parsedUrl = url.parse(youtubeUrl);
-    return parsedUrl.hostname === 'www.youtube.com' && parsedUrl.pathname === '/watch' && !!querystring.parse(parsedUrl.query).v;
+    return (
+      parsedUrl.hostname === "www.youtube.com" &&
+      parsedUrl.pathname === "/watch" &&
+      !!querystring.parse(parsedUrl.query).v
+    );
   }
 
   /**
@@ -46,30 +50,34 @@ class YouTubeCaptions {
   fetch() {
     return getSubtitles({
       videoID: this.videoID,
-      lang: this.lang
-    }).then(captions => {
-      if (captions.length === 0) {
-        console.log('This video does not have captions.');
-        return;
-      }
+      lang: this.lang,
+    })
+      .then((captions) => {
+        if (captions.length === 0) {
+          console.log("This video does not have captions.");
+          return;
+        }
 
-      // Remove irrelevant parts
-      captions = captions.filter(item => item.text !== '[Music]');
+        // Remove irrelevant parts
+        captions = captions.filter((item) => item.text !== "[Music]");
 
-      // Concatenate the text parts
-      const text = captions.map(item => item.text).join(' ');
+        // Concatenate the text parts
+        const text = captions.map((item) => item.text).join(" ");
 
-      console.log(text);
-    }).catch(error => {
-      console.error('An error occurred while fetching the captions:', error);
-    });
+        // console.log(text);
+        //Thêm bởi dungtk04:
+        return text
+      })
+      .catch((error) => {
+        console.error("An error occurred while fetching the captions:", error);
+      });
   }
 }
 
-// // Using the class
-// const youtubeUrl = 'https://www.youtube.com/watch?v=LrNS_q886uQ';
+// Using the class
+// const youtubeUrl = "https://www.youtube.com/watch?v=DYFOtb70eEI";
 // try {
-//   const captions = new YouTubeCaptions(youtubeUrl, 'en');
+//   const captions = new YouTubeCaptions(youtubeUrl, "en");
 //   captions.fetch();
 // } catch (error) {
 //   console.error(error.message);

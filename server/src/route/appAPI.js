@@ -1,4 +1,4 @@
-let { handleSaveDefineWord, handleSaveConversation, handleGetAllKeywords, handleGetAllConversation, handleDeleteConversation, handleDeleteDefineWord} = require("../controllers/appController");
+let { handleSaveDefineWord, handleSaveConversation, handleGetAllKeywords, handleGetAllConversation, handleDeleteConversation, handleDeleteDefineWord, handleChatGPTtext, handleChatGPTsubtitle, handleChatGPTpdf} = require("../controllers/appController");
 var express = require("express");
 let router = express.Router();
 
@@ -12,6 +12,10 @@ let initAppAPIRoutes = (app) => {
 
   router.delete("/api/delete-conversation", handleDeleteConversation);
   router.delete("/api/delete-define-word", handleDeleteDefineWord);
+
+  router.post("/api/chat-gpt-text", handleChatGPTtext);
+  router.post("/api/chat-gpt-subtitleYoutube", handleChatGPTsubtitle)
+  router.post("/api/chat-gpt-subtitleYoutube", handleChatGPTpdf)
 
   
   return app.use("/", router);
