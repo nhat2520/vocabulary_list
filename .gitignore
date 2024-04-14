@@ -1,0 +1,4 @@
+# .gitignore
+apiKey.txt
+
+/node_modules
