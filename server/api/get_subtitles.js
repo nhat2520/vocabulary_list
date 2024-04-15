@@ -58,8 +58,8 @@ class YouTubeCaptions {
 
       // Concatenate the text parts
       const text = captions.map(item => item.text).join(' ');
-
-      console.log(text);
+	  console.log(text);
+      return text;
     }).catch(error => {
       console.error('An error occurred while fetching the captions:', error);
     });
