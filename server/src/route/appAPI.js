@@ -15,7 +15,7 @@ let initAppAPIRoutes = (app) => {
 
   router.post("/api/chat-gpt-text", handleChatGPTtext);
   router.post("/api/chat-gpt-subtitleYoutube", handleChatGPTsubtitle)
-  router.post("/api/chat-gpt-subtitleYoutube", handleChatGPTpdf)
+  router.post("/api/chat-gpt-pdf", handleChatGPTpdf)
 
   
   return app.use("/", router);

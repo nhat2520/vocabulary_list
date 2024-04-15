@@ -1,5 +1,6 @@
 const OpenAI = require("openai");
 const fs = require('fs');
+const path = require("path");
 
 /**
  * Class representing a chat with OpenAI.
@@ -31,7 +32,8 @@ export class OpenAIChat {
     });
 
     // Save the result to output.json
-    fs.writeFileSync('output.json', JSON.stringify(completion.choices[0], null, 2));
+    const outputPath = path.join(__dirname, 'output.json');
+    fs.writeFileSync(outputPath, JSON.stringify(completion.choices[0], null, 2));
 
     // console.log(completion.choices[0]);
   }
