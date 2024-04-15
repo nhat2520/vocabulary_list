@@ -6,8 +6,8 @@ let {
   deleteConversation,
   deleteDefineKeyword,
 } = require("../services/appService");
-import { OpenAIChat } from "../../API/chatGPT_api.js";
-import { YouTubeCaptions } from "../../API/get_subtitles.js";
+import { OpenAIChat } from "../../api/chatGPT_api.js";
+import { YouTubeCaptions } from "../../api/get_subtitles.js";
 
 const fs = require("fs");
 let handleSaveDefineWord = async (req, res) => {
@@ -48,12 +48,12 @@ let handleDeleteDefineWord = async (req, res) => {
 
 let handleChatGPTtext = async (req, res) => {
   let text = req.body.text;
-  fs.writeFileSync("./API/input.txt", text, (err) => {
+  fs.writeFileSync("./api/input.txt", text, (err) => {
     // In case of a error throw err.
     if (err) throw err;
   });
   await chatGPTapi();
-  const output = require("../../API/output.json");
+  const output = require("../../api/output.json");
   return res.status(200).json({
     errCode: 0,
     errMessage: "Oke roi",
@@ -64,13 +64,13 @@ let handleChatGPTtext = async (req, res) => {
 let handleChatGPTsubtitle = async (req, res) => {
   let link = req.body.link;
   let text = await getSubtitlesFromLink(link);
-  fs.writeFileSync("./API/input.txt", text, (err) => {
+  fs.writeFileSync("./api/input.txt", text, (err) => {
     // In case of a error throw err.
     if (err) throw err;
   });
 
   await chatGPTapi();
-  const output = require("../../API/output.json");
+  const output = require("../../api/output.json");
   return res.status(200).json({
     errCode: 0,
     errMessage: "Oke roi",
@@ -106,9 +106,9 @@ let handleChatGPTpdf = async (req, res) => {
 
 
 let chatGPTapi = async() => {
-    const apiKey = fs.readFileSync("./API/apiKey.txt", "utf8").trim();
-    const prompt = fs.readFileSync("./API/prompt.txt", "utf8").trim();
-    const input = fs.readFileSync("./API/input.txt", "utf8").trim();
+    const apiKey = fs.readFileSync("./api/apiKey.txt", "utf8").trim();
+    const prompt = fs.readFileSync("./api/prompt.txt", "utf8").trim();
+    const input = fs.readFileSync("./api/input.txt", "utf8").trim();
     const test = await new OpenAIChat(apiKey, prompt, input);
     await test.chat();
 }
