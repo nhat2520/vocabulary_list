@@ -4,4 +4,4 @@
 .idea/
 .env
 
-apiKey.txt
+/API/apiKey.txt
