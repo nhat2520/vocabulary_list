@@ -1,4 +1,7 @@
-# .gitignore
-apiKey.txt
-
 /node_modules
+/vendor
+/.idea
+.idea/
+.env
+
+apiKey.txt

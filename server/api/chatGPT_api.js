@@ -1,10 +1,11 @@
 const OpenAI = require("openai");
 const fs = require('fs');
+const path = require("path");
 
 /**
  * Class representing a chat with OpenAI.
  */
-class OpenAIChat {
+export class OpenAIChat {
   /**
    * Create a chat.
    * @param {string} apiKey - The API key for OpenAI.
@@ -31,17 +32,19 @@ class OpenAIChat {
     });
 
     // Save the result to output.json
-    fs.writeFileSync('output.json', JSON.stringify(completion.choices[0], null, 2));
+    const outputPath = path.join(__dirname, 'output.json');
+    fs.writeFileSync(outputPath, JSON.stringify(completion.choices[0], null, 2));
 
-    console.log(completion.choices[0]);
+    // console.log(completion.choices[0]);
   }
 }
 
-const apiKey = fs.readFileSync('apiKey.txt', 'utf8').trim();
-const prompt = fs.readFileSync('prompt.txt', 'utf8').trim();
-const input = fs.readFileSync('input.txt', 'utf8').trim();
+// const apiKey = fs.readFileSync('apiKey.txt', 'utf8').trim();
+// const prompt = fs.readFileSync('prompt.txt', 'utf8').trim();
+// const input = fs.readFileSync('input.txt', 'utf8').trim();
 
-// Create a new chat with OpenAI
-const chat = new OpenAIChat(apiKey, prompt, input);
-// Start the chat
-chat.chat();
+// // Create a new chat with OpenAI
+// const chat = new OpenAIChat(apiKey, prompt, input);
+// // Start the chat
+// chat.chat();
+
