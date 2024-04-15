@@ -1,9 +1,0 @@
-{
-  "index": 0,
-  "message": {
-    "role": "assistant",
-    "content": "Key Terms:\n1. Apple: A multinational technology company that designs, manufactures, and markets consumer electronics, software, and online services.\n2. Smartphone: A mobile phone that performs many of the functions of a computer, typically having a touchscreen interface, internet access, and an operating system capable of running downloaded apps.\n3. Shipments: Refers to the number of units of a product that are shipped to retailers or destination points within a specific timeframe.\n4. Android: A mobile operating system developed by Google, used in a wide range of devices including smartphones and tablets.\n5. Competition: The rivalry between companies seeking to gain an advantage in the marketplace by offering consumers better products, services, or prices.\n6. IDC: International Data Corporation, a global provider of market intelligence, advisory services, and events for the information technology, telecommunications, and consumer technology markets."
-  },
-  "logprobs": null,
-  "finish_reason": "stop"
-}
