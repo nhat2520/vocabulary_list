@@ -2,17 +2,37 @@
   "name": "vocabulary_list",
   "version": "1.0.0",
   "description": "",
-  "main": "test.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --exec ./node_modules/.bin/babel-node src/server.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "fullstack"
+  ],
+  "author": "vnn04",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.19.2",
+    "mysql2": "^3.9.3",
+    "sequelize": "^6.37.2",
+
     "mathjax-node": "^2.1.1",
     "openai": "^4.29.1",
     "pdf-parse": "^1.1.1",
     "youtube-captions-scraper": "^2.0.3"
+    
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/node": "^7.12.10",
+    "@babel/preset-env": "^7.12.10",
+    "nodemon": "^2.0.7",
+    "sequelize-cli": "^6.6.2"
   }
 }
