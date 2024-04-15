@@ -6,7 +6,7 @@ const mathjax = require('mathjax-node');
 /**
  * Class to read a PDF file and process mathematical formulas.
  */
-class PdfReader {
+export class PdfReader {
   /**
    * @param {string} pdfPath - The path to the PDF file.
    */

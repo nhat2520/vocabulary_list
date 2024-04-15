@@ -5,7 +5,7 @@ const querystring = require('querystring');
 /**
  * Class to fetch YouTube video captions.
  */
-class YouTubeCaptions {
+export class YouTubeCaptions {
   /**
    * @param {string} youtubeUrl - The YouTube video URL.
    * @param {string} lang - The language code for the captions.
