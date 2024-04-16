@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>App</title>
+    <link href="output.css" rel="stylesheet" >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    </script>
+  </head>
+  
+  <body class=" grid sm:grid-cols-[280px_1fr] h-[100vh]">
+      <div class="bg-[#F3F6FB] py-2 pl-5 max-sm:hidden">
+        <div class="bg-white rounded-2xl sidebar h-full w-full  grid grid-rows-[200px_1fr_120px]">
+          <div class="box_1">
+            <!--logo-->
+            <div class="ml-5 text-[27px] tracking-wider font-sans font-semibold">CODIFY</div>
+    
+            <!--line 2 including search button and add-->
+            <div class="mt-10 ml-5 h-10">
+              <!--newbox button-->
+              <div class="w-fit px-12 rounded-full bg-[#5662F6] float-left newbox_btn text-white">
+                <span class="float-left my-[12px] mr-1"><img src="./img/plus.png" height="17" width="17"></span>
+                <span class="float-left text-sm mt-[10px]">New box</span>
+              </div>
+    
+    
+              <!--search-->
+              <div class="search_btn float-left bg-black p-2.5 ml-2 rounded-full">
+                <img src="./img/search.png" height="20px" width="20px">
+              </div>
+              
+            </div>
+    
+            <div class="clear-both mt-3 font-sans">
+              <div class="bg-[#F3F6FB] w-[260px] h-[1px]"></div>
+              <p class="float-left text-gray-400 text-[11px] font-semibold my-3 ml-5">Your conversations</p>
+              <p class="float-right text-[#5662F6] text-[12px] font-semibold mt-2.5 mr-5">Clear all</p>
+              <div class=" clear-both bg-[#F3F6FB] w-[260px] h-[1px]"></div>
+            </div>
+    
+          </div>
+          <div class="box_2">
+            <!--history box-->
+            <div class="border-2 h-full mx-5"></div>
+          </div>
+          <div class="box_3">
+            <div class="mt-3">
+              <!--Settings-->
+              <div class="setting_btn h-10 border-2 mt-2 mr-5 ml-5 mb-2 rounded-full">
+                <div class="float-left bg-gray-200 h-6 w-6 rounded-full p-1 mt-1.5 ml-1.5">
+                  <svg xmlns="http://www.3.org/2000/svg" x="0px" y="0px" width="16" height="16" viewBox="0 0 48 48">
+                    <path d="M 24 4 C 22.423103 4 20.902664 4.1994284 19.451172 4.5371094 A 1.50015 1.50015 0 0 0 18.300781 5.8359375 L 17.982422 8.7382812 C 17.878304 9.6893592 17.328913 10.530853 16.5 11.009766 C 15.672739 11.487724 14.66862 11.540667 13.792969 11.15625 L 13.791016 11.15625 L 11.125 9.9824219 A 1.50015 1.50015 0 0 0 9.4257812 10.330078 C 7.3532865 12.539588 5.7626807 15.215064 4.859375 18.201172 A 1.50015 1.50015 0 0 0 5.4082031 19.845703 L 7.7734375 21.580078 C 8.5457929 22.147918 9 23.042801 9 24 C 9 24.95771 8.5458041 25.853342 7.7734375 26.419922 L 5.4082031 28.152344 A 1.50015 1.50015 0 0 0 4.859375 29.796875 C 5.7625845 32.782665 7.3519262 35.460112 9.4257812 37.669922 A 1.50015 1.50015 0 0 0 11.125 38.015625 L 13.791016 36.841797 C 14.667094 36.456509 15.672169 36.511947 16.5 36.990234 C 17.328913 37.469147 17.878304 38.310641 17.982422 39.261719 L 18.300781 42.164062 A 1.50015 1.50015 0 0 0 19.449219 43.460938 C 20.901371 43.799844 22.423103 44 24 44 C 25.576897 44 27.097336 43.800572 28.548828 43.462891 A 1.50015 1.50015 0 0 0 29.699219 42.164062 L 30.017578 39.261719 C 30.121696 38.310641 30.671087 37.469147 31.5 36.990234 C 32.327261 36.512276 33.33138 36.45738 34.207031 36.841797 L 36.875 38.015625 A 1.50015 1.50015 0 0 0 38.574219 37.669922 C 40.646713 35.460412 42.237319 32.782983 43.140625 29.796875 A 1.50015 1.50015 0 0 0 42.591797 28.152344 L 40.226562 26.419922 C 39.454197 25.853342 39 24.95771 39 24 C 39 23.04229 39.454197 22.146658 40.226562 21.580078 L 42.591797 19.847656 A 1.50015 1.50015 0 0 0 43.140625 18.203125 C 42.237319 15.217017 40.646713 12.539588 38.574219 10.330078 A 1.50015 1.50015 0 0 0 36.875 9.984375 L 34.207031 11.158203 C 33.33138 11.54262 32.327261 11.487724 31.5 11.009766 C 30.671087 10.530853 30.121696 9.6893592 30.017578 8.7382812 L 29.699219 5.8359375 A 1.50015 1.50015 0 0 0 28.550781 4.5390625 C 27.098629 4.2001555 25.576897 4 24 4 z M 24 7 C 24.974302 7 25.90992 7.1748796 26.847656 7.3398438 L 27.035156 9.0644531 C 27.243038 10.963375 28.346913 12.652335 30 13.607422 C 31.654169 14.563134 33.668094 14.673009 35.416016 13.904297 L 37.001953 13.207031 C 38.219788 14.669402 39.183985 16.321182 39.857422 18.130859 L 38.451172 19.162109 C 36.911538 20.291529 36 22.08971 36 24 C 36 25.91029 36.911538 27.708471 38.451172 28.837891 L 39.857422 29.869141 C 39.183985 31.678818 38.219788 33.330598 37.001953 34.792969 L 35.416016 34.095703 C 33.668094 33.326991 31.654169 33.436866 30 34.392578 C 28.346913 35.347665 27.243038 37.036625 27.035156 38.935547 L 26.847656 40.660156 C 25.910002 40.82466 24.973817 41 24 41 C 23.025698 41 22.09008 40.82512 21.152344 40.660156 L 20.964844 38.935547 C 20.756962 37.036625 19.653087 35.347665 18 34.392578 C 16.345831 33.436866 14.331906 33.326991 12.583984 34.095703 L 10.998047 34.792969 C 9.7799772 33.330806 8.8159425 31.678964 8.1425781 29.869141 L 9.5488281 28.837891 C 11.088462 27.708471 12 25.91029 12 24 C 12 22.08971 11.087719 20.290363 9.5488281 19.160156 L 8.1425781 18.128906 C 8.8163325 16.318532 9.7814501 14.667839 11 13.205078 L 12.583984 13.902344 C 14.331906 14.671056 16.345831 14.563134 18 13.607422 C 19.653087 12.652335 20.756962 10.963375 20.964844 9.0644531 L 21.152344 7.3398438 C 22.089998 7.1753403 23.026183 7 24 7 z M 24 16 C 19.599487 16 16 19.59949 16 24 C 16 28.40051 19.599487 32 24 32 C 28.400513 32 32 28.40051 32 24 C 32 19.59949 28.400513 16 24 16 z M 24 19 C 26.779194 19 29 21.220808 29 24 C 29 26.779192 26.779194 29 24 29 C 21.220806 29 19 26.779192 19 24 C 19 21.220808 21.220806 19 24 19 z"></path>
+                  </svg>
+                </div>
+                <p class="float-left text-sm font-[450] mt-1.5 ml-2">Settings</p>
+              </div>
+            
+    
+              <!--login-->
+              <div class="setting_btn h-10 border-2 mr-5 ml-5 rounded-full">
+                <div class="float-left bg-gray-200 h-6 w-6 rounded-full p-1 mt-1.5 ml-1.5">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M17 12L10.5 12" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M13 9L10.5 12" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M13 15L10.5 12" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M17 17C17 19.2091 15.2091 20 13 20H10C7.79086 20 6 18.2091 6 16V8C6 5.79086 7.79086 4 10 4H13C15.2091 4 17 4.79086 17 7" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+                </div>
+                <p class="float-left text-sm font-[450] mt-1.5 ml-2">Login</p>
+              </div>
+    
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!--chatframe-->
+      <div class="chatframe grid grid-cols-[1fr_3fr_1fr] grid-rows-[1fr_100px] [&>*]:bg-[#F3F6FB]">
+        <div ></div>
+        <div class="output h-full w-full relative">
+            
+            <div class="absolute bottom-0 w-full">  
+                <div class="h-52 w-52 mx-auto">
+                    <svg  version="1.1" id="layer" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                        viewBox="0 0 690 512" style="enable-background:new 0 0 690 512;" xml:space="preserve">
+                    <style type="text/css">
+                        .st1{fill:none;stroke:#26CAD3;stroke-width:2.4074;stroke-miterlimit:10;}
+                        .st2{fill:none;stroke:#34BFC9;stroke-width:2.2631;stroke-miterlimit:10;}
+                        .st3{fill:none;stroke:#23BDC7;stroke-width:2.1188;stroke-miterlimit:10;}
+                        .st4{fill:none;stroke:#1BB3BD;stroke-width:1.9745;stroke-miterlimit:10;}
+                        .st5{fill:none;stroke:#1AAEB9;stroke-width:1.8302;stroke-miterlimit:10;}
+                        .st6{fill:none;stroke:#06A8B3;stroke-width:1.6859;stroke-miterlimit:10;}
+                        .st7{fill:none;stroke:#007481;stroke-width:0.5329;stroke-miterlimit:10;}
+                        .st8{fill:none;stroke:#0E7C85;stroke-width:0.6772;stroke-miterlimit:10;}
+                        .st9{fill:none;stroke:#02818C;stroke-width:0.8215;stroke-miterlimit:10;}
+                        .st10{fill:none;stroke:#0C8793;stroke-width:0.9658;stroke-miterlimit:10;}
+                        .st11{fill:none;stroke:#078D98;stroke-width:1.1101;stroke-miterlimit:10;}
+                        .st12{fill:none;stroke:#01939F;stroke-width:1.2544;stroke-miterlimit:10;}
+                        .st13{fill:none;stroke:#009DAC;stroke-width:1.3973;stroke-miterlimit:10;}
+                        .st14{fill:none;stroke:#0CA3AC;stroke-width:1.5416;stroke-miterlimit:10;}
+                    </style>
+                    <path class="st0" d="M110.2,240.1v-8.9c0.6-0.6,1.2-0.4,1.7-0.4c6.7,0,13.3,0,20,0c2.1,0,2.2,0,2.2,2.3c0,19.6,0,39.2,0,58.7
+                        c0,9,0,18,0,27c0,2.6,0.1,2.4-2.5,2.4c-6.4,0-12.7,0-19.1,0c-0.7,0-1.4-0.1-2.2-0.1c-0.4-3.1,0-6.1-0.2-9.2
+                        c-0.9,0.4-1.3,1.1-1.9,1.7c-4.2,4.3-9.2,7.4-15,8.9c-4.9,1.3-10,1.5-15.1,0.8c-6.2-0.7-11.8-2.8-17.1-6c-7.8-4.7-13.3-11.5-17-19.7
+                        c-3.7-8.3-5-17.1-4.3-26.1s3.4-17.4,8.7-24.9c7.1-9.9,16.6-16,28.7-17.8c5.3-0.8,10.6-0.7,15.8,0.6c6,1.5,11.1,4.6,15.3,9.1
+                        c0.5,0.5,1,1,1.5,1.5C109.8,240.1,109.9,240.1,110.2,240.1 M110.7,275.3c-0.1-1.4-0.1-3.4-0.5-5.5c-2.5-12.1-12.4-20.7-27-18.2
+                        c-8.9,1.5-14.6,7.2-17.3,15.8c-1.4,4.4-1.7,8.9-0.9,13.4c1.2,7,4.5,12.7,10.6,16.5c4.2,2.7,8.9,3.5,13.9,3.2
+                        c7-0.4,12.6-3.4,16.7-9.1C109.5,286.9,110.8,281.6,110.7,275.3 M228.5,284.5c-0.2,1.3,0.4,2.4,0.7,3.5c2.9,8.6,10.1,14,19.2,14.5
+                        c9,0.5,17-2,24.2-7.5c1.3-1,1.4-1,2.4,0.1c4.3,4.7,8.5,9.4,12.7,14.2c0.1,0.1,0.1,0.3,0.2,0.5c-0.9,1.6-2.5,2.5-4,3.6
+                        c-6,4.5-12.8,7.3-20.1,8.8c-5.2,1.1-10.5,1.6-15.8,1.4c-10.2-0.3-19.6-3.2-27.9-9.5c-5.5-4.2-9.5-9.5-12.5-15.7
+                        c-4-8.4-5.2-17.3-4.6-26.5c0.7-10.1,3.8-19.4,10.2-27.5c6.4-8.1,14.7-13,24.6-15.1c8.7-1.9,17.3-1.6,25.8,1.3
+                        c11.3,4,19.3,11.6,24.2,22.5c2.8,6.3,4.2,12.9,4.5,19.8c0.1,3.1-0.2,6.2-0.2,9.3c0,1.7-0.2,1.8-2,1.9c-0.6,0-1.1,0-1.7,0
+                        c-19,0-38.1,0-57.1,0C230.5,284.3,229.5,284.2,228.5,284.5 M267.6,267.4c-1.1-9.4-7.6-18.6-21-17.8c-11,0.6-17.2,9-18,17.8H267.6z
+                        M378.9,192.9c-1.1-1-2.3-1.6-3.4-2.3c-5.9-3.2-12.1-5.3-18.9-5.8c-4.7-0.4-9.4-0.4-13.9,0.7c-9.5,2.1-16.5,7.5-20.4,16.5
+                        c-2.4,5.4-3.3,11.1-3.4,16.9c-0.1,3.3,0,6.7,0,10c0,0.6,0.2,1.3-0.6,2h-15.9c-0.1,0.6-0.1,1-0.1,1.3c0,6.1,0,12.3,0,18.4
+                        c0,1.9,0,1.9,2.1,1.9c4.2,0,8.4,0,12.6,0c0.6,0,1.3-0.2,1.8,0.3c0.3,0.8,0.2,1.7,0.2,2.6c0,20.9,0,41.9,0,62.8c0,0.7,0,1.4,0,2.1
+                        c0,0.6,0.3,0.9,0.9,0.9c0.6,0,1.3,0,1.9,0c6.2,0,12.4,0,18.6,0c3.4,0,3.1,0.4,3.1-3c0-21,0-42,0-63c0-0.8-0.2-1.7,0.3-2.6h2.6
+                        c7.7,0,15.4,0,23.1,0c2,0,2,0,2-1.9c0-6,0-12.1,0-18.1c0-0.5,0.1-1.1-0.6-1.7H364h-6.9c-2.3,0-4.6,0-6.9,0s-4.6,0.2-6.9-0.2
+                        c0-3.5,0-6.8,0-10.1c0-1.5,0.2-3,0.4-4.5c0.8-4.7,3.3-7.8,8.1-8.3c3.6-0.4,7.1,0,10.5,1.2c2.3,0.8,4.5,1.8,6.9,3
+                        C372.5,205.5,375.7,199.2,378.9,192.9 M159.3,321c1,0.4,1.9,0.2,2.7,0.2c6.1,0,12.2,0,18.3,0c3.5,0,3.2,0.4,3.2-3.2
+                        c0-42.7,0-85.3,0-128c0-0.4,0-0.8,0-1.2c0-1.9,0-2-2-2c-6.5,0-13,0-19.5,0c-3.2,0-3-0.3-3,2.9c0,42.8,0,85.6,0,128.5
+                        C159.1,319.2,159,320,159.3,321"/>
+                    <path class="st1" d="M459.1,326.3c41.3,41.4,108.2,41.4,149.5,0c41.3-41.4,41.3-108.5,0-149.9c-41.3-41.4-108.2-41.4-149.5,0
+                        S417.8,284.9,459.1,326.3z"/>
+                    <path class="st2" d="M464.9,326.6c38.1,38.2,105.9,32.1,144-6.1c38.1-38.2,32-106.2-6.1-144.4s-105.9-32.1-144,6.1
+                        S426.8,288.4,464.9,326.6z"/>
+                    <path class="st3" d="M470.6,326.9c34.9,35,103.7,22.9,138.6-12.1c34.9-35,22.8-103.9-12.1-139c-34.9-35-103.7-22.9-138.6,12.1
+                        C423.6,223,435.7,291.9,470.6,326.9z"/>
+                    <path class="st4" d="M476.4,327.2c31.8,31.8,101.4,13.6,133.1-18.2c31.8-31.8,13.6-101.7-18.2-133.5s-101.4-13.6-133.1,18.2
+                        C426.4,225.5,444.6,295.4,476.4,327.2z"/>
+                    <path class="st5" d="M482.1,327.5c28.6,28.7,99.1,4.4,127.7-24.3c28.6-28.7,4.4-99.4-24.2-128c-28.6-28.7-99.1-4.4-127.7,24.3
+                        C429.3,228.1,453.5,298.9,482.1,327.5z"/>
+                    <path class="st6" d="M487.9,327.8c25.4,25.5,96.9-4.9,122.3-30.3c25.4-25.5-4.9-97.1-30.3-122.6s-96.9,4.9-122.3,30.3
+                        C432.2,230.7,462.5,302.3,487.9,327.8z"/>
+                    <polygon class="st7" points="468.3,264.5 531.1,327.5 544.7,319.4 609.8,254.1 601.7,240.5 536.4,175 520,186.4 456.8,249.7 "/>
+                    <path class="st8" d="M540.1,322c21.6-17.5,65.2-58.2,71.5-64.3c0.3-0.3-0.6-4.2-4.1-8.7c-14.8-19.3-58.6-66.5-66.7-75.1
+                        c-0.6-0.6-7.5,2-15.5,8.6c-22.1,18.3-62.7,56.2-69.1,62.3c-0.4,0.4,2.5,7.1,9,15c18,21.9,54.9,61.7,61.9,69
+                        C527.6,329.4,533.4,327.5,540.1,322z"/>
+                    <path class="st9" d="M522.4,329.6c6.4,6.4,83.2-60.4,89.6-66.8c6.4-6.4-60.2-83.5-66.6-89.8c-6.4-6.4-83.2,60.4-89.6,66.8
+                        C449.4,246.2,516,323.3,522.4,329.6z"/>
+                    <path class="st10" d="M516.6,329.3c9.5,9.6,85.5-51.1,95-60.7s-51-85.7-60.5-95.3s-85.5,51.1-95,60.7
+                        C446.5,243.6,507.1,319.8,516.6,329.3z"/>
+                    <path class="st11" d="M510.9,329c12.7,12.7,87.8-41.9,100.5-54.6c12.7-12.7-41.8-88-54.5-100.7c-12.7-12.7-87.8,41.9-100.5,54.6
+                        C443.7,241,498.2,316.3,510.9,329z"/>
+                    <path class="st12" d="M505.1,328.7c15.9,15.9,90-32.6,105.9-48.6c15.9-15.9-32.6-90.3-48.4-106.2c-15.9-15.9-90,32.6-105.9,48.6
+                        C440.8,238.4,489.2,312.8,505.1,328.7z"/>
+                    <path class="st13" d="M499.4,328.4c19.1,19.1,92.3-23.4,111.4-42.5c19.1-19.1-23.3-92.6-42.4-111.7c-19.1-19.1-92.3,23.4-111.4,42.5
+                        C437.9,235.9,480.3,309.3,499.4,328.4z"/>
+                    <path class="st14" d="M493.6,328.1c22.2,22.3,94.6-14.1,116.8-36.4s-14.1-94.8-36.3-117.1s-94.6,14.1-116.8,36.4
+                        C435.1,233.3,471.4,305.8,493.6,328.1z"/>
+                    </svg>
+    
+                </div>
+              <div class="grid grid-cols-1 grid-rows-[65px] sm:grid-rows-[fit_fit] sm:grid-cols-2 gap-4 px-4">
+                  <div class="p-2 border border-gray-500 rounded-lg bg-white">          
+                        <div class="ml-2">
+                            <h4 class="font-semibold text-base text-primary tracking-normal">Text File</h4>
+                            <p class="text-sm font-normal text-gray tracking-normal">pdf,word,..</p>
+                        </div>
+                  </div>
+                  <div class="p-2 border border-gray-500 rounded-lg bg-white">
+                      <div class="ml-2">
+                          <h4 class="font-semibold text-base text-primary tracking-normal">Youtube Subtitles</h4>
+                          <p class="text-sm font-normal text-gray tracking-normal">Analize your caption</p>
+                      </div>
+                  </div>
+                  <div class="p-2 border border-gray-500 rounded-lg bg-white">
+                      <div class="ml-2">
+                          <h4 class="font-semibold text-base text-primary tracking-normal">Plain Text</h4>
+                          <p class="text-sm font-normal text-gray tracking-normal">Copy/patse some text in the box
+</p>
+                      </div>
+                  </div>
+                  <div class="p-2 border border-gray-500 rounded-lg bg-white">
+                      <div class="ml-2">
+                          <h4 class="font-semibold text-base text-primary tracking-normal">Website Content</h4>
+                          <p class="text-sm font-normal text-gray tracking-normal">Analysis through data from the website</p>
+                      </div>
+                  </div>
+              </div>
+
+            </div>
+        </div>
+        <div ></div>
+        <div ></div>
+        <div class="relative">
+            <div class="chatbar absolute bottom-2 w-full">
+                <div class="border-2 rounded-2xl w-full h-[55px] bg-white grid grid-cols-[1fr_50px_50px]">
+                    <textarea id="input_text" class="focus:outline-none row-start-1 row-end-3 h-8 overflow-hidden resize-none my-auto mx-3 font-sans font-[400] text-lg"></textarea>
+                    <div class="h-fit w-fit bg-slate-300 p-2.5 rounded-xl mx-auto mt-[5px]">
+                        <svg height="21px" width="21px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12.9502 11.0087L10.0104 13.9351C8.38687 15.5513 8.38687 18.1716 10.0104 19.7879C11.634 21.4041 14.2664 21.4041 15.8899 19.7879L19.5646 16.1299C22.8118 12.8975 22.8118 7.6567 19.5646 4.4243C16.3175 1.1919 11.0528 1.1919 7.80563 4.4243L4.13095 8.08229C1.28968 10.9106 1.28968 15.4963 4.13095 18.3247" stroke="#1C274C" stroke-width="2.4" stroke-linecap="round"></path> </g></svg>
+                    </div>
+                    <div class="h-fit w-fit bg-[#5662F6] p-2 rounded-xl mx-auto mt-[5px]">
+                        <svg height="25px" width="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M20.33 3.66996C20.1408 3.48213 19.9035 3.35008 19.6442 3.28833C19.3849 3.22659 19.1135 3.23753 18.86 3.31996L4.23 8.19996C3.95867 8.28593 3.71891 8.45039 3.54099 8.67255C3.36307 8.89471 3.25498 9.16462 3.23037 9.44818C3.20576 9.73174 3.26573 10.0162 3.40271 10.2657C3.5397 10.5152 3.74754 10.7185 4 10.85L10.07 13.85L13.07 19.94C13.1906 20.1783 13.3751 20.3785 13.6029 20.518C13.8307 20.6575 14.0929 20.7309 14.36 20.73H14.46C14.7461 20.7089 15.0192 20.6023 15.2439 20.4239C15.4686 20.2456 15.6345 20.0038 15.72 19.73L20.67 5.13996C20.7584 4.88789 20.7734 4.6159 20.7132 4.35565C20.653 4.09541 20.5201 3.85762 20.33 3.66996ZM4.85 9.57996L17.62 5.31996L10.53 12.41L4.85 9.57996ZM14.43 19.15L11.59 13.47L18.68 6.37996L14.43 19.15Z" fill="#ffffff"></path> </g></svg>
+                    </div>
+                </div>
+              </div>
+        </div>
+        <div></div>
+        
+        <div></div>
+      </div>
+  </body>
+  
+</html>
