@@ -1,11 +1,12 @@
 const { getSubtitles } = require('youtube-captions-scraper');
 const url = require('url');
 const querystring = require('querystring');
+const { spawn } = require('child_process');
 
 /**
  * Class to fetch YouTube video captions.
  */
-export class YouTubeCaptions {
+class YouTubeCaptions {
   /**
    * @param {string} youtubeUrl - The YouTube video URL.
    * @param {string} lang - The language code for the captions.
@@ -50,27 +51,55 @@ export class YouTubeCaptions {
     }).then(captions => {
       if (captions.length === 0) {
         console.log('This video does not have captions.');
-        return;
+        return this.getTranscriptWithPython();
       }
-
+  
       // Remove irrelevant parts
       captions = captions.filter(item => item.text !== '[Music]');
-
+  
       // Concatenate the text parts
       const text = captions.map(item => item.text).join(' ');
-	  console.log(text);
       return text;
     }).catch(error => {
       console.error('An error occurred while fetching the captions:', error);
+      return this.getTranscriptWithPython();
     });
   }
-}
+  
+  getTranscriptWithPython() {
+    return new Promise((resolve, reject) => {
+      const python = spawn('python', ['-c', `
+import sys
+import youtube_transcriber
+
+transcriber = youtube_transcriber.YoutubeTranscriber("${this.videoID}")
+sys.stdout.write(transcriber.transcribe())
+      `]);
+  
+      let transcript = '';
+      python.stdout.on('data', (data) => {
+        transcript += data.toString();
+      });
+  
+      python.stderr.on('data', (data) => {
+        console.error(`stderr: ${data}`);
+      });
+  
+      python.on('close', (code) => {
+        console.log(`child process exited with code ${code}`);
+        resolve(transcript);
+      });
+    });
+  }
+}  
 
 // // Using the class
-// const youtubeUrl = 'https://www.youtube.com/watch?v=LrNS_q886uQ';
+// const youtubeUrl = 'https://www.youtube.com/watch?v=BN9sGR948RM';
 // try {
 //   const captions = new YouTubeCaptions(youtubeUrl, 'en');
-//   captions.fetch();
+//   captions.fetch().then(transcript => {
+//     console.log(transcript);
+//   });
 // } catch (error) {
 //   console.error(error.message);
 // }

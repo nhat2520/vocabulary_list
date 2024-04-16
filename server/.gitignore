@@ -4,4 +4,6 @@
 .idea/
 .env
 
-/API/apiKey.txt
+/APIs/apiKey.txt
+
+/APIs/mp3_downloaded
