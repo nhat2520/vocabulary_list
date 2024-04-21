@@ -6,98 +6,90 @@
     <link href="output.css" rel="stylesheet" >
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <script>
+      window.onload = function() {
+        const close_btn = document.getElementById("close_btn") 
+        const sidebar = document.getElementById("sidebar")
+        const hidden_text1 = document.getElementById("hidden_text1")
+        const hidden_text2 = document.getElementById("hidden_text2")
+        close_btn.addEventListener('click', function() {
+          if (parseInt(sidebar.style.width) > 100) {
+            sidebar.style.width = "64px"
+            hidden_text1.style.opacity = "0"
+            hidden_text2.style.opacity = "0"
+          } else {
+            sidebar.style.width = "224px"
+            hidden_text1.style.opacity = "1"
+            hidden_text2.style.opacity = "1"
+          }
+        })
+      }
     </script>
   </head>
   
-  <body class=" grid sm:grid-cols-[280px_1fr] h-[100vh]">
-      <div class="bg-[#F3F6FB] py-2 pl-5 max-sm:hidden">
-        <div class="bg-white rounded-2xl sidebar h-full w-full  grid grid-rows-[200px_1fr_120px]">
-          <div class="box_1">
-            <!--logo-->
-            <div class="ml-5 text-[27px] tracking-wider font-sans font-semibold">CODIFY</div>
-    
-            <!--line 2 including search button and add-->
-            <div class="mt-10 ml-5 h-10">
-              <!--newbox button-->
-              <div class="w-fit px-12 rounded-full bg-[#5662F6] float-left newbox_btn text-white">
-                <span class="float-left my-[12px] mr-1"><img src="./img/plus.png" height="17" width="17"></span>
-                <span class="float-left text-sm mt-[10px]">New box</span>
-              </div>
-    
-    
-              <!--search-->
-              <div class="search_btn float-left bg-black p-2.5 ml-2 rounded-full">
-                <img src="./img/search.png" height="20px" width="20px">
-              </div>
-              
-            </div>
-    
-            <div class="clear-both mt-3 font-sans">
-              <div class="bg-[#F3F6FB] w-[260px] h-[1px]"></div>
-              <p class="float-left text-gray-400 text-[11px] font-semibold my-3 ml-5">Your conversations</p>
-              <p class="float-right text-[#5662F6] text-[12px] font-semibold mt-2.5 mr-5">Clear all</p>
-              <div class=" clear-both bg-[#F3F6FB] w-[260px] h-[1px]"></div>
-            </div>
-    
+  <body id="body" class="relative h-[100vh] w-screen">
+      <div id="sidebar" class="transition-all duration-500 absolute left-5 top-3 h-[calc(100vh-30px)] w-56 bg-white z-10 border-2 rounded-xl grid grid-rows-[120px_1fr_120px]">
+        <div class="box1 relative">
+          <!-- search -->
+          <div class="absolute bottom-0 border-2 m-2 rounded-lg w-[calc(100%-20px)]">
+            <svg class="m-2" height="20px" width="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
           </div>
-          <div class="box_2">
-            <!--history box-->
-            <div class="border-2 h-full mx-5"></div>
-          </div>
-          <div class="box_3">
-            <div class="mt-3">
-              <!--Settings-->
-              <div class="setting_btn h-10 border-2 mt-2 mr-5 ml-5 mb-2 rounded-full">
-                <div class="float-left bg-gray-200 h-6 w-6 rounded-full p-1 mt-1.5 ml-1.5">
-                  <svg xmlns="http://www.3.org/2000/svg" x="0px" y="0px" width="16" height="16" viewBox="0 0 48 48">
-                    <path d="M 24 4 C 22.423103 4 20.902664 4.1994284 19.451172 4.5371094 A 1.50015 1.50015 0 0 0 18.300781 5.8359375 L 17.982422 8.7382812 C 17.878304 9.6893592 17.328913 10.530853 16.5 11.009766 C 15.672739 11.487724 14.66862 11.540667 13.792969 11.15625 L 13.791016 11.15625 L 11.125 9.9824219 A 1.50015 1.50015 0 0 0 9.4257812 10.330078 C 7.3532865 12.539588 5.7626807 15.215064 4.859375 18.201172 A 1.50015 1.50015 0 0 0 5.4082031 19.845703 L 7.7734375 21.580078 C 8.5457929 22.147918 9 23.042801 9 24 C 9 24.95771 8.5458041 25.853342 7.7734375 26.419922 L 5.4082031 28.152344 A 1.50015 1.50015 0 0 0 4.859375 29.796875 C 5.7625845 32.782665 7.3519262 35.460112 9.4257812 37.669922 A 1.50015 1.50015 0 0 0 11.125 38.015625 L 13.791016 36.841797 C 14.667094 36.456509 15.672169 36.511947 16.5 36.990234 C 17.328913 37.469147 17.878304 38.310641 17.982422 39.261719 L 18.300781 42.164062 A 1.50015 1.50015 0 0 0 19.449219 43.460938 C 20.901371 43.799844 22.423103 44 24 44 C 25.576897 44 27.097336 43.800572 28.548828 43.462891 A 1.50015 1.50015 0 0 0 29.699219 42.164062 L 30.017578 39.261719 C 30.121696 38.310641 30.671087 37.469147 31.5 36.990234 C 32.327261 36.512276 33.33138 36.45738 34.207031 36.841797 L 36.875 38.015625 A 1.50015 1.50015 0 0 0 38.574219 37.669922 C 40.646713 35.460412 42.237319 32.782983 43.140625 29.796875 A 1.50015 1.50015 0 0 0 42.591797 28.152344 L 40.226562 26.419922 C 39.454197 25.853342 39 24.95771 39 24 C 39 23.04229 39.454197 22.146658 40.226562 21.580078 L 42.591797 19.847656 A 1.50015 1.50015 0 0 0 43.140625 18.203125 C 42.237319 15.217017 40.646713 12.539588 38.574219 10.330078 A 1.50015 1.50015 0 0 0 36.875 9.984375 L 34.207031 11.158203 C 33.33138 11.54262 32.327261 11.487724 31.5 11.009766 C 30.671087 10.530853 30.121696 9.6893592 30.017578 8.7382812 L 29.699219 5.8359375 A 1.50015 1.50015 0 0 0 28.550781 4.5390625 C 27.098629 4.2001555 25.576897 4 24 4 z M 24 7 C 24.974302 7 25.90992 7.1748796 26.847656 7.3398438 L 27.035156 9.0644531 C 27.243038 10.963375 28.346913 12.652335 30 13.607422 C 31.654169 14.563134 33.668094 14.673009 35.416016 13.904297 L 37.001953 13.207031 C 38.219788 14.669402 39.183985 16.321182 39.857422 18.130859 L 38.451172 19.162109 C 36.911538 20.291529 36 22.08971 36 24 C 36 25.91029 36.911538 27.708471 38.451172 28.837891 L 39.857422 29.869141 C 39.183985 31.678818 38.219788 33.330598 37.001953 34.792969 L 35.416016 34.095703 C 33.668094 33.326991 31.654169 33.436866 30 34.392578 C 28.346913 35.347665 27.243038 37.036625 27.035156 38.935547 L 26.847656 40.660156 C 25.910002 40.82466 24.973817 41 24 41 C 23.025698 41 22.09008 40.82512 21.152344 40.660156 L 20.964844 38.935547 C 20.756962 37.036625 19.653087 35.347665 18 34.392578 C 16.345831 33.436866 14.331906 33.326991 12.583984 34.095703 L 10.998047 34.792969 C 9.7799772 33.330806 8.8159425 31.678964 8.1425781 29.869141 L 9.5488281 28.837891 C 11.088462 27.708471 12 25.91029 12 24 C 12 22.08971 11.087719 20.290363 9.5488281 19.160156 L 8.1425781 18.128906 C 8.8163325 16.318532 9.7814501 14.667839 11 13.205078 L 12.583984 13.902344 C 14.331906 14.671056 16.345831 14.563134 18 13.607422 C 19.653087 12.652335 20.756962 10.963375 20.964844 9.0644531 L 21.152344 7.3398438 C 22.089998 7.1753403 23.026183 7 24 7 z M 24 16 C 19.599487 16 16 19.59949 16 24 C 16 28.40051 19.599487 32 24 32 C 28.400513 32 32 28.40051 32 24 C 32 19.59949 28.400513 16 24 16 z M 24 19 C 26.779194 19 29 21.220808 29 24 C 29 26.779192 26.779194 29 24 29 C 21.220806 29 19 26.779192 19 24 C 19 21.220808 21.220806 19 24 19 z"></path>
-                  </svg>
-                </div>
-                <p class="float-left text-sm font-[450] mt-1.5 ml-2">Settings</p>
-              </div>
-            
-    
-              <!--login-->
-              <div class="setting_btn h-10 border-2 mr-5 ml-5 rounded-full">
-                <div class="float-left bg-gray-200 h-6 w-6 rounded-full p-1 mt-1.5 ml-1.5">
-                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M17 12L10.5 12" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M13 9L10.5 12" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M13 15L10.5 12" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M17 17C17 19.2091 15.2091 20 13 20H10C7.79086 20 6 18.2091 6 16V8C6 5.79086 7.79086 4 10 4H13C15.2091 4 17 4.79086 17 7" stroke="#333333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
-                </div>
-                <p class="float-left text-sm font-[450] mt-1.5 ml-2">Login</p>
-              </div>
-    
-            </div>
+          <!-- close button -->
+          <div id="close_btn" class="absolute border-2 m-2 rounded-lg w-fit h-fit right-1">
+            <svg class="m-2" height="20px" width="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M5 6H12H19M5 12H19M5 18H19" stroke="#000000" stroke-width="2.016" stroke-linecap="round"></path> </g></svg>
           </div>
         </div>
+        <div class="box2">
+          <!-- history -->
+          <div class="border-2 mx-2 rounded-lg w-[calc(100%-20px)] h-full">
+            <svg class="ml-2 mt-2" height="22px" width="22px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M5.07868 5.06891C8.87402 1.27893 15.0437 1.31923 18.8622 5.13778C22.6824 8.95797 22.7211 15.1313 18.9262 18.9262C15.1312 22.7211 8.95793 22.6824 5.13774 18.8622C2.87389 16.5984 1.93904 13.5099 2.34047 10.5812C2.39672 10.1708 2.775 9.88377 3.18537 9.94002C3.59575 9.99627 3.88282 10.3745 3.82658 10.7849C3.4866 13.2652 4.27782 15.881 6.1984 17.8016C9.44288 21.0461 14.6664 21.0646 17.8655 17.8655C21.0646 14.6664 21.046 9.44292 17.8015 6.19844C14.5587 2.95561 9.33889 2.93539 6.13935 6.12957L6.88705 6.13333C7.30126 6.13541 7.63535 6.47288 7.63327 6.88709C7.63119 7.3013 7.29372 7.63539 6.87951 7.63331L4.33396 7.62052C3.92269 7.61845 3.58981 7.28556 3.58774 6.8743L3.57495 4.32874C3.57286 3.91454 3.90696 3.57707 4.32117 3.57498C4.73538 3.5729 5.07285 3.907 5.07493 4.32121L5.07868 5.06891ZM11.9999 7.24992C12.4141 7.24992 12.7499 7.58571 12.7499 7.99992V11.6893L15.0302 13.9696C15.3231 14.2625 15.3231 14.7374 15.0302 15.0302C14.7373 15.3231 14.2624 15.3231 13.9696 15.0302L11.2499 12.3106V7.99992C11.2499 7.58571 11.5857 7.24992 11.9999 7.24992Z" fill="#1C274C"></path> </g></svg>
+          </div>
+        </div>
+        <div class="box3">
+          <!-- settings -->
+          <div class="border-2 m-2 rounded-lg w-[calc(100%-20px)] h-10 relative">
+            <svg class="m-1.5" viewBox="0 0 24 24" height="25px" width="25px" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M14.1395 12.0002C14.1395 13.1048 13.2664 14.0002 12.1895 14.0002C11.1125 14.0002 10.2395 13.1048 10.2395 12.0002C10.2395 10.8957 11.1125 10.0002 12.1895 10.0002C13.2664 10.0002 14.1395 10.8957 14.1395 12.0002Z" stroke="#000000" stroke-width="1.344" stroke-linecap="round" stroke-linejoin="round"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M7.57381 18.1003L5.12169 12.8133C4.79277 12.2907 4.79277 11.6189 5.12169 11.0963L7.55821 5.89229C7.93118 5.32445 8.55898 4.98876 9.22644 5.00029H12.1895H15.1525C15.8199 4.98876 16.4477 5.32445 16.8207 5.89229L19.2524 11.0923C19.5813 11.6149 19.5813 12.2867 19.2524 12.8093L16.8051 18.1003C16.4324 18.674 15.8002 19.0133 15.1281 19.0003H9.24984C8.5781 19.013 7.94636 18.6737 7.57381 18.1003Z" stroke="#000000" stroke-width="1.344" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+            <p id="hidden_text1" class="absolute top-0 left-9 float-left transition-opacity duration-500 mt-1">Settings</p>
+          </div>
+          <div class="relative flex border-2 m-2 rounded-lg w-[calc(100%-20px)]">
+            <svg class="float-left m-2" viewBox="0 0 24 24" height="18px" width="18px" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M2.00098 11.999L16.001 11.999M16.001 11.999L12.501 8.99902M16.001 11.999L12.501 14.999" stroke="#1C274C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M9.00195 7C9.01406 4.82497 9.11051 3.64706 9.87889 2.87868C10.7576 2 12.1718 2 15.0002 2L16.0002 2C18.8286 2 20.2429 2 21.1215 2.87868C22.0002 3.75736 22.0002 5.17157 22.0002 8L22.0002 16C22.0002 18.8284 22.0002 20.2426 21.1215 21.1213C20.2429 22 18.8286 22 16.0002 22H15.0002C12.1718 22 10.7576 22 9.87889 21.1213C9.11051 20.3529 9.01406 19.175 9.00195 17" stroke="#1C274C" stroke-width="2.4" stroke-linecap="round"></path> </g></svg>
+            <p id="hidden_text2" class="absolute top-0 left-9 float-left transition-opacity duration-200 mt-1">Login</p>
+          </div>
+
+        </div> 
+        
       </div>
       
       <!--chatframe-->
-      <div class="chatframe grid grid-cols-[1fr_3fr_1fr] grid-rows-[1fr_100px] [&>*]:bg-[#F3F6FB]">
-        <div ></div>
+      <div class="h-full chatframe grid grid-cols-[1fr_2fr_1fr] grid-rows-[1fr_100px] [&>*]:bg-[#F3F6FB]">
+        <div >
+          <span id="open_btn" class="mt-1 mr-4 hidden">
+            <svg class="h-8 w-8" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg" fill="#000000" stroke="#000000" stroke-width="1.848"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g fill="none" fill-rule="evenodd" stroke="#5662F6" stroke-linecap="round" stroke-linejoin="round" transform="translate(3 3)"> <path d="m.5 12.5v-10c0-1.1045695.8954305-2 2-2h10c1.1045695 0 2 .8954305 2 2v10c0 1.1045695-.8954305 2-2 2h-10c-1.1045695 0-2-.8954305-2-2z"></path> <path d="m2.5 12.5v-10c0-1.1045695.8954305-2 2-2h-2c-1 0-2 .8954305-2 2v10c0 1.1045695 1 2 2 2h2c-1.1045695 0-2-.8954305-2-2z" fill="#5662F6"></path> <path d="m7.5 10.5-3-3 3-3"></path> <path d="m12.5 7.5h-8"></path> </g> </g></svg>
+          </span>
+        </div>
         <div class="output h-full w-full relative">
             
             <div class="absolute bottom-0 w-full">  
                 <div class="h-52 w-52 mx-auto">
                     <svg  version="1.1" id="layer" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                         viewBox="0 0 690 512" style="enable-background:new 0 0 690 512;" xml:space="preserve">
-                    <style type="text/css">
-                        .st1{fill:none;stroke:#26CAD3;stroke-width:2.4074;stroke-miterlimit:10;}
-                        .st2{fill:none;stroke:#34BFC9;stroke-width:2.2631;stroke-miterlimit:10;}
-                        .st3{fill:none;stroke:#23BDC7;stroke-width:2.1188;stroke-miterlimit:10;}
-                        .st4{fill:none;stroke:#1BB3BD;stroke-width:1.9745;stroke-miterlimit:10;}
-                        .st5{fill:none;stroke:#1AAEB9;stroke-width:1.8302;stroke-miterlimit:10;}
-                        .st6{fill:none;stroke:#06A8B3;stroke-width:1.6859;stroke-miterlimit:10;}
-                        .st7{fill:none;stroke:#007481;stroke-width:0.5329;stroke-miterlimit:10;}
-                        .st8{fill:none;stroke:#0E7C85;stroke-width:0.6772;stroke-miterlimit:10;}
-                        .st9{fill:none;stroke:#02818C;stroke-width:0.8215;stroke-miterlimit:10;}
-                        .st10{fill:none;stroke:#0C8793;stroke-width:0.9658;stroke-miterlimit:10;}
-                        .st11{fill:none;stroke:#078D98;stroke-width:1.1101;stroke-miterlimit:10;}
-                        .st12{fill:none;stroke:#01939F;stroke-width:1.2544;stroke-miterlimit:10;}
-                        .st13{fill:none;stroke:#009DAC;stroke-width:1.3973;stroke-miterlimit:10;}
-                        .st14{fill:none;stroke:#0CA3AC;stroke-width:1.5416;stroke-miterlimit:10;}
-                    </style>
+                        <style type="text/css">
+                          .st1{fill:none;stroke:#26CAD3;stroke-width:2.4074;stroke-miterlimit:10;}
+                          .st2{fill:none;stroke:#34BFC9;stroke-width:2.2631;stroke-miterlimit:10;}
+                          .st3{fill:none;stroke:#23BDC7;stroke-width:2.1188;stroke-miterlimit:10;}
+                          .st4{fill:none;stroke:#1BB3BD;stroke-width:1.9745;stroke-miterlimit:10;}
+                          .st5{fill:none;stroke:#1AAEB9;stroke-width:1.8302;stroke-miterlimit:10;}
+                          .st6{fill:none;stroke:#06A8B3;stroke-width:1.6859;stroke-miterlimit:10;}
+                          .st7{fill:none;stroke:#007481;stroke-width:0.5329;stroke-miterlimit:10;}
+                          .st8{fill:none;stroke:#0E7C85;stroke-width:0.6772;stroke-miterlimit:10;}
+                          .st9{fill:none;stroke:#02818C;stroke-width:0.8215;stroke-miterlimit:10;}
+                          .st10{fill:none;stroke:#0C8793;stroke-width:0.9658;stroke-miterlimit:10;}
+                          .st11{fill:none;stroke:#078D98;stroke-width:1.1101;stroke-miterlimit:10;}
+                          .st12{fill:none;stroke:#01939F;stroke-width:1.2544;stroke-miterlimit:10;}
+                          .st13{fill:none;stroke:#009DAC;stroke-width:1.3973;stroke-miterlimit:10;}
+                          .st14{fill:none;stroke:#0CA3AC;stroke-width:1.5416;stroke-miterlimit:10;}
+                      </style>
                     <path class="st0" d="M110.2,240.1v-8.9c0.6-0.6,1.2-0.4,1.7-0.4c6.7,0,13.3,0,20,0c2.1,0,2.2,0,2.2,2.3c0,19.6,0,39.2,0,58.7
                         c0,9,0,18,0,27c0,2.6,0.1,2.4-2.5,2.4c-6.4,0-12.7,0-19.1,0c-0.7,0-1.4-0.1-2.2-0.1c-0.4-3.1,0-6.1-0.2-9.2
                         c-0.9,0.4-1.3,1.1-1.9,1.7c-4.2,4.3-9.2,7.4-15,8.9c-4.9,1.3-10,1.5-15.1,0.8c-6.2-0.7-11.8-2.8-17.1-6c-7.8-4.7-13.3-11.5-17-19.7
@@ -150,27 +142,27 @@
                     </svg>
     
                 </div>
-              <div class="grid grid-cols-1 grid-rows-[65px] sm:grid-rows-[fit_fit] sm:grid-cols-2 gap-4 px-4">
-                  <div class="p-2 border border-gray-500 rounded-lg bg-white">          
+              <div id="list_text" class="grid grid-cols-1 grid-rows-[fit_fit] sm:grid-rows-[fit_fit] sm:grid-cols-2 gap-4 px-4 mb-4">
+                  <div class="p-2 border-2 hover:shadow-lg rounded-lg bg-white">          
                         <div class="ml-2">
                             <h4 class="font-semibold text-base text-primary tracking-normal">Text File</h4>
                             <p class="text-sm font-normal text-gray tracking-normal">pdf,word,..</p>
                         </div>
                   </div>
-                  <div class="p-2 border border-gray-500 rounded-lg bg-white">
+                  <div class="p-2 border-2 hover:shadow-lg rounded-lg bg-white">
                       <div class="ml-2">
                           <h4 class="font-semibold text-base text-primary tracking-normal">Youtube Subtitles</h4>
                           <p class="text-sm font-normal text-gray tracking-normal">Analize your caption</p>
                       </div>
                   </div>
-                  <div class="p-2 border border-gray-500 rounded-lg bg-white">
+                  <div class="p-2 border-2 hover:shadow-lg rounded-lg bg-white">
                       <div class="ml-2">
                           <h4 class="font-semibold text-base text-primary tracking-normal">Plain Text</h4>
                           <p class="text-sm font-normal text-gray tracking-normal">Copy/patse some text in the box
-</p>
+                          </p>
                       </div>
                   </div>
-                  <div class="p-2 border border-gray-500 rounded-lg bg-white">
+                  <div class="p-2 border-2 hover:shadow-lg rounded-lg bg-white">
                       <div class="ml-2">
                           <h4 class="font-semibold text-base text-primary tracking-normal">Website Content</h4>
                           <p class="text-sm font-normal text-gray tracking-normal">Analysis through data from the website</p>
