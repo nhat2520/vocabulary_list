@@ -13,6 +13,8 @@
         const sidebar = document.getElementById("sidebar")
         const hidden_text1 = document.getElementById("hidden_text1")
         const hidden_text2 = document.getElementById("hidden_text2")
+        const textareaEle = document.getElementById('input_text');
+        const chatArea = document.getElementById("chatArea")
         close_btn.addEventListener('click', function() {
           if (parseInt(sidebar.style.width) > 100) {
             sidebar.style.width = "64px"
@@ -24,6 +26,13 @@
             hidden_text2.style.opacity = "1"
           }
         })
+        textareaEle.addEventListener('input', () => {
+          if (textareaEle.scrollHeight < 200) {
+            textareaEle.style.height = 'auto';
+            textareaEle.style.height = `${textareaEle.scrollHeight}px`;
+            chatArea.style.height = `${textareaEle.scrollHeight  + 27}px`;
+          }
+        });
       }
     </script>
   </head>
@@ -62,7 +71,7 @@
       </div>
       
       <!--chatframe-->
-      <div class="h-full chatframe grid grid-cols-[1fr_2fr_1fr] grid-rows-[1fr_100px] [&>*]:bg-[#F3F6FB]">
+      <div class="h-full chatframe grid grid-cols-[1fr_2fr_1fr] grid-rows-[1fr_150px] [&>*]:bg-[#F3F6FB]">
         <div >
           <span id="open_btn" class="mt-1 mr-4 hidden">
             <svg class="h-8 w-8" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg" fill="#000000" stroke="#000000" stroke-width="1.848"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g fill="none" fill-rule="evenodd" stroke="#5662F6" stroke-linecap="round" stroke-linejoin="round" transform="translate(3 3)"> <path d="m.5 12.5v-10c0-1.1045695.8954305-2 2-2h10c1.1045695 0 2 .8954305 2 2v10c0 1.1045695-.8954305 2-2 2h-10c-1.1045695 0-2-.8954305-2-2z"></path> <path d="m2.5 12.5v-10c0-1.1045695.8954305-2 2-2h-2c-1 0-2 .8954305-2 2v10c0 1.1045695 1 2 2 2h2c-1.1045695 0-2-.8954305-2-2z" fill="#5662F6"></path> <path d="m7.5 10.5-3-3 3-3"></path> <path d="m12.5 7.5h-8"></path> </g> </g></svg>
@@ -176,8 +185,10 @@
         <div ></div>
         <div class="relative">
             <div class="chatbar absolute bottom-2 w-full">
-                <div class="border-2 rounded-2xl w-full h-[55px] bg-white grid grid-cols-[1fr_50px_50px]">
-                    <textarea id="input_text" class="focus:outline-none row-start-1 row-end-3 h-8 overflow-hidden resize-none my-auto mx-3 font-sans font-[400] text-lg"></textarea>
+                <div id="chatArea" class="border-2 rounded-2xl w-full h-[55px] bg-white grid grid-cols-[1fr_50px_50px]">
+                    <div class="relative">
+                      <textarea id="input_text" rows="1" class="absolute bottom-3 w-[calc(100%-20px)] focus:outline-none row-start-1 row-end-3 h-8 resize-none my-auto mx-3 font-sans font-[400] text-lg"></textarea>
+                    </div>
                     <div class="h-fit w-fit bg-slate-300 p-2.5 rounded-xl mx-auto mt-[5px]">
                         <svg height="21px" width="21px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12.9502 11.0087L10.0104 13.9351C8.38687 15.5513 8.38687 18.1716 10.0104 19.7879C11.634 21.4041 14.2664 21.4041 15.8899 19.7879L19.5646 16.1299C22.8118 12.8975 22.8118 7.6567 19.5646 4.4243C16.3175 1.1919 11.0528 1.1919 7.80563 4.4243L4.13095 8.08229C1.28968 10.9106 1.28968 15.4963 4.13095 18.3247" stroke="#1C274C" stroke-width="2.4" stroke-linecap="round"></path> </g></svg>
                     </div>
