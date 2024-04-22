@@ -4,18 +4,18 @@ let saveDefineWord = async(data)=>{
     
     return new Promise(async(resolve, reject)=>{
         try {
-            let check = await checkKeyWord(data.keyword)
+            let check = await checkKeyWord(data.keyWord)
 
             if(check) {
-                console.log(await checkKeyWord(data.keyword));
+                console.log(await checkKeyWord(data.keyWord));
                 resolve({
                     errCode: 1,
                     errMessage: "Keyword already exists",
-                    hi: checkKeyWord(data.keyword)
+                    hi: checkKeyWord(data.keyWord)
                 })
             } else {
                 await db.defineWord.create({
-                    keyword: data.keyword,
+                    keyword: data.keyWord,
                     defineWord: data.defineWord
                 })
                 resolve({

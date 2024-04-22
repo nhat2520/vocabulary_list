@@ -19,7 +19,7 @@ let initAppAPIRoutes = (app) => {
   router.get("/api/get-all-conversation", handleGetAllConversation);
   router.get("/api/get-all-define-word", handleGetAllKeywords);
 
-  router.post("/api/save-define-word", handleSaveDefineWord);
+  // router.post("/api/save-define-word", handleSaveDefineWord);
   router.post("/api/save-conversation", handleSaveConversation);
 
   router.delete("/api/delete-conversation", handleDeleteConversation);
