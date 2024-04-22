@@ -6,10 +6,13 @@ let {
   deleteConversation,
   deleteDefineKeyword,
 } = require("../services/appService");
+import { json } from "sequelize";
 import { OpenAIChat } from "../../APIs/chatGPT_api.js";
 import { YouTubeCaptions } from "../../APIs/get_subtitles.js";
-
+import { PdfReader } from "../../APIs/read_pdf.js";
 const fs = require("fs");
+const uploadDirectory = './uploads';
+
 let handleSaveDefineWord = async (req, res) => {
   let data = req.body;
   let message = await saveDefineWord(data);
@@ -54,10 +57,11 @@ let handleChatGPTtext = async (req, res) => {
   });
   await chatGPTapi();
   const output = require("../../APIs/output.json");
+  const jsonKeyValue = splitKeyValue(output.message.content);
   return res.status(200).json({
     errCode: 0,
     errMessage: "Oke roi",
-    output,
+    keyValue: jsonKeyValue,
   });
 };
 
@@ -71,59 +75,85 @@ let handleChatGPTsubtitle = async (req, res) => {
 
   await chatGPTapi();
   const output = require("../../APIs/output.json");
+  console.log(output.message.content);
+  const jsonKeyValue = splitKeyValue(output.message.content);
   return res.status(200).json({
     errCode: 0,
     errMessage: "Oke roi",
-    output,
+    text,
+    KeyValue: jsonKeyValue,
   });
 };
 
 //file này chưa sửa
 let handleChatGPTpdf = async (req, res) => {
-    let link = req.body.link;
-    // const apiKey = fs.readFileSync('apiKey.txt', 'utf8').trim();
-    // const prompt = fs.readFileSync('prompt.txt', 'utf8').trim();
-    // const input = fs.readFileSync('input.txt', 'utf8').trim();
-    // const test = await new OpenAIChat(apiKey, prompt, input);
-    // test.chat();
-    const youtubeUrl = "https://www.youtube.com/watch?v=DYFOtb70eEI";
-    let text = "";
-    try {
-      const captions = new YouTubeCaptions(link, "en");
-      text = await captions.fetch();
-      console.log(text);
-    } catch (error) {
-      console.error(error.message);
-    }
-    return res.status(200).json({
-      errCode: 0,
-      errMessage: "Oke roi",
-      text,
-    });
+  //let link = req.body.link;
+  const uploadedFile = req.file;
+
+  const text = await uploadFilePdf(uploadedFile);
+  fs.writeFileSync("./APIs/input.txt", text, (err) => {
+    // In case of a error throw err.
+    if (err) throw err;
+  });
+  await chatGPTapi();
+  const output = require("../../APIs/output.json");
+  console.log(output.message.content);
+  const jsonKeyValue = splitKeyValue(output.message.content);
+
+  return res.status(200).json({
+    errCode: 0,
+    errMessage: "Oke roi",
+    jsonKeyValue
+  });
 };
 
-
-
-
-let chatGPTapi = async() => {
-    const apiKey = fs.readFileSync("./APIs/apiKey.txt", "utf8").trim();
-    const prompt = fs.readFileSync("./APIs/prompt.txt", "utf8").trim();
-    const input = fs.readFileSync("./APIs/input.txt", "utf8").trim();
-    const test = await new OpenAIChat(apiKey, prompt, input);
-    await test.chat();
-}
+let chatGPTapi = async () => {
+  const apiKey = fs.readFileSync("./APIs/apiKey.txt", "utf8").trim();
+  const prompt = fs.readFileSync("./APIs/prompt.txt", "utf8").trim();
+  const input = fs.readFileSync("./APIs/input.txt", "utf8").trim();
+  const test = await new OpenAIChat(apiKey, prompt, input);
+  await test.chat();
+};
 
 let getSubtitlesFromLink = async (link) => {
   let text = "";
   try {
     const captions = new YouTubeCaptions(link, "en");
-    text = await captions.fetch();
-    return text;
+    await captions.fetch().then((transcript) => {
+      console.log(transcript);
+      text = transcript;
+    });
   } catch (error) {
     console.error(error.message);
   }
   return text;
 };
+
+let splitKeyValue = (textChatgpt) => {
+  const text = textChatgpt;
+  const myArrText = text.split(/(?:\n|\n\n])+/);
+  console.log(myArrText);
+  const data = {};
+  myArrText.forEach(function (element) {
+    const splitText = element.split(":");
+    data[splitText[0]] = splitText[1];
+  });
+  return data;
+};
+
+const uploadFilePdf = async (uploadedFile) => {
+  let text = "";
+  try {
+    // Write the file to the upload directory
+  const fileName = `${uploadedFile.originalname}`;
+  const filePath = `${uploadDirectory}/${fileName}`;
+  const pdf = new PdfReader(filePath);
+  text = await pdf.read();
+  } catch (e) {
+    console.log(e);
+  }
+  return text
+}
 
 
 module.exports = {
