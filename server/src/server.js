@@ -1,4 +1,5 @@
 import express from "express";
+let path = require("path");
 let { initUserAPIRoutes } = require("./route/userAPI");
 let { initAppAPIRoutes } = require("./route/appAPI");
 let { connect } = require("./config/connectDB");
@@ -14,6 +15,11 @@ let port = process.env.PORT || 6969;
 //
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extend: true }));
+
+//set view engine
+app.set('view engine', 'ejs')
+app.set('views', path.join(__dirname,"../../client/views"))
+app.use(express.static(path.join(__dirname,"../../client/static")))
 
 //route
 initUserAPIRoutes(app);

@@ -4,6 +4,9 @@ let {handleLogin, handleGetAllUsers, handleCreateNewUser, handleEditUser, handle
 
 let initUserAPIRoutes = (app) => {
     //API
+    router.get('/', (req, res) => {
+        res.render('index', {})
+    })
     router.get('/api/get-all-users', handleGetAllUsers);
 
     router.post('/api/login', handleLogin);
