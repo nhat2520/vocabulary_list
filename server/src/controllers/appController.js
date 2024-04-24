@@ -58,6 +58,9 @@ let handleChatGPTtext = async (req, res) => {
   await chatGPTapi();
   const output = require("../../APIs/output.json");
   const jsonKeyValue = splitKeyValue(output.message.content);
+  
+  //lưu conversation và các defineword liên quan
+
   return res.status(200).json({
     errCode: 0,
     errMessage: "Oke roi",
@@ -77,6 +80,7 @@ let handleChatGPTsubtitle = async (req, res) => {
   const output = require("../../APIs/output.json");
   console.log(output.message.content);
   const jsonKeyValue = splitKeyValue(output.message.content);
+  
   return res.status(200).json({
     errCode: 0,
     errMessage: "Oke roi",

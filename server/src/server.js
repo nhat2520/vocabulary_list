@@ -1,33 +1,44 @@
+// Importing modules
 import express from "express";
-let path = require("path");
-let { initUserAPIRoutes } = require("./route/userAPI");
-let { initAppAPIRoutes } = require("./route/appAPI");
-let { connect } = require("./config/connectDB");
-require("dotenv").config();
-let bodyParser = require("body-parser");
 import cors from "cors";
+import path from "path";
+import { connect } from "./config/connectDB";
+import bodyParser from "body-parser";
+import session from 'express-session';
+import methodOverride from 'method-override';
+import { config } from "dotenv";
 
+// Environment configuration
+config();
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
+
+// Initialize express app
 let app = express();
-app.use(cors({ origin: true })); // dùng để cho phép nhiều tài nguyên khác nhau của một trang web có thể được truy vấn từ domain khác với domain của trang đó
 
-let port = process.env.PORT || 6969;
-
-//
+// Middleware setup
+app.use(cors({ origin: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extend: true }));
+app.use(session({
+  secret: "something",
+  resave: true,
+  saveUninitialized: true
+}));
+app.use(methodOverride());
 
-//set view engine
-app.set('view engine', 'ejs')
-app.set('views', path.join(__dirname,"../../client/views"))
-app.use(express.static(path.join(__dirname,"../../client/static")))
+// Static files and view engine setup
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, "../../client/views"));
+app.use(express.static(path.join(__dirname, "../../client/static")));
 
-//route
-initUserAPIRoutes(app);
-initAppAPIRoutes(app);
+// Routes
+require("./route/route")(app);
 
-//check connect db
+// Database connection
 connect();
 
+// Server setup
+let port = process.env.PORT || 6969;
 app.listen(port, () => {
   console.log(`Server is running in port ${port}`);
 });
