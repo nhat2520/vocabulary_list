@@ -7,7 +7,6 @@ exports.create = async (req, res) => {
   res.render('auth/register')
 }
 
-
 exports.register = async (req, res) => {
   try {
     const { email, password, firstName, lastName } = req.body;
