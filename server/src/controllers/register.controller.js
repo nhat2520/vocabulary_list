@@ -25,14 +25,13 @@ exports.register = async (req, res) => {
 
     const userExists = await checkUserEmail(email);
     if (userExists) {
-      const conflictErr = "User credentials already exist.";
-      console.log(conflictErr)
+      const emailErr = "User credentials already exist.";
       return res.status(409).render('auth/register', { 
         email, 
         password, 
         firstName, 
         lastName, 
-        errorMessage: conflictErr 
+        emailErr
       });
     }
 
