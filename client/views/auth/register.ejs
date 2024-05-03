@@ -2,6 +2,35 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+function removeAccents(input) {
+    // Bảng mã hóa để loại bỏ dấu
+    var accentsRemoval = '\\u0300-\\u036f';
+    var accentsRegex = new RegExp(accentsRemoval, 'g');
+
+    // Loại bỏ dấu khỏi chuỗi
+    var str = input.value.replace(accentsRegex, '');
+
+    // Chuyển đổi các ký tự đặc biệt thành ký tự không dấu
+    str = str.replace(/\u00E0|\u00E1|\u1EA1|\u1EA3|\u00E3|\u00E2|\u1EA7|\u1EA5|\u1EAD|\u1EA9|\u1EAB|\u0103|\u1EB1|\u1EAF|\u1EB7|\u1EB3|\u1EB5/g, 'a');
+    str = str.replace(/\u00C0|\u00C1|\u1EA0|\u1EA2|\u00C3|\u00C2|\u1EA6|\u1EA4|\u1EAC|\u1EA8|\u1EAA|\u0102|\u1EB0|\u1EAE|\u1EB6|\u1EB2|\u1EB4/g, 'A');
+    str = str.replace(/\u00E8|\u00E9|\u1EB9|\u1EBB|\u1EBD|\u00EA|\u1EC1|\u1EBF|\u1EC7|\u1EC3|\u1EC5/g, 'e');
+    str = str.replace(/\u00C8|\u00C9|\u1EB8|\u1EBA|\u1EBC|\u00CA|\u1EC0|\u1EBE|\u1EC6|\u1EC2|\u1EC4/g, 'E');
+    str = str.replace(/\u00EC|\u00ED|\u1ECB|\u1EC9|\u0129/g, 'i');
+    str = str.replace(/\u00CC|\u00CD|\u1ECA|\u1EC8|\u0128/g, 'I');
+    str = str.replace(/\u00F2|\u00F3|\u1ECD|\u1ECF|\u00F5|\u00F4|\u1ED3|\u1ED1|\u1ED9|\u1ED5|\u1ED7|\u01A1|\u1EDD|\u1EDB|\u1EE3|\u1EDF|\u1EE1/g, 'o');
+    str = str.replace(/\u00D2|\u00D3|\u1ECC|\u1ECE|\u00D5|\u00D4|\u1ED2|\u1ED0|\u1ED8|\u1ED4|\u1ED6|\u01A0|\u1EDC|\u1EDA|\u1EE2|\u1EDE|\u1EE0/g, 'O');
+    str = str.replace(/\u00F9|\u00FA|\u1EE5|\u1EE7|\u0169|\u01B0|\u1EE9|\u1EEB|\u1EED|\u1EEF|\u1EF1/g, 'u');
+    str = str.replace(/\u00D9|\u00DA|\u1EE4|\u1EE6|\u0168|\u01AF|\u1EE8|\u1EEA|\u1EEC|\u1EEE|\u1EF0/g, 'U');
+    str = str.replace(/\u1EF3|\u1EF7|\u1EF9|\u1EF5|\u1EF2|\u1EF8|\u1EFA|\u1EF4|\u1EF6/g, 'y');
+    str = str.replace(/\u1EF3|\u1EF6|\u1EF9|\u1EF5|\u1EF2|\u1EF7|\u1EFA|\u1EF4|\u1EF8/g, 'Y');
+    str = str.replace(/\u0111/g, 'd');
+    str = str.replace(/\u0110/g, 'D');
+
+    // Gán giá trị đã loại bỏ dấu vào input
+    input.value = str;
+}
+</script>
 <style>
 body {
   font-family: Arial, Helvetica, sans-serif;
@@ -65,37 +94,51 @@ a {
   background-color: #f1f1f1;
   text-align: center;
 }
+
+.alert {
+  color: red;
+  margin-top: -10px;
+  margin-bottom: 5px;
+}
+
+
+
 </style>
 </head>
 <body>
-
-<form action="/register" method="post">
-  <div class="container">
-    <h1>Register</h1>
-    <p>Please fill in this form to create an account.</p>
-    <hr>
-
-    <label for="email"><b>Email</b></label>
-    <input type="text" placeholder="Enter Email" name="email" id="email" required>
-
-    <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="password" required>
-
-    <label for="firstName"><b>First Name</b></label>
-    <input type="text" placeholder="First Name" name="firstName" id="firstName" required>
-    
-    <label for="lastName"><b>First Name</b></label>
-    <input type="text" placeholder="Last Name" name="lastName" id="lastName" required>
-    <hr>
-    <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
-
-    <button type="submit" class="registerbtn">Register</button>
-  </div>
+  <form action="/register" method="post">
+    <div class="container">
+      <h1>Register</h1>
+      <hr>
   
-  <div class="container signin">
-    <p>Already have an account? <a href="/login">Log in</a>.</p>
-  </div>
-</form>
+      <label for="email"><b>Email</b></label>
+      <input type="text" placeholder="Enter Email" name="email" id="email" required>
+  
+      <div class="alert"> 
+        <% if (typeof emailErr !== 'undefined') { %>
+          <div class="alert"> <%= emailErr %> </div>
+        <% } %>
+        
+      </div>  
+      <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="password" required>
+  
+      <label for="firstName"><b>First Name</b></label>
+      <input type="text" placeholder="First Name" name="firstName" id="firstName" oninput="removeAccents(this)" required>
+      
+     <label for="lastName"><b>Last Name</b></label>
+      <input type="text" placeholder="Last Name" name="lastName" id="lastName" oninput="removeAccents(this)" required>
+      <hr>
+      <div class="container signin">
+        <p>Already have an account? <a href="/login">Log in</a>.</p>
+      </div>
+  
+      <button type="submit" class="registerbtn">Register</button>
+    </div>
+    
+    
+  </form>
+
 
 </body>
 </html>

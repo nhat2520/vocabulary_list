@@ -2,7 +2,7 @@
   "index": 0,
   "message": {
     "role": "assistant",
-    "content": "Keywords:\nWebsite: A collection of related web pages, typically identified with a common domain name and published on at least one web server.\nArtificial Intelligence: The simulation of human intelligence processes by machines, especially computer systems, encompassing learning, reasoning, and self-correction capabilities.\nText Analysis: The process of deriving high-quality information from text, typically involving the identification and extraction of relevant information and patterns.\nKeywords: Significant terms within a text that are crucial for understanding its content and context."
+    "content": "GitLab: GitLab is a web-based DevOps lifecycle tool that provides a Git repository manager providing wiki, issue-tracking, and CI/CD pipeline features, using an open-source license."
   },
   "logprobs": null,
   "finish_reason": "stop"

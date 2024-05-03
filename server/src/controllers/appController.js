@@ -49,23 +49,21 @@ let handleDeleteDefineWord = async (req, res) => {
   return res.status(200).json(message);
 };
 
-let handleChatGPTtext = async (req, res) => {
+let handleChatGPTtext = async (req) => {
   let text = req.body.text;
+  console.log(text)
   fs.writeFileSync("./APIs/input.txt", text, (err) => {
     // In case of a error throw err.
     if (err) throw err;
   });
+
   await chatGPTapi();
   const output = require("../../APIs/output.json");
   const jsonKeyValue = splitKeyValue(output.message.content);
   
   //lưu conversation và các defineword liên quan
 
-  return res.status(200).json({
-    errCode: 0,
-    errMessage: "Oke roi",
-    keyValue: jsonKeyValue,
-  });
+  return jsonKeyValue;
 };
 
 let handleChatGPTsubtitle = async (req, res) => {
@@ -95,29 +93,30 @@ let handleChatGPTpdf = async (req, res) => {
   const uploadedFile = req.file;
 
   const text = await uploadFilePdf(uploadedFile);
-  fs.writeFileSync("./APIs/input.txt", text, (err) => {
-    // In case of a error throw err.
+  await fs.writeFile("./APIs/input.txt", text, async (err) => {
     if (err) throw err;
-  });
-  await chatGPTapi();
-  const output = require("../../APIs/output.json");
-  console.log(output.message.content);
-  const jsonKeyValue = splitKeyValue(output.message.content);
-
-  return res.status(200).json({
-    errCode: 0,
-    errMessage: "Oke roi",
-    jsonKeyValue
-  });
+    await chatGPTapi();
+    // const output = await JSON.parse(fs.readFileSync("../../APIs/output.json", "utf8"));
+    // console.log(output);
+    // const jsonKeyValue = splitKeyValue(output.message.content);
+    // res.status(200).json({
+    //   errCode: 0,
+    //   errMessage: "Oke roi"
+    //   jsonKeyValue
+    // });
+  });  
 };
 
 let chatGPTapi = async () => {
-  const apiKey = fs.readFileSync("./APIs/apiKey.txt", "utf8").trim();
-  const prompt = fs.readFileSync("./APIs/prompt.txt", "utf8").trim();
-  const input = fs.readFileSync("./APIs/input.txt", "utf8").trim();
-  const test = await new OpenAIChat(apiKey, prompt, input);
-  await test.chat();
-};
+    const apiKey = fs.readFileSync("./APIs/apiKey.txt", "utf8").trim();
+    const prompt = fs.readFileSync("./APIs/prompt.txt", "utf8").trim();
+    const input = fs.readFileSync("./APIs/input.txt", "utf8").trim();
+    const test = await new OpenAIChat(apiKey, prompt, input);
+    await test.chat();
+    const output = JSON.parse(fs.readFileSync("../../APIs/output.json", "utf8"));
+    console.log(output);
+  };
+  
 
 let getSubtitlesFromLink = async (link) => {
   let text = "";

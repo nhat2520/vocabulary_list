@@ -15,7 +15,6 @@ exports.login = async (req, res) => {
     where: { email: email },
     raw: true,
   });
-  console.log(user)
   if (user == null) {
     const emailErr = "Email are not valid" 
     res.render('auth/login', { email, password, emailErr });

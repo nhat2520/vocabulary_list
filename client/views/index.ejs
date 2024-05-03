@@ -8,32 +8,35 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <script>
-      window.onload = function() {
-        const close_btn = document.getElementById("close_btn") 
-        const sidebar = document.getElementById("sidebar")
-        const hidden_text1 = document.getElementById("hidden_text1")
-        const hidden_text2 = document.getElementById("hidden_text2")
-        const textareaEle = document.getElementById('input_text');
-        const chatArea = document.getElementById("chatArea")
-        close_btn.addEventListener('click', function() {
-          if (parseInt(sidebar.style.width) > 100) {
-            sidebar.style.width = "64px"
-            hidden_text1.style.opacity = "0"
-            hidden_text2.style.opacity = "0"
-          } else {
-            sidebar.style.width = "224px"
-            hidden_text1.style.opacity = "1"
-            hidden_text2.style.opacity = "1"
-          }
-        })
-        textareaEle.addEventListener('input', () => {
-          if (textareaEle.scrollHeight < 200) {
-            textareaEle.style.height = 'auto';
-            textareaEle.style.height = `${textareaEle.scrollHeight}px`;
-            chatArea.style.height = `${textareaEle.scrollHeight  + 27}px`;
-          }
-        });
-      }
+        function send_btn() {
+            document.getElementById('logo_center').style.display = "none"
+        }
+        window.onload = function() {
+            const close_btn = document.getElementById("close_btn") 
+            const sidebar = document.getElementById("sidebar")
+            const hidden_text1 = document.getElementById("hidden_text1")
+            const hidden_text2 = document.getElementById("hidden_text2")
+            const textareaEle = document.getElementById('input_text')
+            const chatArea = document.getElementById("chatArea")
+            close_btn.addEventListener('click', function() {
+            if (parseInt(sidebar.style.width) > 100) {
+                sidebar.style.width = "64px"
+                hidden_text1.style.opacity = "0"
+                hidden_text2.style.opacity = "0"
+            } else {
+                sidebar.style.width = "224px"
+                hidden_text1.style.opacity = "1"
+                hidden_text2.style.opacity = "1"
+            }
+            })
+            textareaEle.addEventListener('click', () => {
+            if (textareaEle.scrollHeight <= 200) {
+                textareaEle.style.height = 'auto';
+                textareaEle.style.height = `${textareaEle.scrollHeight}px`;
+                chatArea.style.height = `${textareaEle.scrollHeight  + 27}px`;
+            }
+            });
+        }
     </script>
   </head>
   
@@ -59,11 +62,11 @@
           <!-- settings -->
           <div class="border-2 m-2 rounded-lg w-[calc(100%-20px)] h-10 relative">
             <svg class="m-1.5" viewBox="0 0 24 24" height="25px" width="25px" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M14.1395 12.0002C14.1395 13.1048 13.2664 14.0002 12.1895 14.0002C11.1125 14.0002 10.2395 13.1048 10.2395 12.0002C10.2395 10.8957 11.1125 10.0002 12.1895 10.0002C13.2664 10.0002 14.1395 10.8957 14.1395 12.0002Z" stroke="#000000" stroke-width="1.344" stroke-linecap="round" stroke-linejoin="round"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M7.57381 18.1003L5.12169 12.8133C4.79277 12.2907 4.79277 11.6189 5.12169 11.0963L7.55821 5.89229C7.93118 5.32445 8.55898 4.98876 9.22644 5.00029H12.1895H15.1525C15.8199 4.98876 16.4477 5.32445 16.8207 5.89229L19.2524 11.0923C19.5813 11.6149 19.5813 12.2867 19.2524 12.8093L16.8051 18.1003C16.4324 18.674 15.8002 19.0133 15.1281 19.0003H9.24984C8.5781 19.013 7.94636 18.6737 7.57381 18.1003Z" stroke="#000000" stroke-width="1.344" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
-            <p id="hidden_text1" class="absolute top-0 left-9 float-left transition-opacity duration-500 mt-1">Setting</p>
+            <p id="hidden_text1" class="absolute top-0 left-9 float-left transition-opacity duration-500 mt-1">Settings</p>
           </div>
           <a href="/logout" class="relative flex border-2 m-2 rounded-lg w-[calc(100%-20px)]">
             <svg class="float-left m-2" viewBox="0 0 24 24" height="18px" width="18px" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M2.00098 11.999L16.001 11.999M16.001 11.999L12.501 8.99902M16.001 11.999L12.501 14.999" stroke="#1C274C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M9.00195 7C9.01406 4.82497 9.11051 3.64706 9.87889 2.87868C10.7576 2 12.1718 2 15.0002 2L16.0002 2C18.8286 2 20.2429 2 21.1215 2.87868C22.0002 3.75736 22.0002 5.17157 22.0002 8L22.0002 16C22.0002 18.8284 22.0002 20.2426 21.1215 21.1213C20.2429 22 18.8286 22 16.0002 22H15.0002C12.1718 22 10.7576 22 9.87889 21.1213C9.11051 20.3529 9.01406 19.175 9.00195 17" stroke="#1C274C" stroke-width="2.4" stroke-linecap="round"></path> </g></svg>
-            <p id="hidden_text2" class="absolute top-0 left-9 float-left transition-opacity duration-200 mt-1"><%= firstName %> <%= lastName %>  </p>
+            <p id="hidden_text2" class="absolute top-0 left-9 float-left transition-opacity duration-500 mt-1"><%= firstName %> <%= lastName %>  </p>
           </a>
 
         </div> 
@@ -80,7 +83,7 @@
         <div class="output h-full w-full relative">
             
             <div class="absolute bottom-0 w-full">  
-                <div class="h-52 w-52 mx-auto">
+                <div id="logo_center" class="h-52 w-52 mx-auto">
                     <svg  version="1.1" id="layer" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                         viewBox="0 0 690 512" style="enable-background:new 0 0 690 512;" xml:space="preserve">
                         <style type="text/css">
@@ -184,24 +187,27 @@
         <div ></div>
         <div ></div>
         <div class="relative">
-            <div class="chatbar absolute bottom-2 w-full">
+            <form action="/" method="post" class="chatbar absolute bottom-2 w-full">
                 <div id="chatArea" class="border-2 rounded-2xl w-full h-[55px] bg-white grid grid-cols-[1fr_50px_50px]">
                     <div class="relative">
-                      <textarea id="input_text" rows="1" class="absolute bottom-3 w-[calc(100%-20px)] focus:outline-none row-start-1 row-end-3 h-8 resize-none my-auto mx-3 font-sans font-[400] text-lg"></textarea>
+                      <textarea id="input_text" name="text" rows="1" class="absolute bottom-3 w-[calc(100%-20px)] focus:outline-none row-start-1 row-end-3 h-8 resize-none my-auto mx-3 font-sans font-[400] text-lg"></textarea>
                     </div>
                     <div class="h-fit w-fit bg-slate-300 p-2.5 rounded-xl mx-auto mt-[5px]">
                         <svg height="21px" width="21px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M12.9502 11.0087L10.0104 13.9351C8.38687 15.5513 8.38687 18.1716 10.0104 19.7879C11.634 21.4041 14.2664 21.4041 15.8899 19.7879L19.5646 16.1299C22.8118 12.8975 22.8118 7.6567 19.5646 4.4243C16.3175 1.1919 11.0528 1.1919 7.80563 4.4243L4.13095 8.08229C1.28968 10.9106 1.28968 15.4963 4.13095 18.3247" stroke="#1C274C" stroke-width="2.4" stroke-linecap="round"></path> </g></svg>
                     </div>
-                    <div class="h-fit w-fit bg-[#5662F6] p-2 rounded-xl mx-auto mt-[5px]">
-                        <svg height="25px" width="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M20.33 3.66996C20.1408 3.48213 19.9035 3.35008 19.6442 3.28833C19.3849 3.22659 19.1135 3.23753 18.86 3.31996L4.23 8.19996C3.95867 8.28593 3.71891 8.45039 3.54099 8.67255C3.36307 8.89471 3.25498 9.16462 3.23037 9.44818C3.20576 9.73174 3.26573 10.0162 3.40271 10.2657C3.5397 10.5152 3.74754 10.7185 4 10.85L10.07 13.85L13.07 19.94C13.1906 20.1783 13.3751 20.3785 13.6029 20.518C13.8307 20.6575 14.0929 20.7309 14.36 20.73H14.46C14.7461 20.7089 15.0192 20.6023 15.2439 20.4239C15.4686 20.2456 15.6345 20.0038 15.72 19.73L20.67 5.13996C20.7584 4.88789 20.7734 4.6159 20.7132 4.35565C20.653 4.09541 20.5201 3.85762 20.33 3.66996ZM4.85 9.57996L17.62 5.31996L10.53 12.41L4.85 9.57996ZM14.43 19.15L11.59 13.47L18.68 6.37996L14.43 19.15Z" fill="#ffffff"></path> </g></svg>
-                    </div>
+                    <button onclick={} type="submit" class="h-fit w-fit bg-[#5662F6] p-2 rounded-xl mx-auto mt-[5px] hover:bg-[#747cf7]">
+                      <svg height="25px" width="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M20.33 3.66996C20.1408 3.48213 19.9035 3.35008 19.6442 3.28833C19.3849 3.22659 19.1135 3.23753 18.86 3.31996L4.23 8.19996C3.95867 8.28593 3.71891 8.45039 3.54099 8.67255C3.36307 8.89471 3.25498 9.16462 3.23037 9.44818C3.20576 9.73174 3.26573 10.0162 3.40271 10.2657C3.5397 10.5152 3.74754 10.7185 4 10.85L10.07 13.85L13.07 19.94C13.1906 20.1783 13.3751 20.3785 13.6029 20.518C13.8307 20.6575 14.0929 20.7309 14.36 20.73H14.46C14.7461 20.7089 15.0192 20.6023 15.2439 20.4239C15.4686 20.2456 15.6345 20.0038 15.72 19.73L20.67 5.13996C20.7584 4.88789 20.7734 4.6159 20.7132 4.35565C20.653 4.09541 20.5201 3.85762 20.33 3.66996ZM4.85 9.57996L17.62 5.31996L10.53 12.41L4.85 9.57996ZM14.43 19.15L11.59 13.47L18.68 6.37996L14.43 19.15Z" fill="#ffffff"></path> </g></svg>
+                    </button>
                 </div>
-              </div>
+            </form>
         </div>
         <div></div>
         
         <div></div>
       </div>
+      <% if (typeof results !== 'undefined') { %>
+        <div class="alert"> <%= results %> </div>
+      <% } %>
   </body>
   
 </html>
