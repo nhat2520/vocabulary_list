@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="main.css" rel="stylesheet" >
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script>
-function removeAccents(input) {
+function removeAccents(input) {      
     // Bảng mã hóa để loại bỏ dấu
     var accentsRemoval = '\\u0300-\\u036f';
     var accentsRegex = new RegExp(accentsRemoval, 'g');
@@ -108,9 +109,9 @@ a {
 <body>
   <form action="/register" method="post">
     <div class="container">
-      <h1>Register</h1>
+      <h1 >Register</h1>
       <hr>
-  
+          
       <label for="email"><b>Email</b></label>
       <input type="text" placeholder="Enter Email" name="email" id="email" required>
   

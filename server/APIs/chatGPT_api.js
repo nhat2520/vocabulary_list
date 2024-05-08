@@ -30,10 +30,8 @@ export class OpenAIChat {
       messages: [{ role: "system", content: this.prompt }, { role: "user", content: this.input }],
       model: "gpt-3.5-turbo",
     });
-
-    // Save the result to output.json
-    const outputPath = path.join(__dirname, 'output.json');
-    fs.writeFileSync(outputPath, JSON.stringify(completion.choices[0], null, 2));
+    
+    return completion.choices[0]
 
     // console.log(completion.choices[0]);
   }
@@ -47,4 +45,3 @@ export class OpenAIChat {
 // const chat = new OpenAIChat(apiKey, prompt, input);
 // // Start the chat
 // chat.chat();
-

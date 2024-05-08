@@ -1,9 +1,0 @@
-{
-  "index": 0,
-  "message": {
-    "role": "assistant",
-    "content": "GitLab: GitLab is a web-based DevOps lifecycle tool that provides a Git repository manager providing wiki, issue-tracking, and CI/CD pipeline features, using an open-source license."
-  },
-  "logprobs": null,
-  "finish_reason": "stop"
-}

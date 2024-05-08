@@ -5,8 +5,8 @@ import path from "path";
 import { connect } from "./config/connectDB";
 import bodyParser from "body-parser";
 import session from 'express-session';
-import methodOverride from 'method-override';
 import { config } from "dotenv";
+let {handleChatGPTtext} = require("./controllers/appController")
 
 // Environment configuration
 config();
@@ -24,15 +24,17 @@ app.use(session({
   resave: true,
   saveUninitialized: true
 }));
-app.use(methodOverride());
+
 
 // Static files and view engine setup
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, "../../client/views"));
 app.use(express.static(path.join(__dirname, "../../client/static")));
 
+app.post('/test', handleChatGPTtext)
+
 // Routes
-require("./route/route")(app);
+require("./route/route")(app)
 
 // Database connection
 connect();

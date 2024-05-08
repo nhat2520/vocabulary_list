@@ -8,32 +8,29 @@ module.exports = app => {
     route.get('/',authMiddleware.loggedin, (req, res) => {
         const firstName = req.session.user.firstName
         const lastName = req.session.user.lastName
-        res.render('index', {firstName, lastName} )
+        res.render('index', {firstName, lastName} ) 
     }) 
 
     // Route xử lý POST
-    route.post('/', authMiddleware.loggedin,(req, res) => {
-        const { firstName, lastName } = req.session.user;
+    route.post('/', authMiddleware.loggedin, (req, res) => {  
         try {
-            const results = handleChatGPTtext(req);
-            // // Lưu kết quả vào session hoặc một nơi tạm thời
-            req.session.results = results;
-            // Chuyển hướng đến route GET để hiển thị kết quả
-            res.redirect('/results')
+            console.log(req.body);
+            req.session.user.data = {
+                body: req.body, // hoặc bất kỳ thông tin cụ thể nào khác bạn cần
+            };
+            res.redirect('/results');
         } catch (error) {
             console.error('Error handling ChatGPT text:', error);
             res.status(500).send('Server Error');
         }
     });
+    
+    route.get('/results', authMiddleware.loggedin, handleChatGPTtext)
 
-    // Route xử lý GET để hiển thị kết quả
-    route.get('/results', authMiddleware.loggedin, (req, res) => {
-        // Lấy kết quả từ session hoặc nơi tạm thời
-        const { firstName, lastName } = req.session.user;
-        const results = req.session.results;
-        // Hiển thị view với kết quả
-        res.render('index', { firstName, lastName});
-    });
+    route.post('/results', authMiddleware.loggedin, (req, res) => {
+        console.log("hello ")
+        res.redirect('/')
+    })
 
     app.use(route)
 }
