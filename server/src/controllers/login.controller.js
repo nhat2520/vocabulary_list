@@ -10,32 +10,26 @@ exports.showLoginForm = (req, res) => {
 exports.login = async (req, res) => {
   
   const {email, password} = req.body
-  console.log(req.body)
   // console.log(email + password)
-  if (email && password) {
-    let user = await db.User.findOne({
-      where: { email: email },
-      raw: true,
-    });
-    if (!user) {
-      const conflictErr = "Email are not valid" 
-      res.render('auth/login', { email, password, conflictErr });
-    } 
-    bcrypt.compare(password, user.password, (err, result) => {
-      if (result == true) {
-          req.session.loggedin = true;
-          req.session.user = user;
-          res.redirect('/');
-      } else {
-          // A user with that email address does not exists
-          const conflictError = 'Wrong Password';
-          res.render('auth/login', { email, password, conflictErr });
-      }
-  })
+  let user = await db.User.findOne({
+    where: { email: email },
+    raw: true,
+  });
+  if (user == null) {
+    const emailErr = "Email are not valid" 
+    res.render('auth/login', { email, password, emailErr });
   } else {
-    console.log("loi cmnr")
-    const conflictErr = "User credentials are not valid."
-    res.render('auth/login', {email, password, conflictErr})
+    bcrypt.compare(password, user.password, (err, result) => {
+        if (result == true) {
+            req.session.loggedin = true;
+            req.session.user = user;
+            res.redirect('/');
+        } else {
+            // A user with that email address does not exists
+            const pswErr = "The password that you've entered is incorrect.";
+            res.render('auth/login', {pswErr});
+        }
+    })
   }
 }
 

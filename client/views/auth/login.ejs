@@ -54,6 +54,12 @@ span.psw {
   padding-top: 16px;
 }
 
+.alert {
+  color: red;
+  margin-top: -3px;
+  margin-bottom: 2px;
+}
+
 /* Change styles for span and cancel button on extra small screens */
 @media screen and (max-width: 300px) {
   span.psw {
@@ -73,14 +79,29 @@ span.psw {
 <form action="/login" method="post">
 
   <div class="container">
-    <label for="uname"><b>Username</b></label>
+    <label for="uname"><b>Email</b></label>
     <input type="text" placeholder="Enter Email" name="email" required>
+
+    <div class="alert"> 
+      <% if (typeof emailErr !== 'undefined') { %>
+        <div class="alert"> <%= emailErr %> </div>
+      <% } %>
+      
+    </div>
 
     <label for="psw"><b>Password</b></label>
     <input type="password" placeholder="Enter Password" name="password" required>
-        
+
+    <div class="alert"> 
+      <% if (typeof pswErr !== 'undefined') { %>
+        <div class="alert"> <%= pswErr %> </div>
+      <% } %>
+      
+    </div>
+
     <button type="submit">Login</button>
     <label>
+    
   </div>
 
   <div class="container" style="background-color:#f1f1f1">

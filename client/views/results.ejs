@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>App</title>
+    <link href="main.css" rel="stylesheet" >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <script>
+        window.onload = function() { 
+            const close_btn = document.getElementById("close_btn") 
+            const sidebar = document.getElementById("sidebar")
+            const hidden_text1 = document.getElementById("hidden_text1")
+            const hidden_text2 = document.getElementById("hidden_text2")
+            const textareaEle = document.getElementById('input_text')
+            const chatArea = document.getElementById("chatArea")
+            close_btn.addEventListener('click', function() {
+            if (parseInt(sidebar.style.width) > 100) {
+                sidebar.style.width = "64px"
+                hidden_text1.style.opacity = "0"
+                hidden_text2.style.opacity = "0"
+            } else {
+                sidebar.style.width = "224px"
+                hidden_text1.style.opacity = "1"
+                hidden_text2.style.opacity = "1"
+            }
+            })
+            textareaEle.addEventListener('input', () => {
+            if (textareaEle.scrollHeight <= 200) {
+                textareaEle.style.height = 'auto';
+                textareaEle.style.height = `${textareaEle.scrollHeight}px`;
+                chatArea.style.height = `${textareaEle.scrollHeight  + 27}px`;
+            }
+            });
+        }
+    </script>
+  </head>
+  
+  <body id="body" class="relative h-[100vh] w-screen">
+      <div id="sidebar" class="transition-all duration-500 absolute left-5 top-3 h-[calc(100vh-30px)] w-16 bg-white z-10 border-2 rounded-xl grid grid-rows-[120px_1fr_120px]">
+        <div class="box1 relative">
+          <!-- search -->
+          <div class="absolute bottom-0 border-2 m-2 rounded-lg w-[calc(100%-20px)]">
+            <svg class="m-2" height="20px" width="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+          </div>
+          <!-- close button -->
+          <div id="close_btn" class="absolute border-2 m-2 rounded-lg w-fit h-fit right-1">
+            <svg class="m-2" height="20px" width="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M5 6H12H19M5 12H19M5 18H19" stroke="#000000" stroke-width="2.016" stroke-linecap="round"></path> </g></svg>
+          </div>
+        </div>
+        <div class="box2">
+          <!-- history -->
+          <div class="border-2 mx-2 rounded-lg w-[calc(100%-20px)] h-full">
+            <svg class="ml-2 mt-2" height="22px" width="22px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M5.07868 5.06891C8.87402 1.27893 15.0437 1.31923 18.8622 5.13778C22.6824 8.95797 22.7211 15.1313 18.9262 18.9262C15.1312 22.7211 8.95793 22.6824 5.13774 18.8622C2.87389 16.5984 1.93904 13.5099 2.34047 10.5812C2.39672 10.1708 2.775 9.88377 3.18537 9.94002C3.59575 9.99627 3.88282 10.3745 3.82658 10.7849C3.4866 13.2652 4.27782 15.881 6.1984 17.8016C9.44288 21.0461 14.6664 21.0646 17.8655 17.8655C21.0646 14.6664 21.046 9.44292 17.8015 6.19844C14.5587 2.95561 9.33889 2.93539 6.13935 6.12957L6.88705 6.13333C7.30126 6.13541 7.63535 6.47288 7.63327 6.88709C7.63119 7.3013 7.29372 7.63539 6.87951 7.63331L4.33396 7.62052C3.92269 7.61845 3.58981 7.28556 3.58774 6.8743L3.57495 4.32874C3.57286 3.91454 3.90696 3.57707 4.32117 3.57498C4.73538 3.5729 5.07285 3.907 5.07493 4.32121L5.07868 5.06891ZM11.9999 7.24992C12.4141 7.24992 12.7499 7.58571 12.7499 7.99992V11.6893L15.0302 13.9696C15.3231 14.2625 15.3231 14.7374 15.0302 15.0302C14.7373 15.3231 14.2624 15.3231 13.9696 15.0302L11.2499 12.3106V7.99992C11.2499 7.58571 11.5857 7.24992 11.9999 7.24992Z" fill="#1C274C"></path> </g></svg>
+          </div>
+        </div>
+        <div class="box3">
+          <!-- settings -->
+          <div class="border-2 m-2 rounded-lg w-[calc(100%-20px)] h-10 relative">
+            <svg class="m-1.5" viewBox="0 0 24 24" height="25px" width="25px" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M14.1395 12.0002C14.1395 13.1048 13.2664 14.0002 12.1895 14.0002C11.1125 14.0002 10.2395 13.1048 10.2395 12.0002C10.2395 10.8957 11.1125 10.0002 12.1895 10.0002C13.2664 10.0002 14.1395 10.8957 14.1395 12.0002Z" stroke="#000000" stroke-width="1.344" stroke-linecap="round" stroke-linejoin="round"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M7.57381 18.1003L5.12169 12.8133C4.79277 12.2907 4.79277 11.6189 5.12169 11.0963L7.55821 5.89229C7.93118 5.32445 8.55898 4.98876 9.22644 5.00029H12.1895H15.1525C15.8199 4.98876 16.4477 5.32445 16.8207 5.89229L19.2524 11.0923C19.5813 11.6149 19.5813 12.2867 19.2524 12.8093L16.8051 18.1003C16.4324 18.674 15.8002 19.0133 15.1281 19.0003H9.24984C8.5781 19.013 7.94636 18.6737 7.57381 18.1003Z" stroke="#000000" stroke-width="1.344" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+            <p id="hidden_text1" class="absolute top-0 left-9 float-left transition-opacity duration-500 mt-1 opacity-0">Settings</p>
+          </div>
+          <a href="/logout" class="relative flex border-2 m-2 rounded-lg w-[calc(100%-20px)]">
+            <svg class="float-left m-2" viewBox="0 0 24 24" height="18px" width="18px" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M2.00098 11.999L16.001 11.999M16.001 11.999L12.501 8.99902M16.001 11.999L12.501 14.999" stroke="#1C274C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M9.00195 7C9.01406 4.82497 9.11051 3.64706 9.87889 2.87868C10.7576 2 12.1718 2 15.0002 2L16.0002 2C18.8286 2 20.2429 2 21.1215 2.87868C22.0002 3.75736 22.0002 5.17157 22.0002 8L22.0002 16C22.0002 18.8284 22.0002 20.2426 21.1215 21.1213C20.2429 22 18.8286 22 16.0002 22H15.0002C12.1718 22 10.7576 22 9.87889 21.1213C9.11051 20.3529 9.01406 19.175 9.00195 17" stroke="#1C274C" stroke-width="2.4" stroke-linecap="round"></path> </g></svg>
+            <p id="hidden_text2" class="absolute top-0 left-9 float-left transition-opacity duration-500 mt-1 opacity-0"><%= firstName %> <%= lastName %>  </p>
+          </a>
+
+        </div> 
+        
+      </div>
+      
+      <!--chatframe-->
+      <div class="h-full chatframe grid grid-cols-[1fr_2fr_1fr] grid-rows-[1fr_150px] [&>*]:bg-[#F3F6FB]">
+        <div >
+          <span id="open_btn" class="mt-1 mr-4 hidden">
+            <svg class="h-8 w-8" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg" fill="#000000" stroke="#000000" stroke-width="1.848"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g fill="none" fill-rule="evenodd" stroke="#5662F6" stroke-linecap="round" stroke-linejoin="round" transform="translate(3 3)"> <path d="m.5 12.5v-10c0-1.1045695.8954305-2 2-2h10c1.1045695 0 2 .8954305 2 2v10c0 1.1045695-.8954305 2-2 2h-10c-1.1045695 0-2-.8954305-2-2z"></path> <path d="m2.5 12.5v-10c0-1.1045695.8954305-2 2-2h-2c-1 0-2 .8954305-2 2v10c0 1.1045695 1 2 2 2h2c-1.1045695 0-2-.8954305-2-2z" fill="#5662F6"></path> <path d="m7.5 10.5-3-3 3-3"></path> <path d="m12.5 7.5h-8"></path> </g> </g></svg>
+          </span>
+        </div>
+        <div class="output h-full w-full relative">
+                <div class="flex flex-col mt-10">
+                    <div class="-m-1.5 overflow-x-auto">
+                      <div class="p-1.5 inline-block align-middle">
+                        <div class="border-2 border-gray-400 rounded-lg overflow-hidden">
+                          <table class="min-w-full divide-y divide-gray-400">
+                            <thead class="bg-[#6e7bda] text-white">
+                              <tr>
+                                <th scope="col" class="px-6 py-3 text-s font-medium  uppercase">Key</th>
+                                <th scope="col" class="px-6 py-3 text-s font-medium  uppercase">Definition</th>
+                              </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-400">
+                                <% for (const [key, value] of Object.entries(results)) { %>
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800"><%= key %></td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800"><%= value %></td>   
+                                    </tr>
+                                <% } %>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+        </div>
+        <div ></div>
+        <div ></div>
+        <div>
+            <form action="/results" method="post" class="flex justify-center gap-4 pt-5">
+                <button type="submit" class="h-9 w-32 border-red-400 border text-red-400 rounded-full hover:text-white hover:bg-red-400 transition duration-300">Cancel</button>
+                <button class="h-9 w-32 bg-green-500 text-white rounded-full hover:bg-green-600 transition duration-300">Save</button>
+            </form>    
+        </div>
+        <div></div>
+        
+        <div></div>
+      </div>
+  </body>
+  
+</html>
