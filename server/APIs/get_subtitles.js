@@ -71,7 +71,6 @@ export class YouTubeCaptions {
       return transcriber.transcribe();
     });
   }
-    
 }  
 
 // Using the class

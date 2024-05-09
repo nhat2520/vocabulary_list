@@ -1,6 +1,19 @@
 const session = require('express-session')
 const authMiddleware = require('../middlewares/auth.middleware')
-let {handleChatGPTtext} = require("../controllers/appController")
+let {handleChatGPTtext, handleChatGPTsubtitle, handleChatGPTpdf } = require("../controllers/appController")
+const { request } = require('express')
+const multer = require('multer');
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, "../uploads");
+    },
+    filename: (req, file, cb) => {
+      cb(null, file.originalname);
+    },
+  });
+  
+const Data = multer({ storage: storage });
+
 
 module.exports = app => {
     var route = require('express').Router()
@@ -11,12 +24,11 @@ module.exports = app => {
         res.render('index', {firstName, lastName} ) 
     }) 
 
-    // Route xử lý POST
-    route.post('/', authMiddleware.loggedin, (req, res) => {  
+    route.post('/', authMiddleware.loggedin, Data.any("files"), (req, res) => {  
         try {
-            console.log(req.body);
+            console.log(req.body)
             req.session.user.data = {
-                body: req.body, // hoặc bất kỳ thông tin cụ thể nào khác bạn cần
+                body: req.body,
             };
             res.redirect('/results');
         } catch (error) {
@@ -25,11 +37,20 @@ module.exports = app => {
         }
     });
     
-    route.get('/results', authMiddleware.loggedin, handleChatGPTtext)
+    route.get('/results', authMiddleware.loggedin, async function(req, res) {
+        var request = req.session.user.data.body
+        if (request.text != '') {
+            handleChatGPTtext(req, res)
+        } else if (request.url != '') {
+            handleChatGPTsubtitle(req, res)
+        } else {
+            handleChatGPTpdf(req, res)
+        }
+    })
 
     route.post('/results', authMiddleware.loggedin, (req, res) => {
-        console.log("hello ")
-        res.redirect('/')
+        console.log("helloO")
+        res.redirect('/') 
     })
 
     app.use(route)

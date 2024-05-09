@@ -8,6 +8,7 @@ let {
 } = require("../services/appService");
 import { OpenAIChat } from "../../APIs/chatGPT_api.js";
 import { YouTubeCaptions } from "../../APIs/get_subtitles.js";
+import { PdfReader } from "../../APIs/read_pdf.js";
 const session = require('express-session')
 const Groq = require("groq-sdk");
 const groq = new Groq({
@@ -74,54 +75,65 @@ let handleChatGPTtext = async (req, res) => {
 
 
 let handleChatGPTsubtitle = async (req, res) => {
-    let link = req.body.link;
-    let text = await getSubtitlesFromLink(link);
+    const { firstName, lastName } = req.session.user;
+    let link = req.session.user.data.body.url
+    let text = await getSubtitlesFromLink(link)
     fs.writeFileSync("./APIs/input.txt", text, (err) => {
       // In case of a error throw err.
       if (err) throw err;
     });
-    const output = await chatGPTapi()
-    return res.status(200).json({
-      errCode: 0,
-      errMessage: "Oke roi",
-      output,
+    fs.writeFile("./APIs/input.txt", text, async (err) => {
+        if (err) {
+            console.error('Error writing to file:', err);
+            res.status(500).send('Error writing to file');
+            return; 
+        }
+        try {
+            let results = await chatGPTapi()
+            res.render('results', { firstName, lastName, results});
+        } catch (error) {
+            console.error('Error handling ChatGPT text:', error);
+            res.status(500).send('Server Error');
+        }
     });
+    
 };
 
-//file này chưa sửa
 let handleChatGPTpdf = async (req, res) => {
-    let link = req.body.link;
-    // const apiKey = fs.readFileSync('apiKey.txt', 'utf8').trim();
-    // const prompt = fs.readFileSync('prompt.txt', 'utf8').trim();
-    // const input = fs.readFileSync('input.txt', 'utf8').trim();
-    // const test = await new OpenAIChat(apiKey, prompt, input);
-    // test.chat();
-    const youtubeUrl = "https://www.youtube.com/watch?v=DYFOtb70eEI";
-    let text = "";
-    try {
-        const captions = new YouTubeCaptions(link, "en");
-        text = await captions.fetch();
-        console.log(text);
-    } catch (error) {
-        console.error(error.message);
-    }
-    return res.status(200).json({
-        errCode: 0,
-        errMessage: "Oke roi",
-        text,
-    });
+    const { firstName, lastName } = req.session.user;
+    let file = req.session.user.data.body.file
+    console.log(typeof(file))
+    //let pdfReader = new PdfReader(file);
+    //let text = await pdfReader.read();
+    // fs.writeFileSync("./APIs/input.txt", text, (err) => {
+    //     // In case of a error throw err.
+    //     if (err) throw err;
+    //   });
+    //   fs.writeFile("./APIs/input.txt", text, async (err) => {
+    //       if (err) {
+    //           console.error('Error writing to file:', err);
+    //           res.status(500).send('Error writing to file');
+    //           return; 
+    //       }
+    //       try {
+    //           let results = await chatGPTapi()
+    //           res.render('results', { firstName, lastName, results});
+    //       } catch (error) {
+    //           console.error('Error handling ChatGPT text:', error);
+    //           res.status(500).send('Server Error');
+    //       }
+    // });    
 };
 
 let chatGPTapi = async() => {
-    // const apiKey = fs.readFileSync("./APIs/apiKey.txt", "utf8").trim();
-    // const prompt = fs.readFileSync("./APIs/prompt.txt", "utf8").trim();
-    // const input = fs.readFileSync("./APIs/input.txt", "utf8").trim();
-    // const test = new OpenAIChat(apiKey, prompt, input);
-    // var results = await test.chat()
-    // console.log(results)
-    const results = 'Bachelor of Science: An undergraduate academic degree awarded for completed courses that generally last three to five years / University of Pennsylvania: A private Ivy League research university in Philadelphia, Pennsylvania / Trump Organization: The business conglomerate of Donald Trump, now run by his children / Skyscrapers: Very tall buildings with multiple stories / Casinos: Facilities for gambling and entertainment / Golf courses: Areas designed for playing the sport of golf / Reality television series: Television programs featuring unscripted real-life situations / Legal actions: Proceedings in a court of law to settle disputes / Business bankruptcies: Legal status of a person or an organization that cannot repay the debts owed'
+    const apiKey = fs.readFileSync("./APIs/apiKey.txt", "utf8").trim();
+    const prompt = fs.readFileSync("./APIs/prompt.txt", "utf8").trim();
+    const input = fs.readFileSync("./APIs/input.txt", "utf8").trim();
+    const test = new OpenAIChat(apiKey, prompt, input);
+    var results = await test.chat()
+    console.log(results)
     // Tách chuỗi thành mảng các cặp key-value
-    let pairs = results.split(' / ').map(pair => pair.split(': '));
+    let pairs = results.message.content.split(' / ').map(pair => pair.split(': '));
     // Tạo một đối tượng từ mảng các cặp key-value
     let resultMap = Object.fromEntries(pairs);
     return resultMap
