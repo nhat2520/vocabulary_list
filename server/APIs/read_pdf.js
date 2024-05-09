@@ -42,7 +42,7 @@ export class PdfReader {
    * Reads the PDF file, processes mathematical formulas, and logs the text.
    */
   async read() {
-    let dataBuffer = fs.readFileSync(this.pdfPath);
+        let dataBuffer = fs.readFileSync(this.pdfPath);
 
     return pdfParse(dataBuffer) //them return de tra ve ket qua tu ham nay
       .then(async function (data) {

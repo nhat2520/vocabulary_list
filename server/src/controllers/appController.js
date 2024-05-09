@@ -8,6 +8,7 @@ let {
 } = require("../services/appService");
 import { OpenAIChat } from "../../APIs/chatGPT_api.js";
 import { YouTubeCaptions } from "../../APIs/get_subtitles.js";
+import { PdfReader } from "../../APIs/read_pdf.js";
 const session = require('express-session')
 const Groq = require("groq-sdk");
 const groq = new Groq({
@@ -93,27 +94,21 @@ let handleChatGPTsubtitle = async (req, res) => {
     });
 };
 
-
+//tôi chỉ đang trả về text từ cái file thôi
 let handleChatGPTpdf = async (req, res) => {
-    let link = req.body.link;
-    // const apiKey = fs.readFileSync('apiKey.txt', 'utf8').trim();
-    // const prompt = fs.readFileSync('prompt.txt', 'utf8').trim();
-    // const input = fs.readFileSync('input.txt', 'utf8').trim();
-    // const test = await new OpenAIChat(apiKey, prompt, input);
-    // test.chat();
-    const youtubeUrl = "https://www.youtube.com/watch?v=DYFOtb70eEI";
+    let file = req.file;
     let text = "";
     try {
-        const captions = new YouTubeCaptions(link, "en");
-        text = await captions.fetch();
-        console.log(text);
+        let pdfReader = await new PdfReader(file.path);
+        text = await pdfReader.read();
+        //chỗ này ô tự đưa hàm chatGPTapi vào để xử lý cái text nha
     } catch (error) {
         console.error(error.message);
     }
     return res.status(200).json({
         errCode: 0,
         errMessage: "Oke roi",
-        text,
+        text
     });
 };
 

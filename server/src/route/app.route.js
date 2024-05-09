@@ -4,16 +4,6 @@ let router = express.Router();
 const multer = require('multer');
 
 let initAppAPIRoutes = (app) => {
-  const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-       cb(null, 'uploads/');
-    },
-    filename: (req, file, cb) => {
-       cb(null, file.originalname);
-    }
-  });
-  const upload = multer({ storage });
-
 
   //API
   router.get("/api/get-all-conversation", handleGetAllConversation);
@@ -27,11 +17,21 @@ let initAppAPIRoutes = (app) => {
 
   router.post("/api/chat-gpt-text", handleChatGPTtext);
   router.post("/api/chat-gpt-subtitleYoutube", handleChatGPTsubtitle)
+
+  //Xử lý file
+  const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+       cb(null, 'uploads/');
+    },
+    filename: (req, file, cb) => {
+       cb(null, file.originalname);
+    }
+  });
+  const upload = multer({ storage });
   router.post("/api/chat-gpt-pdf", upload.single('file'),  handleChatGPTpdf)
 
   return app.use("/", router);
 };
-
 
 
 module.exports = {
