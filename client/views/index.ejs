@@ -27,7 +27,28 @@
             const text_option = document.getElementById("text_option")
             const url_option = document.getElementById("url_option")
             const file_option = document.getElementById("file_option")
+            const upload_file = document.getElementById("upload_file")
+            const form = document.getElementById("form")
+            const formData = new FormData();
 
+            upload_file.addEventListener('change', function() {
+                document.getElementById("label_upload_file").textContent = this.files[0].name
+            })
+
+            const handleSubmit = (event) => {
+                event.preventDefault();
+
+                for (const file of upload_file.files) {
+                    formData.append("files", file);
+                }
+
+                fetch("http://localhost:6969/", {
+                    method: "post",
+                    body: formData,
+                }).catch((error) => ("Something went wrong!", error));
+            };
+
+            form.addEventListener("submit", handleSubmit);
 
             text_option.addEventListener('click', function() {
                 text.style.display = "block"
@@ -87,6 +108,8 @@
             }
             });
         }
+        
+
     </script>
   </head>
   
@@ -236,7 +259,7 @@
         <div ></div>
         <div ></div>
         <div class="relative">
-            <form action="/" method="post" class="chatbar absolute bottom-2 w-full">
+            <form id="form" action="/"  enctype='multipart/form-data' method="post" class="chatbar absolute bottom-2 w-full">
                 <div id="chatArea" class="border-2 rounded-2xl w-full h-[55px] bg-white grid grid-cols-[1fr_110px_50px]">
                     <div id="text" class="relative">
                       <textarea id="input_text" name="text" placeholder="Please enter text here" rows="1" class="absolute bottom-3 w-[calc(100%-20px)] focus:outline-none row-start-1 row-end-3 h-8 resize-none my-auto mx-3 font-sans font-[400] text-lg"></textarea>
@@ -244,8 +267,9 @@
                     <div id="url" class="relative hidden">
                         <textarea name="url" rows="1" name="url" placeholder="Please enter the YouTube URL" class="absolute bottom-3 w-[calc(100%-20px)] focus:outline-none row-start-1 row-end-3 h-8 resize-none my-auto mx-3 font-sans font-[400] text-lg"></textarea>
                     </div>
-                    <div id="file" class="relative hidden">
-                        <textarea name="file" rows="1" class="absolute bottom-3 w-[calc(100%-20px)] focus:outline-none row-start-1 row-end-3 h-8 resize-none my-auto mx-3 font-sans font-[400] text-lg"></textarea>
+                    <div id="file" class="relative hidden ml-3 mt-3.5 text-gray-400">
+                        <label id="label_upload_file" for="upload_file">Click here to upload a file</label>
+                        <input name="file" id="upload_file" type="file" accept="pdf/*" class="hidden">
                     </div>
                     <div class="relative">
                         <div id="option_btn" class="absolute bottom-1.5 h-fit w-[100px] bg-slate-300 p-1.5 font-['Ubuntu'] rounded-xl text-lg mx-auto mt-[5px] cursor-pointer">
