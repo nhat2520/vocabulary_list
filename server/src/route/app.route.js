@@ -1,4 +1,4 @@
-let { handleSaveDefineWord, handleSaveConversation, handleGetAllKeywords, handleGetAllConversation, handleDeleteConversation, handleDeleteDefineWord, handleChatGPTtext, handleChatGPTsubtitle, handleChatGPTpdf} = require("../controllers/appController");
+let {handleGetAllKeywords, handleGetAllConversation, handleDeleteConversation, handleDeleteDefineWord, handleChatGPTtext, handleChatGPTsubtitle, handleChatGPTpdf, handleSaveData} = require("../controllers/appController");
 var express = require("express");
 let router = express.Router();
 const multer = require('multer');
@@ -9,14 +9,14 @@ let initAppAPIRoutes = (app) => {
   router.get("/api/get-all-conversation", handleGetAllConversation);
   router.get("/api/get-all-define-word", handleGetAllKeywords);
 
-  router.post("/api/save-define-word", handleSaveDefineWord);
-  router.post("/api/save-conversation", handleSaveConversation);
-
   router.delete("/api/delete-conversation", handleDeleteConversation);
   router.delete("/api/delete-define-word", handleDeleteDefineWord);
 
   router.post("/api/chat-gpt-text", handleChatGPTtext);
   router.post("/api/chat-gpt-subtitleYoutube", handleChatGPTsubtitle)
+
+  //test
+  router.post("/save-data", handleSaveData);
 
   //Xử lý file
   const storage = multer.diskStorage({
