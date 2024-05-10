@@ -30,11 +30,13 @@ let handleSaveConversation = async (req, res) => {
     return res.status(200).json(message);
 };
 
+
 let handleGetAllKeywords = async (req, res) => {
     let id = req.query.id;
     let data = await getAllKeyword(id);
     return res.status(200).json(data);
 };
+
 
 let handleGetAllConversation = async (req, res) => {
     let id = req.query.id;
@@ -42,17 +44,20 @@ let handleGetAllConversation = async (req, res) => {
     return res.status(200).json(data);
 };
 
+
 let handleDeleteConversation = async (req, res) => {
     let id = req.body.id;
     let message = await deleteConversation(id);
     return res.status(200).json(message);
 };
 
+
 let handleDeleteDefineWord = async (req, res) => {
     let id = req.body.id;
     let message = await deleteDefineKeyword(id);
     return res.status(200).json(message);
 };
+
 
 let handleChatGPTtext = async (req, res) => {
     const { firstName, lastName } = req.session.user;
@@ -83,7 +88,7 @@ let handleChatGPTsubtitle = async (req, res) => {
       if (err) throw err;
     });
     fs.writeFile("./APIs/input.txt", text, async (err) => {
-        if (err) {
+        if (err) { 
             console.error('Error writing to file:', err);
             res.status(500).send('Error writing to file');
             return; 
@@ -100,30 +105,18 @@ let handleChatGPTsubtitle = async (req, res) => {
 };
 
 let handleChatGPTpdf = async (req, res) => {
-    const { firstName, lastName } = req.session.user;
-    let file = req.session.user.data.body.file
-    console.log(typeof(file))
-    //let pdfReader = new PdfReader(file);
-    //let text = await pdfReader.read();
-    // fs.writeFileSync("./APIs/input.txt", text, (err) => {
-    //     // In case of a error throw err.
-    //     if (err) throw err;
-    //   });
-    //   fs.writeFile("./APIs/input.txt", text, async (err) => {
-    //       if (err) {
-    //           console.error('Error writing to file:', err);
-    //           res.status(500).send('Error writing to file');
-    //           return; 
-    //       }
-    //       try {
-    //           let results = await chatGPTapi()
-    //           res.render('results', { firstName, lastName, results});
-    //       } catch (error) {
-    //           console.error('Error handling ChatGPT text:', error);
-    //           res.status(500).send('Server Error');
-    //       }
-    // });    
+    let file = req.file;
+    let text = "";
+    try {
+        let pdfReader = new PdfReader(file.path);
+        text = await pdfReader.read();
+        //chỗ này ô tự đưa hàm chatGPTapi vào để xử lý cái text nha
+    } catch (error) {
+        console.error(error.message);
+    }
+    return text
 };
+
 
 let chatGPTapi = async() => {
     const apiKey = fs.readFileSync("./APIs/apiKey.txt", "utf8").trim();

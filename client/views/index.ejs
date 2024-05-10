@@ -35,21 +35,6 @@
                 document.getElementById("label_upload_file").textContent = this.files[0].name
             })
 
-            const handleSubmit = (event) => {
-                event.preventDefault();
-
-                for (const file of upload_file.files) {
-                    formData.append("files", file);
-                }
-
-                fetch("http://localhost:6969/", {
-                    method: "post",
-                    body: formData,
-                }).catch((error) => ("Something went wrong!", error));
-            };
-
-            form.addEventListener("submit", handleSubmit);
-
             text_option.addEventListener('click', function() {
                 text.style.display = "block"
                 url.style.display = "none"
@@ -100,13 +85,17 @@
                 hidden_text2.style.opacity = "1"
             }
             })
-            textareaEle.addEventListener('input', () => {
+            textareaEle.addEventListener("keyup", handleTextAreaResize);
+            textareaEle.addEventListener("input", handleTextAreaResize);
+            textareaEle.addEventListener("paste", handleTextAreaResize);
+
+            function handleTextAreaResize() {
             if (textareaEle.scrollHeight <= 200) {
                 textareaEle.style.height = 'auto';
                 textareaEle.style.height = `${textareaEle.scrollHeight}px`;
-                chatArea.style.height = `${textareaEle.scrollHeight  + 27}px`;
+                chatArea.style.height = `${textareaEle.scrollHeight + 27}px`;
             }
-            });
+            }
         }
         
 
