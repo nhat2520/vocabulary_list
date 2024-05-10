@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu|Lora">
+    <link href="https://fonts.googleapis.com/css2?family=Reddit+Sans:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <script>
         function send_btn() {
@@ -40,8 +41,10 @@
                 url.style.display = "none"
                 file.style.display = "none"
                 for (let i = 0; i < optional.length; i++) {
-                    optional[i].style.display = 'none';
+                    optional[i].style.opacity = "0"
+                    optional[i].style.transitionDuration = "100ms"
                 }
+                option_btn.style.height = "41px"
             })
 
             url_option.addEventListener('click', function() {
@@ -49,8 +52,10 @@
                 url.style.display = "block"
                 file.style.display = "none"
                 for (let i = 0; i < optional.length; i++) {
-                    optional[i].style.display = 'none';
+                    optional[i].style.opacity = "0"
+                    optional[i].style.transitionDuration = "100ms"
                 }
+                option_btn.style.height = "41px"
             })
 
             file_option.addEventListener('click', function() {
@@ -58,43 +63,55 @@
                 url.style.display = "none"
                 file.style.display = "block"
                 for (let i = 0; i < optional.length; i++) {
-                    optional[i].style.display = 'none';
+                    optional[i].style.opacity = "0"
+                    optional[i].style.transitionDuration = "100ms"
                 }
+                option_btn.style.height = "41px"
             })
 
             option_btn.addEventListener('mouseover', function() {
                 for (let i = 0; i < optional.length; i++) {
-                    optional[i].style.display = 'block';
+                    optional[i].style.opacity = "1"
+                    optional[i].style.transitionDuration = "500ms"
                 }
+                option_btn.style.height = "120px"
+                document.getElementById("arrow").style.transform = "rotate(180deg)"
             })
 
             option_btn.addEventListener('mouseleave', function() {
                 for (let i = 0; i < optional.length; i++) {
-                    optional[i].style.display = 'none';
+                    optional[i].style.opacity = "0"
+                    optional[i].style.transitionDuration = "100ms"
                 }
+                option_btn.style.height = "41px"
+                document.getElementById("arrow").style.transform = "rotate(0deg)"
             })
 
             close_btn.addEventListener('click', function() {
-            if (parseInt(sidebar.style.width) > 100) {
-                sidebar.style.width = "64px"
-                hidden_text1.style.opacity = "0"
-                hidden_text2.style.opacity = "0"
-            } else {
-                sidebar.style.width = "224px"
-                hidden_text1.style.opacity = "1"
-                hidden_text2.style.opacity = "1"
-            }
+                if (parseInt(sidebar.style.width) > 100) {
+                    sidebar.style.width = "64px"
+                    hidden_text1.style.opacity = "0"
+                    hidden_text2.style.opacity = "0"
+                    hidden_text1.style.transitionDuration = "100ms"
+                    hidden_text2.style.transitionDuration = "100ms"
+                } else {
+                    sidebar.style.width = "224px"
+                    hidden_text1.style.opacity = "1"
+                    hidden_text2.style.opacity = "1"
+                    hidden_text1.style.transitionDuration = "500ms"
+                    hidden_text2.style.transitionDuration = "500ms"
+                }
             })
             textareaEle.addEventListener("keyup", handleTextAreaResize);
             textareaEle.addEventListener("input", handleTextAreaResize);
             textareaEle.addEventListener("paste", handleTextAreaResize);
 
             function handleTextAreaResize() {
-            if (textareaEle.scrollHeight <= 200) {
-                textareaEle.style.height = 'auto';
-                textareaEle.style.height = `${textareaEle.scrollHeight}px`;
-                chatArea.style.height = `${textareaEle.scrollHeight + 27}px`;
-            }
+                if (textareaEle.scrollHeight <= 200) {
+                    textareaEle.style.height = 'auto';
+                    textareaEle.style.height = `${textareaEle.scrollHeight}px`;
+                    chatArea.style.height = `${textareaEle.scrollHeight + 27}px`;
+                }
             }
         }
         
@@ -102,8 +119,8 @@
     </script>
   </head>
   
-  <body id="body" class="relative h-[100vh] w-screen font-['Ubuntu']">
-      <div id="sidebar" class="transition-all duration-500 absolute left-5 top-3 h-[calc(100vh-30px)] w-16 bg-white z-10 border-2 rounded-xl grid grid-rows-[120px_1fr_120px]">
+  <body id="body" class="relative h-[100vh] w-screen font-['Reddit Sans'] tran">
+      <div id="sidebar" class="transition-all duration-300 absolute left-5 top-3 h-[calc(100vh-30px)] w-16 bg-white z-10 border-2 rounded-xl grid grid-rows-[120px_1fr_120px]">
         <div class="box1 relative">
           <!-- search -->
           <div class="absolute bottom-0 border-2 m-2 rounded-lg w-[calc(100%-20px)]">
@@ -123,12 +140,12 @@
         <div class="box3">
           <!-- settings -->
           <div class="border-2 m-2 rounded-lg w-[calc(100%-20px)] h-10 relative">
-            <svg class="m-1.5" viewBox="0 0 24 24" height="25px" width="25px" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M14.1395 12.0002C14.1395 13.1048 13.2664 14.0002 12.1895 14.0002C11.1125 14.0002 10.2395 13.1048 10.2395 12.0002C10.2395 10.8957 11.1125 10.0002 12.1895 10.0002C13.2664 10.0002 14.1395 10.8957 14.1395 12.0002Z" stroke="#000000" stroke-width="1.344" stroke-linecap="round" stroke-linejoin="round"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M7.57381 18.1003L5.12169 12.8133C4.79277 12.2907 4.79277 11.6189 5.12169 11.0963L7.55821 5.89229C7.93118 5.32445 8.55898 4.98876 9.22644 5.00029H12.1895H15.1525C15.8199 4.98876 16.4477 5.32445 16.8207 5.89229L19.2524 11.0923C19.5813 11.6149 19.5813 12.2867 19.2524 12.8093L16.8051 18.1003C16.4324 18.674 15.8002 19.0133 15.1281 19.0003H9.24984C8.5781 19.013 7.94636 18.6737 7.57381 18.1003Z" stroke="#000000" stroke-width="1.344" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
-            <p id="hidden_text1" class="absolute top-0 left-9 float-left transition-opacity duration-500 mt-1 opacity-0">Settings</p>
+            <svg class="mt-1.5 ml-2" height="22px" width="22px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <circle cx="12" cy="12" r="10" stroke="#000000" stroke-width="1.488"></circle> <path d="M12 17V11" stroke="#000000" stroke-width="1.488" stroke-linecap="round"></path> <circle cx="1" cy="1" r="1" transform="matrix(1 0 0 -1 11 9)" fill="#000000"></circle> </g></svg>
+            <p id="hidden_text1" class="absolute top-[1px] left-9 float-left transition-opacity duration-400 mt-1 opacity-0">About us</p>
           </div>
-          <a href="/logout" class="relative flex border-2 m-2 rounded-lg w-[calc(100%-20px)]">
-            <svg class="float-left m-2" viewBox="0 0 24 24" height="18px" width="18px" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M2.00098 11.999L16.001 11.999M16.001 11.999L12.501 8.99902M16.001 11.999L12.501 14.999" stroke="#1C274C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M9.00195 7C9.01406 4.82497 9.11051 3.64706 9.87889 2.87868C10.7576 2 12.1718 2 15.0002 2L16.0002 2C18.8286 2 20.2429 2 21.1215 2.87868C22.0002 3.75736 22.0002 5.17157 22.0002 8L22.0002 16C22.0002 18.8284 22.0002 20.2426 21.1215 21.1213C20.2429 22 18.8286 22 16.0002 22H15.0002C12.1718 22 10.7576 22 9.87889 21.1213C9.11051 20.3529 9.01406 19.175 9.00195 17" stroke="#1C274C" stroke-width="2.4" stroke-linecap="round"></path> </g></svg>
-            <p id="hidden_text2" class="absolute top-0 left-9 float-left transition-opacity duration-500 mt-1 opacity-0"><%= firstName %> <%= lastName %>  </p>
+          <a href="/logout" class="relative flex border-2 m-2 p-2 rounded-lg w-[calc(100%-20px)]">
+            <svg width="22px" height="22px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#000000" stroke-width="0.00024000000000000003"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M8.25 9C8.25 6.92893 9.92893 5.25 12 5.25C14.0711 5.25 15.75 6.92893 15.75 9C15.75 11.0711 14.0711 12.75 12 12.75C9.92893 12.75 8.25 11.0711 8.25 9ZM12 6.75C10.7574 6.75 9.75 7.75736 9.75 9C9.75 10.2426 10.7574 11.25 12 11.25C13.2426 11.25 14.25 10.2426 14.25 9C14.25 7.75736 13.2426 6.75 12 6.75Z" fill="#000000"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M1.25 12C1.25 6.06294 6.06294 1.25 12 1.25C17.9371 1.25 22.75 6.06294 22.75 12C22.75 17.9371 17.9371 22.75 12 22.75C6.06294 22.75 1.25 17.9371 1.25 12ZM12 2.75C6.89137 2.75 2.75 6.89137 2.75 12C2.75 14.5456 3.77827 16.851 5.4421 18.5235C5.6225 17.5504 5.97694 16.6329 6.68837 15.8951C7.75252 14.7915 9.45416 14.25 12 14.25C14.5457 14.25 16.2474 14.7915 17.3115 15.8951C18.023 16.6329 18.3774 17.5505 18.5578 18.5236C20.2217 16.8511 21.25 14.5456 21.25 12C21.25 6.89137 17.1086 2.75 12 2.75ZM17.1937 19.6554C17.0918 18.4435 16.8286 17.5553 16.2318 16.9363C15.5823 16.2628 14.3789 15.75 12 15.75C9.62099 15.75 8.41761 16.2628 7.76815 16.9363C7.17127 17.5553 6.90811 18.4434 6.80622 19.6553C8.28684 20.6618 10.0747 21.25 12 21.25C13.9252 21.25 15.7131 20.6618 17.1937 19.6554Z" fill="#000000"></path> </g></svg>
+            <p id="hidden_text2" class="absolute top-0.5 left-9 float-left transition-opacity duration-400 mt-1 opacity-0 whitespace-nowrap"><%= firstName %> <%= lastName %>  </p>
           </a>
 
         </div> 
@@ -249,28 +266,34 @@
         <div ></div>
         <div class="relative">
             <form id="form" action="/"  enctype='multipart/form-data' method="post" class="chatbar absolute bottom-2 w-full">
-                <div id="chatArea" class="border-2 rounded-2xl w-full h-[55px] bg-white grid grid-cols-[1fr_110px_50px]">
+                <div id="chatArea" class="border-2 rounded-2xl w-full h-[55px] bg-white grid grid-cols-[1fr_110px_50px] transition-all duration-75">
                     <div id="text" class="relative">
-                      <textarea id="input_text" name="text" placeholder="Please enter text here" rows="1" class="absolute bottom-3 w-[calc(100%-20px)] focus:outline-none row-start-1 row-end-3 h-8 resize-none my-auto mx-3 font-sans font-[400] text-lg"></textarea>
+                      <textarea id="input_text" name="text" placeholder="Please enter text here" rows="1" class="custom-scrollbar absolute bottom-3 w-[calc(100%-20px)] focus:outline-none row-start-1 row-end-3 h-7 resize-none my-auto mx-3 font-sans font-[400] text-lg"></textarea>
                     </div>
                     <div id="url" class="relative hidden">
-                        <textarea name="url" rows="1" name="url" placeholder="Please enter the YouTube URL" class="absolute bottom-3 w-[calc(100%-20px)] focus:outline-none row-start-1 row-end-3 h-8 resize-none my-auto mx-3 font-sans font-[400] text-lg"></textarea>
+                        <textarea name="url" rows="1" name="url" placeholder="Please enter the YouTube URL" class="absolute bottom-3 w-[calc(100%-20px)] focus:outline-none row-start-1 row-end-3 h-7 resize-none my-auto mx-3 font-sans font-[400] text-lg"></textarea>
                     </div>
-                    <div id="file" class="relative hidden ml-3 mt-3.5 text-gray-400">
+                    <div id="file" class="relative hidden ml-3 mt-[12px] text-gray-400 text-lg">
                         <label id="label_upload_file" for="upload_file">Click here to upload a file</label>
                         <input name="file" id="upload_file" type="file" accept="pdf/*" class="hidden">
                     </div>
                     <div class="relative">
-                        <div id="option_btn" class="absolute bottom-1.5 h-fit w-[100px] bg-slate-300 p-1.5 font-['Ubuntu'] rounded-xl text-lg mx-auto mt-[5px] cursor-pointer">
-                            <div id="text_option" class="optional hidden">text</div>
-                            <div id="url_option" class="optional hidden">url</div>
-                            <div id="file_option" class="optional hidden">file</div>
+                        <div id="option_btn" class="absolute bottom-1.5 h-[41px] flex flex-col-reverse w-[100px] bg-slate-300 p-[6.5px] font-['Ubuntu'] rounded-xl text-lg mx-auto mt-[5px] cursor-pointer transition-all duration-200">
                             <div>
                                 <span>option</span>
-                                <span class="float-right mt-1.5 mr-1">
-                                    <svg width="16px" height="16px" viewBox="0 0 1024 1024" fill="#000000" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" stroke="#000000" stroke-width="62.464"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M509.928 387.16c7.24-7.991 17.58-7.898 24.782 0.333l270.568 309.222c7.759 8.867 21.237 9.765 30.103 2.007 8.867-7.759 9.766-21.237 2.007-30.103L566.82 359.397c-24-27.429-64.127-27.792-88.507-0.89L197.526 668.342c-7.912 8.73-7.249 22.221 1.482 30.133 8.73 7.912 22.221 7.249 30.133-1.482L509.928 387.16z" fill=""></path></g></svg>
+                                <span id="arrow" class="float-right mt-1.5 mr-1 transition-transform duration-200">
+                                  <svg width="16px" height="16px" viewBox="0 0 1024 1024" fill="#000000" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" stroke="#000000" stroke-width="62.464">
+                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                    <g id="SVGRepo_iconCarrier">
+                                      <path d="M509.928 387.16c7.24-7.991 17.58-7.898 24.782 0.333l270.568 309.222c7.759 8.867 21.237 9.765 30.103 2.007 8.867-7.759 9.766-21.237 2.007-30.103L566.82 359.397c-24-27.429-64.127-27.792-88.507-0.89L197.526 668.342c-7.912 8.73-7.249 22.221 1.482 30.133 8.73 7.912 22.221 7.249 30.133-1.482L509.928 387.16z" fill=""></path>
+                                    </g>
+                                  </svg>
                                 </span>
-                            </div>
+                              </div>
+                              <div id="file_option" class="optional opacity-0 transition-opacity hover:text-gray-500">file</div>
+                              <div id="url_option" class="optional opacity-0 transition-opacity hover:text-gray-500">url</div>
+                              <div id="text_option" class="optional opacity-0 transition-opacity hover:text-gray-500">text</div>
                         </div>
                     </div>
                     <div class="relative">
