@@ -27,7 +27,7 @@ exports.login = async (req, res) => {
         } else {
             // A user with that email address does not exists
             const pswErr = "The password that you've entered is incorrect.";
-            res.render('auth/login2', {pswErr});
+            res.render('auth/login', {pswErr});
         }
     })
   }

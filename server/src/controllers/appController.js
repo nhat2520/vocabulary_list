@@ -15,35 +15,7 @@ const groq = new Groq({
     apiKey: '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'
 });
 
-
-
 const fs = require("fs");
-let handleSaveDefineWord = async (req, res) => {
-    let data = req.body;
-    let message = await saveDefineWord(data);
-    return res.status(200).json(message);
-};
-
-let handleSaveConversation = async (req, res) => {
-    let data = req.body;
-    let message = await saveConversation(data);
-    return res.status(200).json(message);
-};
-
-
-let handleGetAllKeywords = async (req, res) => {
-    let id = req.query.id;
-    let data = await getAllKeyword(id);
-    return res.status(200).json(data);
-};
-
-
-let handleGetAllConversation = async (req, res) => {
-    let id = req.query.id;
-    let data = await getAllConversation(id);
-    return res.status(200).json(data);
-};
-
 
 let handleDeleteConversation = async (req, res) => {
     let id = req.body.id;
@@ -144,9 +116,50 @@ let getSubtitlesFromLink = async (link) => {
     return text;
 };
 
+
+let handleSaveData = async (req, res) => {
+    try {
+        let userId = req.session.user.id;
+        let data = req.body;
+        console.log(data)
+        let text = "test cai";
+        let conversation = await saveConversation(userId, text);
+
+        for (let element of data) {
+            await saveDefineWord(element[0], element[1], conversation.id);
+        }
+        //chỗ này ko redirect đc vì dùng fetch api nên phải redirect bằng thẻ a trong file results(chỗ nút save ấy)
+        res.status(200);
+    } catch (error) {
+        console.error("Error:", error);
+        return res.status(500).send("Internal Server Error");
+    }
+};
+
+let handleGetAllConversation = async (req, res) => {
+    try {
+        let userId = req.session.user.id;
+        let data = await getAllConversation(userId);
+        res.send("oke")
+    } catch (e) {
+        console.log(e)
+    }
+};
+
+
+let handleGetAllKeywords = async (req, res) => {
+    try {
+        let conversationId = req.query.conversationId;
+        let data = await getAllKeyword(conversationId);
+        return res.status(200).json(data);
+    } catch (e) {
+        console.log(e)
+    }
+};
+
+
+
 module.exports = {
-    handleSaveDefineWord,
-    handleSaveConversation,
     handleGetAllKeywords,
     handleGetAllConversation,
     handleDeleteConversation,
@@ -154,4 +167,5 @@ module.exports = {
     handleChatGPTtext,
     handleChatGPTsubtitle,
     handleChatGPTpdf,
+    handleSaveData
 };

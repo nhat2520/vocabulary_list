@@ -18,9 +18,6 @@ module.exports = {
       text: {
         type: Sequelize.TEXT
       },
-      keywordID: {
-        type: Sequelize.INTEGER
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

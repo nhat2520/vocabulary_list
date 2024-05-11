@@ -42,7 +42,7 @@ exports.register = async (req, res) => {
       firstName: firstName,
       lastName: lastName,
     });
-
+ 
     console.log("User created successfully");
     res.redirect('/login');
   } catch (error) {

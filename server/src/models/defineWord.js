@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   defineWord.init({
     keyword: DataTypes.STRING,
     defineWord: DataTypes.TEXT,
+    conversationId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'defineWord',

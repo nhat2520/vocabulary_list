@@ -1,59 +1,5 @@
 let db = require('../models/index');
 import { where } from 'sequelize';
-let saveDefineWord = async(data)=>{
-    
-    return new Promise(async(resolve, reject)=>{
-        try {
-            let check = await checkKeyWord(data.keyWord)
-
-            if(check) {
-                console.log(await checkKeyWord(data.keyWord));
-                resolve({
-                    errCode: 1,
-                    errMessage: "Keyword already exists",
-                    hi: checkKeyWord(data.keyWord)
-                })
-            } else {
-                await db.defineWord.create({
-                    keyword: data.keyWord,
-                    defineWord: data.defineWord
-                })
-                resolve({
-                    errCode: 0,
-                    errMessage: "Word saved succeed!",
-                })
-            }
-        } catch (e) {
-            reject(e);
-        }
-    })
-}
-
-let saveConversation = (data) => {
-    return new Promise(async(resolve, reject)=>{
-        try {
-            if(!data.text) {
-                resolve({
-                    errCode: 1,
-                    errMessage: "Text empty! please enter the text"
-                })
-            } else {
-                await db.Conversation.create({
-                    userID: data.userID,
-                    time: data.time,
-                    text: data.text,
-                    keywordID: data.keywordID
-                })
-                resolve({
-                    errCode: 0,
-                    errMessage: "Save new conversation succeed",
-                })
-            }
-        } catch (e) {
-            reject(e);
-        }
-    })
-}
 
 let checkKeyWord = (keyword) => {
     return new Promise(async(resolve, reject)=>{
@@ -75,24 +21,12 @@ let checkKeyWord = (keyword) => {
     })
 }
 
-let getAllKeyword = (id) => {
+let getAllKeyword = (conversationId) => {
     return new Promise(async(resolve, reject)=>{
         try {
-            let keywords = "";
-            if (id == "ALL" || !id) {
-                keywords = await db.defineWord.findAll();
-            } 
-            if(id && id != "ALL") {
-                keywords = await db.defineWord.findOne({
-                    where: {keyword : id} //neu id = keyword thi tra ve keyword
-                })
-                if(!keywords) {
-                    resolve({
-                        errCode: 1,
-                        errMessage: "Keyword is not in database!"
-                    })
-                }
-            }
+            let keywords = await db.defineWord.findAll({
+                where: {conversationId: conversationId}
+            });
             resolve(keywords);
         } catch (e) {
             reject(e);
@@ -100,24 +34,12 @@ let getAllKeyword = (id) => {
     })
 }
 
-let getAllConversation = (id) => {
+let getAllConversation = (userId) => {
     return new Promise(async(resolve, reject)=>{
         try {
-            let conversation = "";
-            if (id == "ALL" || !id) {
-                conversation = await db.Conversation.findAll();
-            } 
-            if(id && id != "ALL") {
-                conversation = await db.Conversation.findOne({
-                    where: {id : id} //neu id = keyword thi tra ve keyword
-                })
-                if(!conversation) {
-                    resolve({
-                        errCode: 1,
-                        errMessage: "Conversation is not in database!"
-                    })
-                }
-            }
+            let conversation = await db.Conversation.findAll({
+                where: {userID: userId}
+            });
             resolve(conversation);
         } catch (e) {
             reject(e);
@@ -176,6 +98,52 @@ let deleteDefineKeyword = (keywordId) => {
           reject(e);
         }
       })
+}
+
+
+
+let saveDefineWord = async(keyword, defineword, conversationId)=>{
+    return new Promise(async(resolve, reject)=>{
+        try {
+                await db.defineWord.create({
+                    keyword: keyword,
+                    defineWord: defineword,
+                    conversationId: conversationId
+                })
+                resolve({
+                    errCode: 0,
+                    errMessage: "Word saved succeed!",
+                })
+        } catch (e) {
+            reject(e);
+        }
+    })
+}
+
+let saveConversation = (userId, text) => {
+    return new Promise(async(resolve, reject)=>{
+        try {
+            if(!text) {
+                resolve({
+                    errCode: 1,
+                    errMessage: "Text empty! please enter the text"
+                })
+            } else {
+                let conversation = await db.Conversation.create({
+                    userID: userId,
+                    time: Date.now(),
+                    text: text,
+                })
+                resolve({
+                    errCode: 0,
+                    errMessage: "Save new conversation succeed",
+                    id: conversation.id
+                })
+            }
+        } catch (e) {
+            reject(e);
+        }
+    })
 }
 
 module.exports = {
