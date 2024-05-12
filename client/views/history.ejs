@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <title>App</title>
-    <link href="main.css" rel="stylesheet" >  
+    <link href="main.css" rel="stylesheet" > 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
@@ -19,7 +19,7 @@
             const logout_button = document.getElementById("logout_button")
 
             logout_button.addEventListener('click', function(event) {
-                // Hiển thị cảnh báo
+                  // Hiển thị cảnh báo
                 const confirmLogout = confirm('Are you sure you want to log out?');
 
                 // Nếu người dùng không xác nhận, ngăn chặn sự kiện click
@@ -56,7 +56,6 @@
         }
     </script>
   </head>
-  
   <body id="body" class="relative h-[100vh] w-screen font-['Reddit Sans']">
       <div id="sidebar" class="transition-all duration-300 absolute left-5 top-3 h-[calc(100vh-30px)] w-16 bg-white z-10 border-2 rounded-xl grid grid-rows-[120px_1fr_120px]">
         <div class="box1 relative">
@@ -76,7 +75,7 @@
             <ul class="mt-4">
                 <% conversations.forEach(conversation => { %>
                     <div class="history_data text-sm font-[500] w-2 p-2 hover:bg-slate-100 mx-2 rounded-md duration-200 transition-all opacity-0 ">
-                        <a  href="/conversationNumber<%=conversation.id%>">>
+                        <a  href="/conversationNumber<%=conversation.id%>"> 
                             <li class="overflow-hidden whitespace-nowrap" ><%= conversation.text %></li>
                         </a>
                     </div>
@@ -100,48 +99,58 @@
       </div>
       
       <!--chatframe-->
-      <div class="h-full chatframe grid grid-cols-[1fr_2fr_1fr] grid-rows-[1fr_150px] [&>*]:bg-[#F3F6FB]">
-        <div >
-          <span id="open_btn" class="mt-1 mr-4 hidden">
-            <svg class="h-8 w-8" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg" fill="#000000" stroke="#000000" stroke-width="1.848"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g fill="none" fill-rule="evenodd" stroke="#5662F6" stroke-linecap="round" stroke-linejoin="round" transform="translate(3 3)"> <path d="m.5 12.5v-10c0-1.1045695.8954305-2 2-2h10c1.1045695 0 2 .8954305 2 2v10c0 1.1045695-.8954305 2-2 2h-10c-1.1045695 0-2-.8954305-2-2z"></path> <path d="m2.5 12.5v-10c0-1.1045695.8954305-2 2-2h-2c-1 0-2 .8954305-2 2v10c0 1.1045695 1 2 2 2h2c-1.1045695 0-2-.8954305-2-2z" fill="#5662F6"></path> <path d="m7.5 10.5-3-3 3-3"></path> <path d="m12.5 7.5h-8"></path> </g> </g></svg>
-          </span>
+      <div class="h-full chatframe grid grid-cols-[1fr_2fr] [&>*]:bg-[#F3F6FB]">
+        <div class="grid grid-cols-[110px_minmax(150px,1fr)]">
+            <div></div>
+            <div>
+                <div class="rounded-lg border-2 mt-10 ">
+                    <table>
+                        <tr>
+                            <th class="py-3 bg-[#6e7bda] text-white uppercase rounded-tr-lg rounded-tl-lg">Text</th>
+                        </tr>
+                        <tr>
+                            <td class="p-4">A rock and roll song recorded by Jerry Lee Lewis in 1957, known for its energetic and upbeat style</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="mt-5 flex justify-center">
+                    <form action="/conversationNumber" method="post">
+                        <button name="delete_btn" class="py-[6px] w-24 border-2 border-red-200 rounded-full">Delete</button>
+                        <button name="back_btn" class="py-[6px] w-24 border-2 bg-green-400 rounded-full text-white">Back</button>
+                    </form>
+                </div>
+            </div>
+            
         </div>
         <div class="output h-full w-full relative">
-                <div class="flex flex-col mt-10">
+                <div class="flex flex-col mt-10 mx-10">
                     <div class="-m-1.5 overflow-x-auto">
                       <div class="p-1.5 inline-block align-middle">
                         <div class="border-2 border-gray-400 rounded-lg overflow-hidden">
                           <table id="data-table" class="divide-y divide-gray-400">
                             <thead class="bg-[#6e7bda] text-white">
                               <tr>
-                                <th scope="col" class="px-6 py-3 text-s font-medium uppercase">Key</th>
-                                <th scope="col" class="px-6 py-3 text-s font-medium uppercase">Definition</th>
+                                <th scope="col" class="px-6 py-3 text-s font-medium  uppercase">Key</th>
+                                <th scope="col" class="px-6 py-3 text-s font-medium  uppercase">Definition</th>
                               </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-400">
-                                <% for (const [key, value] of Object.entries(results)) { %>
+                                <% results.forEach(key => {
+                                    %>
                                     <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800"><%= key %></td>
-                                        <td class="px-6 py-4 text-sm text-gray-800"><%= value %></td>   
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800"><%= key.dataValues.keyword %></td>
+                                        <td class="px-6 py-4 text-sm text-gray-800"><%= key.dataValues.defineWord %></td>   
                                     </tr>
-                                <% } %>
+                                <%
+                                }) %>
                               </tr>
                             </tbody>
                           </table>
                         </div>
                       </div>
                     </div>
-                  </div>
+                </div>
         </div>
-        <div ></div>
-        <div ></div>
-        <form action="/results" method="post" class="flex justify-center gap-4 pt-5">
-                <button id="cancel_btn" name="cancel_btn" type="submit" class="h-9 w-32 border-red-400 border text-red-400 rounded-full hover:text-white hover:bg-red-400 transition duration-300">Cancel</button>
-                <button id="save-btn" name="save_btn" class="h-9 w-32 bg-green-500 text-white rounded-full hover:bg-green-600 transition duration-300">Save</button>
-        </form>
-        <div></div>
-        
-        <div></div>
       </div>
     <!-- <script>
         document.getElementById('save-btn').addEventListener('click', function() {

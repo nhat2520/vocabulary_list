@@ -15,9 +15,10 @@ const session = require('express-session')
 const fs = require("fs");
 
 let handleDeleteConversation = async (req, res) => {
-    let id = req.body.id;
-    let message = await deleteConversation(id);
-    return res.status(200).json(message);
+    let id = req.session.user.conversationId;
+    console.log(id)
+    await deleteConversation(id);
+    res.redirect('/')
 };
 
 let handleDeleteDefineWord = async (req, res) => {
@@ -40,14 +41,13 @@ let handleChatGPTtext = async (req, res) => {
             let results = await chatGPTapi(req)
             const conversations = await handleGetAllConversation(req, res)
             console.log(conversations)
-            res.render('results', { firstName, lastName,conversations, results});
+            res.render('results', { firstName,lastName,conversations, results});
         } catch (error) {
             console.error('Error handling ChatGPT text:', error);
             res.status(500).send('Server Error');
         }
     });
 };
-
 
 let handleChatGPTsubtitle = async (req, res) => {
     
@@ -158,15 +158,16 @@ let handleGetAllConversation = async (req, res) => {
 
 let handleGetAllKeywords = async (req, res) => {
     try {
-        let conversationId = req.query.conversationId;
-        let data = await getAllKeyword(conversationId);
-        return res.status(200).json(data);
+        let conversationId = req.params.id;
+        const { firstName, lastName } = req.session.user;
+        req.session.user.conversationId = req.params.id
+        const conversations = await handleGetAllConversation(req, res)
+        let results = await getAllKeyword(conversationId);
+        res.render('history',{firstName, lastName, conversations, results})
     } catch (e) {
         console.log(e)
     }
 };
-
-
 
 module.exports = {
     handleGetAllKeywords,
