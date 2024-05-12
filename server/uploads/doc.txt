@@ -1,1 +1,0 @@
-Mấy cái file pdf sẽ lưu vào trong thư mục uploads này (ko cần quan tâm đến thư mục này, có nó là đc)

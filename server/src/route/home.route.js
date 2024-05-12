@@ -1,6 +1,6 @@
 const session = require('express-session')
 const authMiddleware = require('../middlewares/auth.middleware')
-let {handleChatGPTtext, handleChatGPTsubtitle, handleChatGPTpdf } = require("../controllers/appController")
+let {handleChatGPTtext, handleChatGPTsubtitle, handleChatGPTpdf, handleSaveData, handleGetAllConversation } = require("../controllers/appController")
 const { request } = require('express')
 const multer = require('multer');
 
@@ -17,10 +17,12 @@ module.exports = app => {
 });
 const upload = multer({ storage });
 
-    route.get('/',authMiddleware.loggedin, (req, res) => {
+    route.get('/',authMiddleware.loggedin, async (req, res) => {
         const firstName = req.session.user.firstName
         const lastName = req.session.user.lastName
-        res.render('index', {firstName, lastName} ) 
+        const conversations = await handleGetAllConversation(req, res)
+
+        res.render('index', {firstName, lastName, conversations} ) 
     }) 
 
     // route.post('/', authMiddleware.loggedin,upload.single('file'), handleChatGPTpdf)
@@ -52,9 +54,22 @@ const upload = multer({ storage });
     })
 
     route.post('/results', authMiddleware.loggedin, (req, res) => {
-        console.log("helloO")
-        res.redirect('/') 
+        console.log(req.body)
+        const cancel_btn = req.body.cancel_btn
+        const save_btn = req.body.cancel_btn
+        if(cancel_btn != null) {
+            console.log("cancel")
+            res.redirect('/')
+        } else {
+            handleSaveData(req, res)
+        }
     })
+ 
+    route.get('/history/:id', authMiddleware.loggedin, function (req, res) {
+        const id = req.params.id;
+        
+        res.send(`Đây là id: ${id}`);
+      });
 
     app.use(route)
 }
