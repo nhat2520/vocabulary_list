@@ -15,6 +15,9 @@ module.exports = {
       defineWord: {
         type: Sequelize.TEXT
       },
+      conversationId: {
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

@@ -1,6 +1,7 @@
 const OpenAI = require("openai");
 const fs = require('fs');
 const YoutubeDownloader = require('./download_mp3_file.js');
+const path = require("path");
 
 class YoutubeTranscriber {
   constructor(videoId, apiKey) {
@@ -16,7 +17,7 @@ class YoutubeTranscriber {
 
     // Transcribe the mp3 file
     const transcription = await this.openai.audio.transcriptions.create({
-      file: fs.createReadStream(mp3FilePath),
+      file: fs.createReadStream(path.join(__dirname, mp3FilePath)),
       model: "whisper-1",
     });
 

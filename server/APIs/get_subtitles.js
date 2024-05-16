@@ -3,11 +3,12 @@ const url = require('url');
 const querystring = require('querystring');
 const fs = require('fs');
 const YoutubeTranscriber = require('./youtube_transcriber.js')
+const path = require("path")
 
 /**
  * Class to fetch YouTube video captions.
  */
-class YouTubeCaptions {
+export class YouTubeCaptions {
   /**
    * @param {string} youtubeUrl - The YouTube video URL.
    * @param {string} lang - The language code for the captions.
@@ -19,7 +20,7 @@ class YouTubeCaptions {
 
     this.videoID = this.getVideoIdFromUrl(youtubeUrl);
     this.lang = lang;
-    this.apiKey = fs.readFileSync('apiKey.txt', 'utf8').trim();
+    this.apiKey = fs.readFileSync(path.join(__dirname, 'apiKey.txt'), 'utf8').trim();
   }
 
   /**
@@ -64,20 +65,21 @@ class YouTubeCaptions {
       const text = captions.map(item => item.text).join(' ');
       return text;
     }).catch(error => {
+
       const transcriber = new YoutubeTranscriber(this.videoID, this.apiKey);
+
       return transcriber.transcribe();
     });
   }
-    
 }  
 
 // Using the class
-const youtubeUrl = 'https://www.youtube.com/watch?v=BN9sGR948RM';
-try {
-  const captions = new YouTubeCaptions(youtubeUrl, 'en');
-  captions.fetch().then(transcript => {
-    console.log(transcript);
-  });
-} catch (error) {
-  console.error(error.message);
-}
+// const youtubeUrl = 'https://www.youtube.com/watch?v=BN9sGR948RM';
+// try {
+//   const captions = new YouTubeCaptions(youtubeUrl, 'en');
+//   captions.fetch().then(transcript => {
+//     console.log(transcript);
+//   });
+// } catch (error) {
+//   console.error(error.message);
+// }

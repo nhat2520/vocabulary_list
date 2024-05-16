@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>App</title>
+    <link href="main.css" rel="stylesheet" >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu|Lora">
+    <link href="https://fonts.googleapis.com/css2?family=Reddit+Sans:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <script>
+        function send_btn() {
+            document.getElementById('logo_center').style.display = "none"
+        }
+        window.onload = function() { 
+            const close_btn = document.getElementById("close_btn") 
+            const sidebar = document.getElementById("sidebar")
+            const hidden_text1 = document.getElementById("hidden_text1")
+            const hidden_text2 = document.getElementById("hidden_text2")
+            const textareaEle = document.getElementById('input_text')
+            const chatArea = document.getElementById("chatArea")
+            const option_btn = document.getElementById("option_btn")
+            const optional = document.getElementsByClassName('optional')
+            const text = document.getElementById("text")
+            const url = document.getElementById("url")
+            const file = document.getElementById("file")
+            const text_option = document.getElementById("text_option")
+            const url_option = document.getElementById("url_option")
+            const file_option = document.getElementById("file_option")
+            const upload_file = document.getElementById("upload_file")
+            const form = document.getElementById("form")
+            const formData = new FormData();
+            const logout_button = document.getElementById("logout_button")
+            const history_data = document.getElementsByClassName("history_data")
+
+            logout_button.addEventListener('click', function(event) {
+                  // Hiển thị cảnh báo
+                const confirmLogout = confirm('Are you sure you want to log out?');
+
+                // Nếu người dùng không xác nhận, ngăn chặn sự kiện click
+                if (!confirmLogout) {
+                event.preventDefault();
+                }
+            });
+
+            upload_file.addEventListener('change', function() {
+                document.getElementById("label_upload_file").textContent = this.files[0].name
+            })
+
+            text_option.addEventListener('click', function() {
+                text.style.display = "block"
+                url.style.display = "none"
+                file.style.display = "none"
+                for (let i = 0; i < optional.length; i++) {
+                    optional[i].style.opacity = "0"
+                    optional[i].style.transitionDuration = "100ms"
+                }
+                option_btn.style.height = "41px"
+            })
+
+            url_option.addEventListener('click', function() {
+                text.style.display = "none"
+                url.style.display = "block"
+                file.style.display = "none"
+                for (let i = 0; i < optional.length; i++) {
+                    optional[i].style.opacity = "0"
+                    optional[i].style.transitionDuration = "100ms"
+                }
+                option_btn.style.height = "41px"
+            })
+
+            file_option.addEventListener('click', function() {
+                text.style.display = "none"
+                url.style.display = "none"
+                file.style.display = "block"
+                for (let i = 0; i < optional.length; i++) {
+                    optional[i].style.opacity = "0"
+                    optional[i].style.transitionDuration = "100ms"
+                }
+                option_btn.style.height = "41px"
+            })
+
+            option_btn.addEventListener('mouseover', function() {
+                for (let i = 0; i < optional.length; i++) {
+                    optional[i].style.opacity = "1"
+                    optional[i].style.transitionDuration = "500ms"
+                }
+                option_btn.style.height = "120px"
+                document.getElementById("arrow").style.transform = "rotate(180deg)"
+            })
+
+            option_btn.addEventListener('mouseleave', function() {
+                for (let i = 0; i < optional.length; i++) {
+                    optional[i].style.opacity = "0"
+                    optional[i].style.transitionDuration = "100ms"
+                }
+                option_btn.style.height = "41px"
+                document.getElementById("arrow").style.transform = "rotate(0deg)"
+            })
+
+            close_btn.addEventListener('click', function() {
+                if (parseInt(sidebar.style.width) > 100) {
+                    sidebar.style.width = "64px"
+                    hidden_text1.style.opacity = "0"
+                    hidden_text2.style.opacity = "0"
+                    hidden_text1.style.transitionDuration = "100ms"
+                    hidden_text2.style.transitionDuration = "100ms"
+                    for (let i = 0; i < history_data.length; i++) {
+                        history_data[i].style.opacity = "0"
+                        history_data[i].style.transitionDuration = "100ms"
+                        history_data[i].style.width = "20px"
+                    }
+                } else {
+                    sidebar.style.width = "224px"
+                    hidden_text1.style.opacity = "1"
+                    hidden_text2.style.opacity = "1"
+                    hidden_text1.style.transitionDuration = "500ms"
+                    hidden_text2.style.transitionDuration = "500ms"
+                    for (let i = 0; i < history_data.length; i++) {
+                        history_data[i].style.opacity = "1"
+                        history_data[i].style.transitionDuration = "300ms"
+                        history_data[i].style.width = "175px"
+                    }
+                }
+            })
+            textareaEle.addEventListener("keyup", handleTextAreaResize);
+            textareaEle.addEventListener("input", handleTextAreaResize);
+            textareaEle.addEventListener("paste", handleTextAreaResize);
+
+            function handleTextAreaResize() {
+                if (textareaEle.scrollHeight <= 200) {
+                    textareaEle.style.height = 'auto';
+                    textareaEle.style.height = `${textareaEle.scrollHeight}px`;
+                    chatArea.style.height = `${textareaEle.scrollHeight + 27}px`;
+                }
+            }
+        }
+        
+
+    </script>
+  </head>
+  
+  <body id="body" class="relative h-[100vh] w-screen font-['Reddit Sans'] tran">
+      <div id="sidebar" class="transition-all duration-300 absolute left-5 top-3 h-[calc(100vh-30px)] w-16 bg-white z-10 border-2 rounded-xl grid grid-rows-[120px_1fr_120px]">
+        <div class="box1 relative">
+          <!-- search -->
+          <div class="absolute bottom-0 border-2 m-2 rounded-lg w-[calc(100%-20px)]">
+            <svg class="m-2" height="20px" width="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+          </div>
+          <!-- close button -->
+          <div id="close_btn" class="absolute border-2 m-2 rounded-lg w-fit h-fit right-1">
+            <svg class="m-2" height="20px" width="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M5 6H12H19M5 12H19M5 18H19" stroke="#000000" stroke-width="2.016" stroke-linecap="round"></path> </g></svg>
+          </div>
+        </div>
+        <div class="box2">
+            <!-- history -->
+            <div class="relative border-2 mx-2 rounded-lg w-[calc(100%-20px)] h-full">
+                <svg class="ml-2 mt-2" height="22px" width="22px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M5.07868 5.06891C8.87402 1.27893 15.0437 1.31923 18.8622 5.13778C22.6824 8.95797 22.7211 15.1313 18.9262 18.9262C15.1312 22.7211 8.95793 22.6824 5.13774 18.8622C2.87389 16.5984 1.93904 13.5099 2.34047 10.5812C2.39672 10.1708 2.775 9.88377 3.18537 9.94002C3.59575 9.99627 3.88282 10.3745 3.82658 10.7849C3.4866 13.2652 4.27782 15.881 6.1984 17.8016C9.44288 21.0461 14.6664 21.0646 17.8655 17.8655C21.0646 14.6664 21.046 9.44292 17.8015 6.19844C14.5587 2.95561 9.33889 2.93539 6.13935 6.12957L6.88705 6.13333C7.30126 6.13541 7.63535 6.47288 7.63327 6.88709C7.63119 7.3013 7.29372 7.63539 6.87951 7.63331L4.33396 7.62052C3.92269 7.61845 3.58981 7.28556 3.58774 6.8743L3.57495 4.32874C3.57286 3.91454 3.90696 3.57707 4.32117 3.57498C4.73538 3.5729 5.07285 3.907 5.07493 4.32121L5.07868 5.06891ZM11.9999 7.24992C12.4141 7.24992 12.7499 7.58571 12.7499 7.99992V11.6893L15.0302 13.9696C15.3231 14.2625 15.3231 14.7374 15.0302 15.0302C14.7373 15.3231 14.2624 15.3231 13.9696 15.0302L11.2499 12.3106V7.99992C11.2499 7.58571 11.5857 7.24992 11.9999 7.24992Z" fill="#1C274C"></path> </g></svg>
+                <ul class="mt-4">
+                    <% conversations.forEach(conversation => { %>
+                        <div class="history_data text-sm font-[500] w-2 p-2 hover:bg-slate-100 mx-2 rounded-md duration-200 transition-all opacity-0 ">
+                            <a  href="/conversationNumber<%=conversation.id%>">
+                                <li class="overflow-hidden whitespace-nowrap" ><%= conversation.text %></li>
+                            </a>
+                        </div>
+                    <% }); %>
+                </ul>
+            </div>
+        </div>
+        <div class="box3">
+          <!-- User -->
+          <div class="border-2 m-2 p-2 rounded-lg w-[calc(100%-20px)] h-10 relative">
+            <svg  width="22px" height="22px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#000000" stroke-width="0.00024000000000000003"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M8.25 9C8.25 6.92893 9.92893 5.25 12 5.25C14.0711 5.25 15.75 6.92893 15.75 9C15.75 11.0711 14.0711 12.75 12 12.75C9.92893 12.75 8.25 11.0711 8.25 9ZM12 6.75C10.7574 6.75 9.75 7.75736 9.75 9C9.75 10.2426 10.7574 11.25 12 11.25C13.2426 11.25 14.25 10.2426 14.25 9C14.25 7.75736 13.2426 6.75 12 6.75Z" fill="#000000"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M1.25 12C1.25 6.06294 6.06294 1.25 12 1.25C17.9371 1.25 22.75 6.06294 22.75 12C22.75 17.9371 17.9371 22.75 12 22.75C6.06294 22.75 1.25 17.9371 1.25 12ZM12 2.75C6.89137 2.75 2.75 6.89137 2.75 12C2.75 14.5456 3.77827 16.851 5.4421 18.5235C5.6225 17.5504 5.97694 16.6329 6.68837 15.8951C7.75252 14.7915 9.45416 14.25 12 14.25C14.5457 14.25 16.2474 14.7915 17.3115 15.8951C18.023 16.6329 18.3774 17.5505 18.5578 18.5236C20.2217 16.8511 21.25 14.5456 21.25 12C21.25 6.89137 17.1086 2.75 12 2.75ZM17.1937 19.6554C17.0918 18.4435 16.8286 17.5553 16.2318 16.9363C15.5823 16.2628 14.3789 15.75 12 15.75C9.62099 15.75 8.41761 16.2628 7.76815 16.9363C7.17127 17.5553 6.90811 18.4434 6.80622 19.6553C8.28684 20.6618 10.0747 21.25 12 21.25C13.9252 21.25 15.7131 20.6618 17.1937 19.6554Z" fill="#000000"></path> </g></svg>
+            <p id="hidden_text2" class="absolute top-0.5 left-9 float-left transition-opacity duration-400 mt-1 opacity-0 whitespace-nowrap"><%= firstName %> <%= lastName %>  </p>
+          </div>
+          <a id="logout_button" href="/logout" class="relative flex border-2 m-2 p-2 rounded-lg w-[calc(100%-20px)]">
+            <svg width="22px" height="22px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="Interface / Log_Out"> <path id="Vector" d="M12 15L15 12M15 12L12 9M15 12H4M9 7.24859V7.2002C9 6.08009 9 5.51962 9.21799 5.0918C9.40973 4.71547 9.71547 4.40973 10.0918 4.21799C10.5196 4 11.0801 4 12.2002 4H16.8002C17.9203 4 18.4796 4 18.9074 4.21799C19.2837 4.40973 19.5905 4.71547 19.7822 5.0918C20 5.5192 20 6.07899 20 7.19691V16.8036C20 17.9215 20 18.4805 19.7822 18.9079C19.5905 19.2842 19.2837 19.5905 18.9074 19.7822C18.48 20 17.921 20 16.8031 20H12.1969C11.079 20 10.5192 20 10.0918 19.7822C9.71547 19.5905 9.40973 19.2839 9.21799 18.9076C9 18.4798 9 17.9201 9 16.8V16.75" stroke="#000000" stroke-width="1.464" stroke-linecap="round" stroke-linejoin="round"></path> </g> </g></svg>
+            <p id="hidden_text1" class="absolute top-[2px] left-9 float-left transition-opacity duration-400 mt-1 opacity-0">Log out</p>
+          </a>
+
+        </div> 
+        
+      </div>
+      
+      <!--chatframe-->
+      <div class="h-full chatframe grid grid-cols-[1fr_2fr_1fr] grid-rows-[1fr_150px] [&>*]:bg-[#F3F6FB]">
+        <div >
+          <span id="open_btn" class="mt-1 mr-4 hidden">
+            <svg class="h-8 w-8" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg" fill="#000000" stroke="#000000" stroke-width="1.848"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g fill="none" fill-rule="evenodd" stroke="#5662F6" stroke-linecap="round" stroke-linejoin="round" transform="translate(3 3)"> <path d="m.5 12.5v-10c0-1.1045695.8954305-2 2-2h10c1.1045695 0 2 .8954305 2 2v10c0 1.1045695-.8954305 2-2 2h-10c-1.1045695 0-2-.8954305-2-2z"></path> <path d="m2.5 12.5v-10c0-1.1045695.8954305-2 2-2h-2c-1 0-2 .8954305-2 2v10c0 1.1045695 1 2 2 2h2c-1.1045695 0-2-.8954305-2-2z" fill="#5662F6"></path> <path d="m7.5 10.5-3-3 3-3"></path> <path d="m12.5 7.5h-8"></path> </g> </g></svg>
+          </span>
+        </div>
+        <div class="output h-full w-full relative">
+            <div class="absolute bottom-0 w-full">  
+                    <div id="logo_center" class="h-52 w-52 mx-auto">
+                        <svg  version="1.1" id="layer" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                            viewBox="0 0 690 512" style="enable-background:new 0 0 690 512;" xml:space="preserve">
+                            <style type="text/css">
+                              .st1{fill:none;stroke:#26CAD3;stroke-width:2.4074;stroke-miterlimit:10;}
+                              .st2{fill:none;stroke:#34BFC9;stroke-width:2.2631;stroke-miterlimit:10;}
+                              .st3{fill:none;stroke:#23BDC7;stroke-width:2.1188;stroke-miterlimit:10;}
+                              .st4{fill:none;stroke:#1BB3BD;stroke-width:1.9745;stroke-miterlimit:10;}
+                              .st5{fill:none;stroke:#1AAEB9;stroke-width:1.8302;stroke-miterlimit:10;}
+                              .st6{fill:none;stroke:#06A8B3;stroke-width:1.6859;stroke-miterlimit:10;}
+                              .st7{fill:none;stroke:#007481;stroke-width:0.5329;stroke-miterlimit:10;}
+                              .st8{fill:none;stroke:#0E7C85;stroke-width:0.6772;stroke-miterlimit:10;}
+                              .st9{fill:none;stroke:#02818C;stroke-width:0.8215;stroke-miterlimit:10;}
+                              .st10{fill:none;stroke:#0C8793;stroke-width:0.9658;stroke-miterlimit:10;}
+                              .st11{fill:none;stroke:#078D98;stroke-width:1.1101;stroke-miterlimit:10;}
+                              .st12{fill:none;stroke:#01939F;stroke-width:1.2544;stroke-miterlimit:10;}
+                              .st13{fill:none;stroke:#009DAC;stroke-width:1.3973;stroke-miterlimit:10;}
+                              .st14{fill:none;stroke:#0CA3AC;stroke-width:1.5416;stroke-miterlimit:10;}
+                          </style>
+                        <path class="st0" d="M110.2,240.1v-8.9c0.6-0.6,1.2-0.4,1.7-0.4c6.7,0,13.3,0,20,0c2.1,0,2.2,0,2.2,2.3c0,19.6,0,39.2,0,58.7
+                            c0,9,0,18,0,27c0,2.6,0.1,2.4-2.5,2.4c-6.4,0-12.7,0-19.1,0c-0.7,0-1.4-0.1-2.2-0.1c-0.4-3.1,0-6.1-0.2-9.2
+                            c-0.9,0.4-1.3,1.1-1.9,1.7c-4.2,4.3-9.2,7.4-15,8.9c-4.9,1.3-10,1.5-15.1,0.8c-6.2-0.7-11.8-2.8-17.1-6c-7.8-4.7-13.3-11.5-17-19.7
+                            c-3.7-8.3-5-17.1-4.3-26.1s3.4-17.4,8.7-24.9c7.1-9.9,16.6-16,28.7-17.8c5.3-0.8,10.6-0.7,15.8,0.6c6,1.5,11.1,4.6,15.3,9.1
+                            c0.5,0.5,1,1,1.5,1.5C109.8,240.1,109.9,240.1,110.2,240.1 M110.7,275.3c-0.1-1.4-0.1-3.4-0.5-5.5c-2.5-12.1-12.4-20.7-27-18.2
+                            c-8.9,1.5-14.6,7.2-17.3,15.8c-1.4,4.4-1.7,8.9-0.9,13.4c1.2,7,4.5,12.7,10.6,16.5c4.2,2.7,8.9,3.5,13.9,3.2
+                            c7-0.4,12.6-3.4,16.7-9.1C109.5,286.9,110.8,281.6,110.7,275.3 M228.5,284.5c-0.2,1.3,0.4,2.4,0.7,3.5c2.9,8.6,10.1,14,19.2,14.5
+                            c9,0.5,17-2,24.2-7.5c1.3-1,1.4-1,2.4,0.1c4.3,4.7,8.5,9.4,12.7,14.2c0.1,0.1,0.1,0.3,0.2,0.5c-0.9,1.6-2.5,2.5-4,3.6
+                            c-6,4.5-12.8,7.3-20.1,8.8c-5.2,1.1-10.5,1.6-15.8,1.4c-10.2-0.3-19.6-3.2-27.9-9.5c-5.5-4.2-9.5-9.5-12.5-15.7
+                            c-4-8.4-5.2-17.3-4.6-26.5c0.7-10.1,3.8-19.4,10.2-27.5c6.4-8.1,14.7-13,24.6-15.1c8.7-1.9,17.3-1.6,25.8,1.3
+                            c11.3,4,19.3,11.6,24.2,22.5c2.8,6.3,4.2,12.9,4.5,19.8c0.1,3.1-0.2,6.2-0.2,9.3c0,1.7-0.2,1.8-2,1.9c-0.6,0-1.1,0-1.7,0
+                            c-19,0-38.1,0-57.1,0C230.5,284.3,229.5,284.2,228.5,284.5 M267.6,267.4c-1.1-9.4-7.6-18.6-21-17.8c-11,0.6-17.2,9-18,17.8H267.6z
+                            M378.9,192.9c-1.1-1-2.3-1.6-3.4-2.3c-5.9-3.2-12.1-5.3-18.9-5.8c-4.7-0.4-9.4-0.4-13.9,0.7c-9.5,2.1-16.5,7.5-20.4,16.5
+                            c-2.4,5.4-3.3,11.1-3.4,16.9c-0.1,3.3,0,6.7,0,10c0,0.6,0.2,1.3-0.6,2h-15.9c-0.1,0.6-0.1,1-0.1,1.3c0,6.1,0,12.3,0,18.4
+                            c0,1.9,0,1.9,2.1,1.9c4.2,0,8.4,0,12.6,0c0.6,0,1.3-0.2,1.8,0.3c0.3,0.8,0.2,1.7,0.2,2.6c0,20.9,0,41.9,0,62.8c0,0.7,0,1.4,0,2.1
+                            c0,0.6,0.3,0.9,0.9,0.9c0.6,0,1.3,0,1.9,0c6.2,0,12.4,0,18.6,0c3.4,0,3.1,0.4,3.1-3c0-21,0-42,0-63c0-0.8-0.2-1.7,0.3-2.6h2.6
+                            c7.7,0,15.4,0,23.1,0c2,0,2,0,2-1.9c0-6,0-12.1,0-18.1c0-0.5,0.1-1.1-0.6-1.7H364h-6.9c-2.3,0-4.6,0-6.9,0s-4.6,0.2-6.9-0.2
+                            c0-3.5,0-6.8,0-10.1c0-1.5,0.2-3,0.4-4.5c0.8-4.7,3.3-7.8,8.1-8.3c3.6-0.4,7.1,0,10.5,1.2c2.3,0.8,4.5,1.8,6.9,3
+                            C372.5,205.5,375.7,199.2,378.9,192.9 M159.3,321c1,0.4,1.9,0.2,2.7,0.2c6.1,0,12.2,0,18.3,0c3.5,0,3.2,0.4,3.2-3.2
+                            c0-42.7,0-85.3,0-128c0-0.4,0-0.8,0-1.2c0-1.9,0-2-2-2c-6.5,0-13,0-19.5,0c-3.2,0-3-0.3-3,2.9c0,42.8,0,85.6,0,128.5
+                            C159.1,319.2,159,320,159.3,321"/>
+                        <path class="st1" d="M459.1,326.3c41.3,41.4,108.2,41.4,149.5,0c41.3-41.4,41.3-108.5,0-149.9c-41.3-41.4-108.2-41.4-149.5,0
+                            S417.8,284.9,459.1,326.3z"/>
+                        <path class="st2" d="M464.9,326.6c38.1,38.2,105.9,32.1,144-6.1c38.1-38.2,32-106.2-6.1-144.4s-105.9-32.1-144,6.1
+                            S426.8,288.4,464.9,326.6z"/>
+                        <path class="st3" d="M470.6,326.9c34.9,35,103.7,22.9,138.6-12.1c34.9-35,22.8-103.9-12.1-139c-34.9-35-103.7-22.9-138.6,12.1
+                            C423.6,223,435.7,291.9,470.6,326.9z"/>
+                        <path class="st4" d="M476.4,327.2c31.8,31.8,101.4,13.6,133.1-18.2c31.8-31.8,13.6-101.7-18.2-133.5s-101.4-13.6-133.1,18.2
+                            C426.4,225.5,444.6,295.4,476.4,327.2z"/>
+                        <path class="st5" d="M482.1,327.5c28.6,28.7,99.1,4.4,127.7-24.3c28.6-28.7,4.4-99.4-24.2-128c-28.6-28.7-99.1-4.4-127.7,24.3
+                            C429.3,228.1,453.5,298.9,482.1,327.5z"/>
+                        <path class="st6" d="M487.9,327.8c25.4,25.5,96.9-4.9,122.3-30.3c25.4-25.5-4.9-97.1-30.3-122.6s-96.9,4.9-122.3,30.3
+                            C432.2,230.7,462.5,302.3,487.9,327.8z"/>
+                        <polygon class="st7" points="468.3,264.5 531.1,327.5 544.7,319.4 609.8,254.1 601.7,240.5 536.4,175 520,186.4 456.8,249.7 "/>
+                        <path class="st8" d="M540.1,322c21.6-17.5,65.2-58.2,71.5-64.3c0.3-0.3-0.6-4.2-4.1-8.7c-14.8-19.3-58.6-66.5-66.7-75.1
+                            c-0.6-0.6-7.5,2-15.5,8.6c-22.1,18.3-62.7,56.2-69.1,62.3c-0.4,0.4,2.5,7.1,9,15c18,21.9,54.9,61.7,61.9,69
+                            C527.6,329.4,533.4,327.5,540.1,322z"/>
+                        <path class="st9" d="M522.4,329.6c6.4,6.4,83.2-60.4,89.6-66.8c6.4-6.4-60.2-83.5-66.6-89.8c-6.4-6.4-83.2,60.4-89.6,66.8
+                            C449.4,246.2,516,323.3,522.4,329.6z"/>
+                        <path class="st10" d="M516.6,329.3c9.5,9.6,85.5-51.1,95-60.7s-51-85.7-60.5-95.3s-85.5,51.1-95,60.7
+                            C446.5,243.6,507.1,319.8,516.6,329.3z"/>
+                        <path class="st11" d="M510.9,329c12.7,12.7,87.8-41.9,100.5-54.6c12.7-12.7-41.8-88-54.5-100.7c-12.7-12.7-87.8,41.9-100.5,54.6
+                            C443.7,241,498.2,316.3,510.9,329z"/>
+                        <path class="st12" d="M505.1,328.7c15.9,15.9,90-32.6,105.9-48.6c15.9-15.9-32.6-90.3-48.4-106.2c-15.9-15.9-90,32.6-105.9,48.6
+                            C440.8,238.4,489.2,312.8,505.1,328.7z"/>
+                        <path class="st13" d="M499.4,328.4c19.1,19.1,92.3-23.4,111.4-42.5c19.1-19.1-23.3-92.6-42.4-111.7c-19.1-19.1-92.3,23.4-111.4,42.5
+                            C437.9,235.9,480.3,309.3,499.4,328.4z"/>
+                        <path class="st14" d="M493.6,328.1c22.2,22.3,94.6-14.1,116.8-36.4s-14.1-94.8-36.3-117.1s-94.6,14.1-116.8,36.4
+                            C435.1,233.3,471.4,305.8,493.6,328.1z"/>
+                        </svg>
+        
+                    </div>
+                  <div id="list_text" class="grid grid-cols-1 grid-rows-[fit_fit] sm:grid-rows-[fit_fit] sm:grid-cols-2 gap-4 px-4 mb-4">
+                      <div class="p-2 border-2 hover:shadow-lg rounded-lg bg-white">          
+                            <div class="ml-2">
+                                <h4 class="font-semibold text-base text-primary tracking-normal">Text File</h4>
+                                <p class="text-sm font-normal text-gray tracking-normal">pdf,word,..</p>
+                            </div>
+                      </div>
+                      <div class="p-2 border-2 hover:shadow-lg rounded-lg bg-white">
+                          <div class="ml-2">
+                              <h4 class="font-semibold text-base text-primary tracking-normal">Youtube Subtitles</h4>
+                              <p class="text-sm font-normal text-gray tracking-normal">Analize your caption</p>
+                          </div>
+                      </div>
+                      <div class="p-2 border-2 hover:shadow-lg rounded-lg bg-white">
+                          <div class="ml-2">
+                              <h4 class="font-semibold text-base text-primary tracking-normal">Plain Text</h4>
+                              <p class="text-sm font-normal text-gray tracking-normal">Copy/patse some text in the box
+                              </p>
+                          </div>
+                      </div>
+                      <div class="p-2 border-2 hover:shadow-lg rounded-lg bg-white">
+                          <div class="ml-2">
+                              <h4 class="font-semibold text-base text-primary tracking-normal">Website Content</h4>
+                              <p class="text-sm font-normal text-gray tracking-normal">Analysis through data from the website</p>
+                          </div>
+                      </div>
+                  </div>
+    
+            </div>          
+        </div>
+        <div ></div>
+        <div ></div>
+        <div class="relative">
+            <form id="form" action="/"  enctype='multipart/form-data' method="post" class="chatbar absolute bottom-2 w-full">
+                <div id="chatArea" class="border-2 rounded-2xl w-full h-[55px] bg-white grid grid-cols-[1fr_110px_50px] transition-all duration-75">
+                    <div id="text" class="relative">
+                      <textarea id="input_text" name="text" placeholder="Please enter text here" rows="1" class="custom-scrollbar absolute bottom-3 w-[calc(100%-20px)] focus:outline-none row-start-1 row-end-3 h-7 resize-none my-auto mx-3 font-sans font-[400] text-lg"></textarea>
+                    </div>
+                    <div id="url" class="relative hidden">
+                        <textarea name="url" rows="1" name="url" placeholder="Please enter the YouTube URL" class="absolute bottom-3 w-[calc(100%-20px)] focus:outline-none row-start-1 row-end-3 h-7 resize-none my-auto mx-3 font-sans font-[400] text-lg"></textarea>
+                    </div>
+                    <div id="file" class="relative hidden ml-3 mt-[12px] text-gray-400 text-lg">
+                        <label id="label_upload_file" for="upload_file">Click here to upload a file</label>
+                        <input name="file" id="upload_file" type="file" accept="pdf/*" class="hidden">
+                    </div>
+                    <div class="relative">
+                        <div id="option_btn" class="absolute bottom-1.5 h-[41px] flex flex-col-reverse w-[100px] bg-slate-300 p-[6.5px] font-['Ubuntu'] rounded-xl text-lg mx-auto mt-[5px] cursor-pointer transition-all duration-200">
+                            <div>
+                                <span>option</span>
+                                <span id="arrow" class="float-right mt-1.5 mr-1 transition-transform duration-200">
+                                  <svg width="16px" height="16px" viewBox="0 0 1024 1024" fill="#000000" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" stroke="#000000" stroke-width="62.464">
+                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                    <g id="SVGRepo_iconCarrier">
+                                      <path d="M509.928 387.16c7.24-7.991 17.58-7.898 24.782 0.333l270.568 309.222c7.759 8.867 21.237 9.765 30.103 2.007 8.867-7.759 9.766-21.237 2.007-30.103L566.82 359.397c-24-27.429-64.127-27.792-88.507-0.89L197.526 668.342c-7.912 8.73-7.249 22.221 1.482 30.133 8.73 7.912 22.221 7.249 30.133-1.482L509.928 387.16z" fill=""></path>
+                                    </g>
+                                  </svg>
+                                </span>
+                              </div>
+                              <div id="file_option" class="optional opacity-0 transition-opacity hover:text-gray-500">file</div>
+                              <div id="url_option" class="optional opacity-0 transition-opacity hover:text-gray-500">url</div>
+                              <div id="text_option" class="optional opacity-0 transition-opacity hover:text-gray-500">text</div>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <button type="submit" class="absolute bottom-1.5 h-fit w-fit bg-[#5662F6] p-2 rounded-xl mx-auto mt-[5px] hover:bg-[#747cf7]">
+                            <svg height="25px" width="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M20.33 3.66996C20.1408 3.48213 19.9035 3.35008 19.6442 3.28833C19.3849 3.22659 19.1135 3.23753 18.86 3.31996L4.23 8.19996C3.95867 8.28593 3.71891 8.45039 3.54099 8.67255C3.36307 8.89471 3.25498 9.16462 3.23037 9.44818C3.20576 9.73174 3.26573 10.0162 3.40271 10.2657C3.5397 10.5152 3.74754 10.7185 4 10.85L10.07 13.85L13.07 19.94C13.1906 20.1783 13.3751 20.3785 13.6029 20.518C13.8307 20.6575 14.0929 20.7309 14.36 20.73H14.46C14.7461 20.7089 15.0192 20.6023 15.2439 20.4239C15.4686 20.2456 15.6345 20.0038 15.72 19.73L20.67 5.13996C20.7584 4.88789 20.7734 4.6159 20.7132 4.35565C20.653 4.09541 20.5201 3.85762 20.33 3.66996ZM4.85 9.57996L17.62 5.31996L10.53 12.41L4.85 9.57996ZM14.43 19.15L11.59 13.47L18.68 6.37996L14.43 19.15Z" fill="#ffffff"></path> </g></svg>
+                          </button>
+                    </div>
+                </div>
+            </form> 
+        </div>
+        <div></div>
+        
+        <div></div>
+      </div>
+  </body>
+  
+</html>

@@ -17,7 +17,6 @@ module.exports = (sequelize, DataTypes) => {
     userID: DataTypes.INTEGER,
     time: DataTypes.DATE,
     text: DataTypes.TEXT,
-    keywordID: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Conversation',

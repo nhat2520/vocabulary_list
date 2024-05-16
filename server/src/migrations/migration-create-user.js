@@ -7,40 +7,36 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       email: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       password: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       firstName: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING, // Sử dụng Sequelize.STRING.BINARY
       },
       lastName: {
-        type: Sequelize.STRING
-      },
-      address: {
-        type: Sequelize.STRING
-      },
-      gender: {
-        type: Sequelize.BOOLEAN
-      },
-      phoneNumber: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING, // Sử dụng Sequelize.STRING.BINARY
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
+    }, {
+      charset: 'utf8mb4',
+      dialectOptions: {
+          collate: 'utf8mb4_unicode_ci'
+      },
     });
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Users');
-  }
+  },
 };

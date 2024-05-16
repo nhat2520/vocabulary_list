@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>App</title>
+    <link href="main.css" rel="stylesheet" >  
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <script>
+        window.onload = function() { 
+            const close_btn = document.getElementById("close_btn") 
+            const sidebar = document.getElementById("sidebar")
+            const hidden_text1 = document.getElementById("hidden_text1")
+            const hidden_text2 = document.getElementById("hidden_text2")
+            const textareaEle = document.getElementById('input_text')
+            const chatArea = document.getElementById("chatArea")
+            const history_data = document.getElementsByClassName("history_data")
+            const logout_button = document.getElementById("logout_button")
+
+            logout_button.addEventListener('click', function(event) {
+                // Hiển thị cảnh báo
+                const confirmLogout = confirm('Are you sure you want to log out?');
+
+                // Nếu người dùng không xác nhận, ngăn chặn sự kiện click
+                if (!confirmLogout) {
+                event.preventDefault();
+                }
+            });
+
+            close_btn.addEventListener('click', function() {
+                if (parseInt(sidebar.style.width) > 100) {
+                    sidebar.style.width = "64px"
+                    hidden_text1.style.opacity = "0"
+                    hidden_text2.style.opacity = "0"
+                    hidden_text1.style.transitionDuration = "100ms"
+                    hidden_text2.style.transitionDuration = "100ms"
+                    for (let i = 0; i < history_data.length; i++) {
+                        history_data[i].style.opacity = "0"
+                        history_data[i].style.transitionDuration = "100ms"
+                        history_data[i].style.width = "20px"
+                    }
+                } else {
+                    sidebar.style.width = "224px"
+                    hidden_text1.style.opacity = "1"
+                    hidden_text2.style.opacity = "1"
+                    hidden_text1.style.transitionDuration = "500ms"
+                    hidden_text2.style.transitionDuration = "500ms"
+                    for (let i = 0; i < history_data.length; i++) {
+                        history_data[i].style.opacity = "1"
+                        history_data[i].style.transitionDuration = "300ms"
+                        history_data[i].style.width = "175px"
+                    }
+                }
+            })
+        }
+    </script>
+  </head>
+  
+  <body id="body" class="relative h-[100vh] w-screen font-['Reddit Sans']">
+      <div id="sidebar" class="transition-all duration-300 absolute left-5 top-3 h-[calc(100vh-30px)] w-16 bg-white z-10 border-2 rounded-xl grid grid-rows-[120px_1fr_120px]">
+        <div class="box1 relative">
+          <!-- search -->
+          <div class="absolute bottom-0 border-2 m-2 rounded-lg w-[calc(100%-20px)]">
+            <svg class="m-2" height="20px" width="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+          </div>
+          <!-- close button -->
+          <div id="close_btn" class="absolute border-2 m-2 rounded-lg w-fit h-fit right-1">
+            <svg class="m-2" height="20px" width="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M5 6H12H19M5 12H19M5 18H19" stroke="#000000" stroke-width="2.016" stroke-linecap="round"></path> </g></svg>
+          </div>
+        </div>
+        <div class="box2">
+          <!-- history -->
+          <div class="relative border-2 mx-2 rounded-lg w-[calc(100%-20px)] h-full">
+            <svg class="ml-2 mt-2" height="22px" width="22px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M5.07868 5.06891C8.87402 1.27893 15.0437 1.31923 18.8622 5.13778C22.6824 8.95797 22.7211 15.1313 18.9262 18.9262C15.1312 22.7211 8.95793 22.6824 5.13774 18.8622C2.87389 16.5984 1.93904 13.5099 2.34047 10.5812C2.39672 10.1708 2.775 9.88377 3.18537 9.94002C3.59575 9.99627 3.88282 10.3745 3.82658 10.7849C3.4866 13.2652 4.27782 15.881 6.1984 17.8016C9.44288 21.0461 14.6664 21.0646 17.8655 17.8655C21.0646 14.6664 21.046 9.44292 17.8015 6.19844C14.5587 2.95561 9.33889 2.93539 6.13935 6.12957L6.88705 6.13333C7.30126 6.13541 7.63535 6.47288 7.63327 6.88709C7.63119 7.3013 7.29372 7.63539 6.87951 7.63331L4.33396 7.62052C3.92269 7.61845 3.58981 7.28556 3.58774 6.8743L3.57495 4.32874C3.57286 3.91454 3.90696 3.57707 4.32117 3.57498C4.73538 3.5729 5.07285 3.907 5.07493 4.32121L5.07868 5.06891ZM11.9999 7.24992C12.4141 7.24992 12.7499 7.58571 12.7499 7.99992V11.6893L15.0302 13.9696C15.3231 14.2625 15.3231 14.7374 15.0302 15.0302C14.7373 15.3231 14.2624 15.3231 13.9696 15.0302L11.2499 12.3106V7.99992C11.2499 7.58571 11.5857 7.24992 11.9999 7.24992Z" fill="#1C274C"></path> </g></svg>
+            <ul class="mt-4">
+                <% conversations.forEach(conversation => { %>
+                    <div class="history_data text-sm font-[500] w-2 p-2 hover:bg-slate-100 mx-2 rounded-md duration-200 transition-all opacity-0 ">
+                        <a  href="/conversationNumber<%=conversation.id%>">>
+                            <li class="overflow-hidden whitespace-nowrap" ><%= conversation.text %></li>
+                        </a>
+                    </div>
+                <% }); %>
+            </ul>
+        </div>
+        </div>
+        <div class="box3">
+            <!-- User -->
+            <div class="border-2 m-2 p-2 rounded-lg w-[calc(100%-20px)] h-10 relative">
+              <svg  width="22px" height="22px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#000000" stroke-width="0.00024000000000000003"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M8.25 9C8.25 6.92893 9.92893 5.25 12 5.25C14.0711 5.25 15.75 6.92893 15.75 9C15.75 11.0711 14.0711 12.75 12 12.75C9.92893 12.75 8.25 11.0711 8.25 9ZM12 6.75C10.7574 6.75 9.75 7.75736 9.75 9C9.75 10.2426 10.7574 11.25 12 11.25C13.2426 11.25 14.25 10.2426 14.25 9C14.25 7.75736 13.2426 6.75 12 6.75Z" fill="#000000"></path> <path fill-rule="evenodd" clip-rule="evenodd" d="M1.25 12C1.25 6.06294 6.06294 1.25 12 1.25C17.9371 1.25 22.75 6.06294 22.75 12C22.75 17.9371 17.9371 22.75 12 22.75C6.06294 22.75 1.25 17.9371 1.25 12ZM12 2.75C6.89137 2.75 2.75 6.89137 2.75 12C2.75 14.5456 3.77827 16.851 5.4421 18.5235C5.6225 17.5504 5.97694 16.6329 6.68837 15.8951C7.75252 14.7915 9.45416 14.25 12 14.25C14.5457 14.25 16.2474 14.7915 17.3115 15.8951C18.023 16.6329 18.3774 17.5505 18.5578 18.5236C20.2217 16.8511 21.25 14.5456 21.25 12C21.25 6.89137 17.1086 2.75 12 2.75ZM17.1937 19.6554C17.0918 18.4435 16.8286 17.5553 16.2318 16.9363C15.5823 16.2628 14.3789 15.75 12 15.75C9.62099 15.75 8.41761 16.2628 7.76815 16.9363C7.17127 17.5553 6.90811 18.4434 6.80622 19.6553C8.28684 20.6618 10.0747 21.25 12 21.25C13.9252 21.25 15.7131 20.6618 17.1937 19.6554Z" fill="#000000"></path> </g></svg>
+              <p id="hidden_text2" class="absolute top-0.5 left-9 float-left transition-opacity duration-400 mt-1 opacity-0 whitespace-nowrap"><%= firstName %> <%= lastName %>  </p>
+            </div>
+            <a id="logout_button" href="/logout" class="relative flex border-2 m-2 p-2 rounded-lg w-[calc(100%-20px)]">
+              <svg width="22px" height="22px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="Interface / Log_Out"> <path id="Vector" d="M12 15L15 12M15 12L12 9M15 12H4M9 7.24859V7.2002C9 6.08009 9 5.51962 9.21799 5.0918C9.40973 4.71547 9.71547 4.40973 10.0918 4.21799C10.5196 4 11.0801 4 12.2002 4H16.8002C17.9203 4 18.4796 4 18.9074 4.21799C19.2837 4.40973 19.5905 4.71547 19.7822 5.0918C20 5.5192 20 6.07899 20 7.19691V16.8036C20 17.9215 20 18.4805 19.7822 18.9079C19.5905 19.2842 19.2837 19.5905 18.9074 19.7822C18.48 20 17.921 20 16.8031 20H12.1969C11.079 20 10.5192 20 10.0918 19.7822C9.71547 19.5905 9.40973 19.2839 9.21799 18.9076C9 18.4798 9 17.9201 9 16.8V16.75" stroke="#000000" stroke-width="1.464" stroke-linecap="round" stroke-linejoin="round"></path> </g> </g></svg>
+              <p id="hidden_text1" class="absolute top-[2px] left-9 float-left transition-opacity duration-400 mt-1 opacity-0">Log out</p>
+            </a>
+  
+          </div> 
+        
+      </div>
+      
+      <!--chatframe-->
+      <div class="h-full chatframe grid grid-cols-[1fr_2fr_1fr] grid-rows-[1fr_150px] [&>*]:bg-[#F3F6FB]">
+        <div >
+          <span id="open_btn" class="mt-1 mr-4 hidden">
+            <svg class="h-8 w-8" viewBox="0 0 21 21" xmlns="http://www.w3.org/2000/svg" fill="#000000" stroke="#000000" stroke-width="1.848"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g fill="none" fill-rule="evenodd" stroke="#5662F6" stroke-linecap="round" stroke-linejoin="round" transform="translate(3 3)"> <path d="m.5 12.5v-10c0-1.1045695.8954305-2 2-2h10c1.1045695 0 2 .8954305 2 2v10c0 1.1045695-.8954305 2-2 2h-10c-1.1045695 0-2-.8954305-2-2z"></path> <path d="m2.5 12.5v-10c0-1.1045695.8954305-2 2-2h-2c-1 0-2 .8954305-2 2v10c0 1.1045695 1 2 2 2h2c-1.1045695 0-2-.8954305-2-2z" fill="#5662F6"></path> <path d="m7.5 10.5-3-3 3-3"></path> <path d="m12.5 7.5h-8"></path> </g> </g></svg>
+          </span>
+        </div>
+        <div class="output h-full w-full relative">
+                <div class="flex flex-col mt-10">
+                    <div class="-m-1.5 overflow-x-auto">
+                      <div class="p-1.5 inline-block align-middle">
+                        <div class="border-2 border-gray-400 rounded-lg overflow-hidden">
+                          <table id="data-table" class="divide-y divide-gray-400">
+                            <thead class="bg-[#6e7bda] text-white">
+                              <tr>
+                                <th scope="col" class="px-6 py-3 text-s font-medium uppercase">Key</th>
+                                <th scope="col" class="px-6 py-3 text-s font-medium uppercase">Definition</th>
+                              </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-400">
+                                <% for (const [key, value] of Object.entries(results)) { %>
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800"><%= key %></td>
+                                        <td class="px-6 py-4 text-sm text-gray-800"><%= value %></td>   
+                                    </tr>
+                                <% } %>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+        </div>
+        <div ></div>
+        <div ></div>
+        <form action="/results" method="post" class="flex justify-center gap-4 pt-5">
+                <button id="cancel_btn" name="cancel_btn" type="submit" class="h-9 w-32 border-red-400 border text-red-400 rounded-full hover:text-white hover:bg-red-400 transition duration-300">Cancel</button>
+                <button id="save-btn" name="save_btn" class="h-9 w-32 bg-green-500 text-white rounded-full hover:bg-green-600 transition duration-300">Save</button>
+        </form>
+        <div></div>
+        
+        <div></div>
+      </div>
+    <!-- <script>
+        document.getElementById('save-btn').addEventListener('click', function() {
+        // Trích xuất dữ liệu từ bảng
+        var table = document.getElementById('data-table');
+        var data = [];
+        for (var i = 1; i < table.rows.length; i++) {
+            var row = table.rows[i];
+            var rowData = [];
+            for (var j = 0; j < row.cells.length; j++) {
+                rowData.push(row.cells[j].innerText);
+            }
+            data.push(rowData);
+        }
+
+        // Gửi dữ liệu đến máy chủ thông qua yêu cầu HTTP
+        fetch('/save-data', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .catch(error => {
+            console.error('Error saving data:', error);
+        });
+    });
+    </script> -->
+  </body>
+  
+</html>

@@ -1,139 +1,181 @@
 let {
-  saveDefineWord,
-  saveConversation,
-  getAllKeyword,
-  getAllConversation,
-  deleteConversation,
-  deleteDefineKeyword,
+    saveDefineWord,
+    saveConversation,
+    getAllKeyword,
+    getAllConversation,
+    deleteConversation,
+    deleteDefineKeyword,
 } = require("../services/appService");
+import { text } from "body-parser";
 import { OpenAIChat } from "../../APIs/chatGPT_api.js";
 import { YouTubeCaptions } from "../../APIs/get_subtitles.js";
+import { PdfReader } from "../../APIs/read_pdf.js";
+const session = require('express-session')
 
 const fs = require("fs");
-let handleSaveDefineWord = async (req, res) => {
-  let data = req.body;
-  let message = await saveDefineWord(data);
-  return res.status(200).json(message);
-};
-
-let handleSaveConversation = async (req, res) => {
-  let data = req.body;
-  let message = await saveConversation(data);
-  return res.status(200).json(message);
-};
-
-let handleGetAllKeywords = async (req, res) => {
-  let id = req.query.id;
-  let data = await getAllKeyword(id);
-  return res.status(200).json(data);
-};
-
-let handleGetAllConversation = async (req, res) => {
-  let id = req.query.id;
-  let data = await getAllConversation(id);
-  return res.status(200).json(data);
-};
 
 let handleDeleteConversation = async (req, res) => {
-  let id = req.body.id;
-  let message = await deleteConversation(id);
-  return res.status(200).json(message);
+    let id = req.session.user.conversationId;
+    console.log(id)
+    await deleteConversation(id);
+    res.redirect('/')
 };
 
 let handleDeleteDefineWord = async (req, res) => {
-  let id = req.body.id;
-  let message = await deleteDefineKeyword(id);
-  return res.status(200).json(message);
+    let id = req.body.id;
+    let message = await deleteDefineKeyword(id);
+    return res.status(200).json(message);
 };
+
 
 let handleChatGPTtext = async (req, res) => {
-  let text = req.body.text;
-  fs.writeFileSync("./APIs/input.txt", text, (err) => {
-    // In case of a error throw err.
-    if (err) throw err;
-  });
-  await chatGPTapi();
-  const output = require("../../APIs/output.json");
-  return res.status(200).json({
-    errCode: 0,
-    errMessage: "Oke roi",
-    output,
-  });
-};
-
-let handleChatGPTsubtitle = async (req, res) => {
-  let link = req.body.link;
-  let text = await getSubtitlesFromLink(link);
-  fs.writeFileSync("./APIs/input.txt", text, (err) => {
-    // In case of a error throw err.
-    if (err) throw err;
-  });
-
-  await chatGPTapi();
-  const output = require("../../APIs/output.json");
-  return res.status(200).json({
-    errCode: 0,
-    errMessage: "Oke roi",
-    output,
-  });
-};
-
-//file này chưa sửa
-let handleChatGPTpdf = async (req, res) => {
-    let link = req.body.link;
-    // const apiKey = fs.readFileSync('apiKey.txt', 'utf8').trim();
-    // const prompt = fs.readFileSync('prompt.txt', 'utf8').trim();
-    // const input = fs.readFileSync('input.txt', 'utf8').trim();
-    // const test = await new OpenAIChat(apiKey, prompt, input);
-    // test.chat();
-    const youtubeUrl = "https://www.youtube.com/watch?v=DYFOtb70eEI";
-    let text = "";
-    try {
-      const captions = new YouTubeCaptions(link, "en");
-      text = await captions.fetch();
-      console.log(text);
-    } catch (error) {
-      console.error(error.message);
-    }
-    return res.status(200).json({
-      errCode: 0,
-      errMessage: "Oke roi",
-      text,
+    const { firstName, lastName } = req.session.user;
+    const text = req.session.user.data.body.text
+    fs.writeFile("./APIs/input.txt", text, async (err) => {
+        if (err) {
+            console.error('Error writing to file:', err);
+            res.status(500).send('Error writing to file');
+            return; 
+        }
+        try {
+            let results = await chatGPTapi(req)
+            const conversations = await handleGetAllConversation(req, res)
+            console.log(conversations)
+            res.render('results', { firstName,lastName,conversations, results});
+        } catch (error) {
+            console.error('Error handling ChatGPT text:', error);
+            res.status(500).send('Server Error');
+        }
     });
 };
 
+let handleChatGPTsubtitle = async (req, res) => {
+    
+    const { firstName, lastName } = req.session.user;
+    let link = req.session.user.data.body.url
+    let text = await getSubtitlesFromLink(link)
+    fs.writeFileSync("./APIs/input.txt", text, (err) => {
+      // In case of a error throw err.
+      if (err) throw err;
+    });
+    fs.writeFile("./APIs/input.txt", text, async (err) => {
+        if (err) { 
+            console.error('Error writing to file:', err);
+            res.status(500).send('Error writing to file');
+            return; 
+        }
+        try {
+            let results = await chatGPTapi(req)
+            const conversations = await handleGetAllConversation(req, res)
+            console.log(conversations)
+            res.render('results', { firstName, lastName,conversations, results});
+        } catch (error) {
+            console.error('Error handling ChatGPT text:', error);
+            res.status(500).send('Server Error');
+        }
+    });
+};
 
-
-
-let chatGPTapi = async() => {
-    const apiKey = fs.readFileSync("./APIs/apiKey.txt", "utf8").trim();
-    const prompt = fs.readFileSync("./APIs/prompt.txt", "utf8").trim();
-    const input = fs.readFileSync("./APIs/input.txt", "utf8").trim();
-    const test = await new OpenAIChat(apiKey, prompt, input);
-    await test.chat();
-}
-
-let getSubtitlesFromLink = async (link) => {
-  let text = "";
-  try {
-    const captions = new YouTubeCaptions(link, "en");
-    text = await captions.fetch();
-    return text;
-  } catch (error) {
-    console.error(error.message);
-  }
-  return text;
+let handleChatGPTpdf = async (req, res) => {
+    let file = req.file;
+    let text = "";
+    try {
+        let pdfReader = new PdfReader(file.path);
+        text = await pdfReader.read();
+    } catch (error) {
+        console.error(error.message);
+    }
+    return text
 };
 
 
+let chatGPTapi = async(req) => {
+    console.log(2)
+    const apiKey = fs.readFileSync("./APIs/apiKey.txt", "utf8").trim();
+    const prompt = fs.readFileSync("./APIs/prompt.txt", "utf8").trim();
+    const input = fs.readFileSync("./APIs/input.txt", "utf8").trim();
+    const test = new OpenAIChat(apiKey, prompt, input);
+    var results = await test.chat()
+    // Tách chuỗi thành mảng các cặp key-value
+    let pairs = results.message.content.split(' / ').map(pair => pair.split(': '));
+    // Tạo một đối tượng từ mảng các cặp key-value
+    let resultMap = Object.fromEntries(pairs);
+    //truyền text và results đã được chatgpt xử lý để handleSaveData xử lý
+    req.session.user.data.body.text = input
+    req.session.user.data.body.results = results.message.content
+    return resultMap
+}
+
+let getSubtitlesFromLink = async (link) => {
+    let text = "";
+    try {
+        const captions = new YouTubeCaptions(link, "en");
+        text = await captions.fetch();
+        return text;
+    } catch (error) {
+        console.error(error.message);
+    }
+    return text;
+};
+
+
+let handleSaveData = async (req, res) => {
+    try {
+        let userId = req.session.user.id; 
+        let text = req.session.user.data.body.text;
+        let results =  req.session.user.data.body.results
+        let conversation = await saveConversation(userId, text);
+
+        // Tách chuỗi thành mảng các cặp key-value
+        let pairs = results.split(' / ').map(pair => pair.split(': '));
+        // Tạo một đối tượng từ mảng các cặp key-value
+        let data = Object.fromEntries(pairs);
+        console.log(data)
+        for (let [key, value] of Object.entries(data)) {
+            await saveDefineWord(key, value, conversation.id);
+        }
+        res.redirect('/')
+    } catch (error) {
+        console.error("Error:", error);
+        return res.status(500).send("Internal Server Error");
+    }
+};
+
+let handleGetAllConversation = async (req, res) => {
+    try {
+        let userId = req.session.user.id;
+        let data = await getAllConversation(userId);
+        data.forEach(conversation => {
+            const date = new Date(conversation.dataValues.time);
+            conversation.formattedTime = `${date.getHours()}:${date.getMinutes()} ${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`;
+        });        
+        return data
+    } catch (e) {
+        console.log(e)
+    } 
+};
+
+
+let handleGetAllKeywords = async (req, res) => {
+    try {
+        let conversationId = req.params.id;
+        const { firstName, lastName } = req.session.user;
+        req.session.user.conversationId = req.params.id
+        const conversations = await handleGetAllConversation(req, res)
+        let results = await getAllKeyword(conversationId);
+        res.render('history',{firstName, lastName, conversations, results})
+    } catch (e) {
+        console.log(e)
+    }
+};
+
 module.exports = {
-  handleSaveDefineWord,
-  handleSaveConversation,
-  handleGetAllKeywords,
-  handleGetAllConversation,
-  handleDeleteConversation,
-  handleDeleteDefineWord,
-  handleChatGPTtext,
-  handleChatGPTsubtitle,
-  handleChatGPTpdf,
+    handleGetAllKeywords,
+    handleGetAllConversation,
+    handleDeleteConversation,
+    handleDeleteDefineWord,
+    handleChatGPTtext,
+    handleChatGPTsubtitle,
+    handleChatGPTpdf,
+    handleSaveData
 };
