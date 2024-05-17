@@ -4,7 +4,7 @@ const path = require("path");
 
 /**
  * Class representing a chat with OpenAI.
- */
+ */ 
 export class OpenAIChat {
   /**
    * Create a chat.

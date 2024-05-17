@@ -40,7 +40,6 @@ let handleChatGPTtext = async (req, res) => {
         try {
             let results = await chatGPTapi(req)
             const conversations = await handleGetAllConversation(req, res)
-            console.log(conversations)
             res.render('results', { firstName,lastName,conversations, results});
         } catch (error) {
             console.error('Error handling ChatGPT text:', error);
@@ -50,10 +49,10 @@ let handleChatGPTtext = async (req, res) => {
 };
 
 let handleChatGPTsubtitle = async (req, res) => {
-    
     const { firstName, lastName } = req.session.user;
     let link = req.session.user.data.body.url
     let text = await getSubtitlesFromLink(link)
+    req.session.user.data.body.text = text
     fs.writeFileSync("./APIs/input.txt", text, (err) => {
       // In case of a error throw err.
       if (err) throw err;
@@ -67,7 +66,6 @@ let handleChatGPTsubtitle = async (req, res) => {
         try {
             let results = await chatGPTapi(req)
             const conversations = await handleGetAllConversation(req, res)
-            console.log(conversations)
             res.render('results', { firstName, lastName,conversations, results});
         } catch (error) {
             console.error('Error handling ChatGPT text:', error);
@@ -90,7 +88,6 @@ let handleChatGPTpdf = async (req, res) => {
 
 
 let chatGPTapi = async(req) => {
-    console.log(2)
     const apiKey = fs.readFileSync("./APIs/apiKey.txt", "utf8").trim();
     const prompt = fs.readFileSync("./APIs/prompt.txt", "utf8").trim();
     const input = fs.readFileSync("./APIs/input.txt", "utf8").trim();
@@ -101,7 +98,8 @@ let chatGPTapi = async(req) => {
     // Tạo một đối tượng từ mảng các cặp key-value
     let resultMap = Object.fromEntries(pairs);
     //truyền text và results đã được chatgpt xử lý để handleSaveData xử lý
-    req.session.user.data.body.text = input
+    // req.session.user.text = input
+    // console.log(input)
     req.session.user.data.body.results = results.message.content
     return resultMap
 }
@@ -158,12 +156,20 @@ let handleGetAllConversation = async (req, res) => {
 
 let handleGetAllKeywords = async (req, res) => {
     try {
+        console.log(req.session.user)
         let conversationId = req.params.id;
         const { firstName, lastName } = req.session.user;
         req.session.user.conversationId = req.params.id
         const conversations = await handleGetAllConversation(req, res)
         let results = await getAllKeyword(conversationId);
-        res.render('history',{firstName, lastName, conversations, results})
+        let text = ""
+        conversations.forEach(conversation => {
+            if (conversation.id == conversationId) {
+                text = conversation.text
+            }
+        })
+        console.log(text)
+        res.render('history',{firstName, lastName, conversations, results, text})
     } catch (e) {
         console.log(e)
     }

@@ -7,7 +7,6 @@ import bodyParser from "body-parser";
 import session from 'express-session';
 import { config } from "dotenv";
 let {handleChatGPTtext} = require("./controllers/appController")
-let {initAppAPIRoutes} = require("./route/app.route")
 // Environment configuration
 config();
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
@@ -35,7 +34,6 @@ app.use(express.static(path.join(__dirname, "../../client/static")));
 
 // Routes
 require("./route/route")(app)
-initAppAPIRoutes(app)
 // Database connection
 connect();
 
