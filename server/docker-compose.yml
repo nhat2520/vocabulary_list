@@ -1,8 +1,8 @@
 version: "3.8"
 services:
   db-mysql:
-    image: mysql:5.7.40
-    restart: always
+    image: vnn04/vocab_db
+    restart: no
     environment:
       - MYSQL_DATABASE=BTLcnpm
       - MYSQL_ROOT_PASSWORD=123456
