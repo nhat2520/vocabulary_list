@@ -55,6 +55,10 @@ Add file apiKey.txt in folder API and add your apikey chatgpt into it <br>
 cd server
 docker-compose up
 ```
+6. Create database by sequelize:
+```
+npx sequelize-cli db:migrate
+```
 ## Run
 1. Run web:
 ```
