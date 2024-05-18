@@ -1,5 +1,7 @@
 # Vocabulary list
-![image](https://github.com/nhat2520/vocabulary_list/assets/117809086/a3e7da8e-ff65-40af-9a07-84b091098fd1)
+![image](https://github.com/nhat2520/vocabulary_list/assets/120033344/b01999ae-4a03-4d95-9348-46d4a4c16838)
+
+
 ## About
 Vocabulary List is an advanced website that employs cutting-edge artificial intelligence technology to meticulously analyze text. This site approaches the text and identifies the primary keywords, the significant terms within the text. Having determined these keywords, the website continues with its process to clearly and comprehensibly define each keyword. This is an excellent tool that aids users in accurately grasping the content and meaning of the text.
 ## Contributors
