@@ -58,7 +58,8 @@ npm start
 ## Authors:
 Developed by team 16 
 ## Report and demo
-Report: [Báo-cáo-công-nghệ-phần-mềm.pdf](https://github.com/nhat2520/vocabulary_list/files/15367286/Bao-cao-cong-ngh.-ph.n-m.m.pdf)  <br>
+Report: [Báo cáo bài tập lớn  (1).pdf](https://github.com/nhat2520/vocabulary_list/files/15368745/Bao.cao.bai.t.p.l.n.1.pdf)
+  <br>
 Demo: https://www.youtube.com/watch?v=Mi0KCDov1xA&ab_channel=Nh%E1%BA%ADtPh%E1%BA%A1m
 
 ## Credits
