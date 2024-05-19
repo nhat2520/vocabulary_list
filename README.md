@@ -9,39 +9,26 @@ Vocabulary List is an advanced website that employs cutting-edge artificial inte
  Nguyen Van Than - 22022596 <br>
  Tran Kim Dung   - 22022633
 ## Persona
-**1. Ví dụ với một persona giáo viên:** <br>
-
-**Tên:** Trịnh Trần Phương Tuấn <br>
-
-**Tuổi:** 25 <br>
-
-**Nghề Nghiệp:** Giáo viên Tiếng anh tại trường trung học phổ thông A<br>
-
-**Sở thích:** Âm nhạc, đá bóng, du lịch <br>
-
-**Kỹ năng:** Sử dụng đồ công nghệ, các sản phẩm công nghệ phục vụ cho giảng dạy<br>
-
-**Mục tiêu:** Việc giải quyết các bài reading bằng cách dịch các từ vựng tỏ ra không hiệu quả vì học sinh sẽ khó hiểu được nội dung và bài đọc muốn truyền đạt vì thế thầy Tuấn sử dụng website này để giúp học sinh có một cách học tập Tiếng anh mới hiệu quả, dễ dàng hơn trong phần reading bằng cách chọn ra các từ khó hiểu trong bài đọc đó và đưa ra định nghĩa giải thích nó trong ngữ cảnh của văn bản đó.
-
-**2. Ví dụ với một persona học sinh trung học:**
-
-**Tên:** Thắng <br>
-
-**Tuổi:** 17 <br>
-
-**Nghề nghiệp:** Học sinh tại trường trung học phổ thông B <br>
-
-**Sở thích:** Âm nhạc, đồ Ngọt, đọc sách <br>
-
-**Kỹ năng:** Sử dụng thành thạo các sản phẩm công nghệ phục vụ cho học tập <br>
-
-**Mục tiêu:** Là một người thích đọc sách, nhưng đôi khi, Thắng cảm thấy khó khăn khi gặp phải những từ khó và khó hiểu nó trong đoạn văn trong sách. Vì thế Thắng lựa chọn website Vocabulary_list để có thể hiểu được ý nghĩa có các từ khó đó trong ngữ cảnh đoạn văn. <br>
+**1. Example with a teacher persona:** <br>
+   **Name:** Trinh Tran Phuong Tuan <br>
+   **Age:** 25 <br>
+**Occupation:** English teacher at high school A <br>
+**Interests:** Music, soccer, traveling <br>
+**Skills:** Using technology, technology products for teaching<br>
+**Goal:** *Solving reading exercises by translating vocabulary is ineffective because students will have difficulty understanding the content and what the reading passage is trying to convey. Therefore, Mr. Tuan uses this website to help students learn English in a more effective and easier way in the reading section by selecting difficult words in the reading passage and providing definitions and explanations for them in the context of the text.<br>
+**2. Example with a high school student persona:** <br>
+**Name:** Thang<br>
+**Age:** 17<br>
+**Occupation:** Student at high school B <br>
+**Interests:** Music, sweets, reading books <br>
+**Skills:** Proficient in using technology products for studying <br>
+**Goal:** As someone who enjoys reading books, sometimes Thang finds it difficult to understand challenging and unfamiliar words in passages. Therefore, Thang chooses the Vocabulary_list website to understand the meanings of those difficult words in the context of the passages<br>
 ## Setup
 0. Clone this repo:
 ```
 git clone https://github.com/nhat2520/vocabulary_list.git
 ```
-2. Install Docker and turn on it: <br>
+1. Install Docker and turn on it: <br>
 + https://docs.docker.com/get-docker/
 2. Install library: <br>
 ```
@@ -70,6 +57,10 @@ npm start
 2. Access http://localhost:8080
 ## Authors:
 Developed by team 16 
+## Report and demo
+Report: [Báo-cáo-công-nghệ-phần-mềm.pdf](https://github.com/nhat2520/vocabulary_list/files/15367286/Bao-cao-cong-ngh.-ph.n-m.m.pdf)  <br>
+Demo: https://www.youtube.com/watch?v=Mi0KCDov1xA&ab_channel=Nh%E1%BA%ADtPh%E1%BA%A1m
+
 ## Credits
 Several packages were used in the software:
 + Nodejs
